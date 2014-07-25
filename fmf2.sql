@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 14-Jul-2014 às 17:32
--- Versão do servidor: 5.5.36
--- PHP Version: 5.4.27
+-- Generation Time: 25-Jul-2014 às 03:31
+-- Versão do servidor: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,8 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `arbitragem`
 --
 
-CREATE TABLE IF NOT EXISTS `arbitragem` (
+DROP TABLE IF EXISTS `arbitragem`;
+CREATE TABLE `arbitragem` (
   `idarbitragem` int(11) NOT NULL AUTO_INCREMENT,
   `idarbitro` int(11) NOT NULL,
   `idjogo` int(11) NOT NULL,
@@ -42,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `arbitragem` (
 -- Estrutura da tabela `arbitro`
 --
 
-CREATE TABLE IF NOT EXISTS `arbitro` (
+DROP TABLE IF EXISTS `arbitro`;
+CREATE TABLE `arbitro` (
   `idarbitro` int(11) NOT NULL AUTO_INCREMENT,
   `indicacao_data_hora` varchar(100) DEFAULT NULL,
   `nome` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
@@ -107,7 +109,8 @@ INSERT INTO `arbitro` (`idarbitro`, `indicacao_data_hora`, `nome`, `nascimento`,
 -- Estrutura da tabela `arquivo_competicao`
 --
 
-CREATE TABLE IF NOT EXISTS `arquivo_competicao` (
+DROP TABLE IF EXISTS `arquivo_competicao`;
+CREATE TABLE `arquivo_competicao` (
   `idarquivo_competicao` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `iddocumento` int(11) NOT NULL,
@@ -122,7 +125,8 @@ CREATE TABLE IF NOT EXISTS `arquivo_competicao` (
 -- Estrutura da tabela `arquivo_jogo`
 --
 
-CREATE TABLE IF NOT EXISTS `arquivo_jogo` (
+DROP TABLE IF EXISTS `arquivo_jogo`;
+CREATE TABLE `arquivo_jogo` (
   `idarquivo_jogo` int(11) NOT NULL AUTO_INCREMENT,
   `idjogo` int(11) NOT NULL,
   `iddocumento` int(11) NOT NULL,
@@ -137,7 +141,8 @@ CREATE TABLE IF NOT EXISTS `arquivo_jogo` (
 -- Estrutura da tabela `ci_sessions`
 --
 
-CREATE TABLE IF NOT EXISTS `ci_sessions` (
+DROP TABLE IF EXISTS `ci_sessions`;
+CREATE TABLE `ci_sessions` (
   `session_id` int(11) NOT NULL,
   `ip_address` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `user_agent` varchar(125) COLLATE utf8_bin NOT NULL,
@@ -160,7 +165,8 @@ INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activ
 -- Estrutura da tabela `classificacao`
 --
 
-CREATE TABLE IF NOT EXISTS `classificacao` (
+DROP TABLE IF EXISTS `classificacao`;
+CREATE TABLE `classificacao` (
   `idclassificacao` int(11) NOT NULL AUTO_INCREMENT,
   `idconvidado` int(11) NOT NULL,
   `jogos` int(11) NOT NULL,
@@ -214,7 +220,8 @@ INSERT INTO `classificacao` (`idclassificacao`, `idconvidado`, `jogos`, `pontos`
 -- Estrutura da tabela `clube`
 --
 
-CREATE TABLE IF NOT EXISTS `clube` (
+DROP TABLE IF EXISTS `clube`;
+CREATE TABLE `clube` (
   `idclube` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `apelido` varchar(45) DEFAULT NULL,
@@ -247,7 +254,8 @@ INSERT INTO `clube` (`idclube`, `nome`, `apelido`, `bandeira`, `url`, `fundacao`
 -- Estrutura da tabela `competicao`
 --
 
-CREATE TABLE IF NOT EXISTS `competicao` (
+DROP TABLE IF EXISTS `competicao`;
+CREATE TABLE `competicao` (
   `idcompeticao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `apelido` varchar(100) DEFAULT NULL,
@@ -276,7 +284,8 @@ INSERT INTO `competicao` (`idcompeticao`, `nome`, `apelido`, `ano`, `ativa`, `n_
 -- Estrutura da tabela `contrato`
 --
 
-CREATE TABLE IF NOT EXISTS `contrato` (
+DROP TABLE IF EXISTS `contrato`;
+CREATE TABLE `contrato` (
   `idcontrato` int(11) NOT NULL AUTO_INCREMENT,
   `idjogador` int(11) NOT NULL,
   `idclube` int(11) NOT NULL,
@@ -294,7 +303,8 @@ CREATE TABLE IF NOT EXISTS `contrato` (
 -- Estrutura da tabela `convidado`
 --
 
-CREATE TABLE IF NOT EXISTS `convidado` (
+DROP TABLE IF EXISTS `convidado`;
+CREATE TABLE `convidado` (
   `idconvidado` int(11) NOT NULL AUTO_INCREMENT,
   `idgrupo` int(11) NOT NULL,
   `idclube` int(11) NOT NULL,
@@ -345,7 +355,8 @@ INSERT INTO `convidado` (`idconvidado`, `idgrupo`, `idclube`, `idfase`) VALUES
 -- Estrutura da tabela `detalhe_jogador`
 --
 
-CREATE TABLE IF NOT EXISTS `detalhe_jogador` (
+DROP TABLE IF EXISTS `detalhe_jogador`;
+CREATE TABLE `detalhe_jogador` (
   `iddetalhe_jogador` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `idcontrato` int(11) NOT NULL,
@@ -364,7 +375,8 @@ CREATE TABLE IF NOT EXISTS `detalhe_jogador` (
 -- Estrutura da tabela `divisao`
 --
 
-CREATE TABLE IF NOT EXISTS `divisao` (
+DROP TABLE IF EXISTS `divisao`;
+CREATE TABLE `divisao` (
   `iddivisao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `n_times` int(11) DEFAULT NULL,
@@ -385,7 +397,8 @@ INSERT INTO `divisao` (`iddivisao`, `nome`, `n_times`) VALUES
 -- Estrutura da tabela `divisao_clube`
 --
 
-CREATE TABLE IF NOT EXISTS `divisao_clube` (
+DROP TABLE IF EXISTS `divisao_clube`;
+CREATE TABLE `divisao_clube` (
   `idclube` int(11) NOT NULL,
   `iddivisao` int(11) NOT NULL,
   `ano` int(11) DEFAULT NULL,
@@ -416,7 +429,8 @@ INSERT INTO `divisao_clube` (`idclube`, `iddivisao`, `ano`) VALUES
 -- Estrutura da tabela `documento`
 --
 
-CREATE TABLE IF NOT EXISTS `documento` (
+DROP TABLE IF EXISTS `documento`;
+CREATE TABLE `documento` (
   `iddocumento` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(100) DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
@@ -440,7 +454,8 @@ INSERT INTO `documento` (`iddocumento`, `titulo`, `descricao`, `data`, `url`) VA
 -- Estrutura da tabela `estadio`
 --
 
-CREATE TABLE IF NOT EXISTS `estadio` (
+DROP TABLE IF EXISTS `estadio`;
+CREATE TABLE `estadio` (
   `idestadio` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) DEFAULT NULL,
   `apelido` varchar(100) DEFAULT NULL,
@@ -455,7 +470,8 @@ CREATE TABLE IF NOT EXISTS `estadio` (
 -- Estrutura da tabela `fase`
 --
 
-CREATE TABLE IF NOT EXISTS `fase` (
+DROP TABLE IF EXISTS `fase`;
+CREATE TABLE `fase` (
   `idfase` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_fase` int(11) NOT NULL,
   `idmodulo` int(11) NOT NULL,
@@ -489,7 +505,8 @@ INSERT INTO `fase` (`idfase`, `idtipo_fase`, `idmodulo`, `n_jogos`, `n_grupos`, 
 -- Estrutura da tabela `galeria`
 --
 
-CREATE TABLE IF NOT EXISTS `galeria` (
+DROP TABLE IF EXISTS `galeria`;
+CREATE TABLE `galeria` (
   `idimagem` int(11) NOT NULL,
   `idnoticia` int(11) NOT NULL,
   PRIMARY KEY (`idimagem`,`idnoticia`),
@@ -502,7 +519,8 @@ CREATE TABLE IF NOT EXISTS `galeria` (
 -- Estrutura da tabela `grupo`
 --
 
-CREATE TABLE IF NOT EXISTS `grupo` (
+DROP TABLE IF EXISTS `grupo`;
+CREATE TABLE `grupo` (
   `idgrupo` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_grupo` int(11) NOT NULL,
   `idfase` int(11) NOT NULL,
@@ -532,7 +550,8 @@ INSERT INTO `grupo` (`idgrupo`, `idtipo_grupo`, `idfase`, `n_classificados`) VAL
 -- Estrutura da tabela `imagem`
 --
 
-CREATE TABLE IF NOT EXISTS `imagem` (
+DROP TABLE IF EXISTS `imagem`;
+CREATE TABLE `imagem` (
   `idimagem` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idimagem`)
@@ -544,7 +563,8 @@ CREATE TABLE IF NOT EXISTS `imagem` (
 -- Estrutura da tabela `jogador`
 --
 
-CREATE TABLE IF NOT EXISTS `jogador` (
+DROP TABLE IF EXISTS `jogador`;
+CREATE TABLE `jogador` (
   `idjogador` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `idade` int(11) DEFAULT NULL,
@@ -559,7 +579,8 @@ CREATE TABLE IF NOT EXISTS `jogador` (
 -- Estrutura da tabela `jogo`
 --
 
-CREATE TABLE IF NOT EXISTS `jogo` (
+DROP TABLE IF EXISTS `jogo`;
+CREATE TABLE `jogo` (
   `idjogo` int(11) NOT NULL AUTO_INCREMENT,
   `n_jogo` int(11) NOT NULL,
   `time_casa` int(11) DEFAULT NULL,
@@ -644,7 +665,8 @@ INSERT INTO `jogo` (`idjogo`, `n_jogo`, `time_casa`, `time_visitante`, `data`, `
 -- Estrutura da tabela `local`
 --
 
-CREATE TABLE IF NOT EXISTS `local` (
+DROP TABLE IF EXISTS `local`;
+CREATE TABLE `local` (
   `idestadio` int(11) NOT NULL,
   `idjogo` int(11) NOT NULL,
   `observacoes` text,
@@ -659,7 +681,8 @@ CREATE TABLE IF NOT EXISTS `local` (
 -- Estrutura da tabela `modulo`
 --
 
-CREATE TABLE IF NOT EXISTS `modulo` (
+DROP TABLE IF EXISTS `modulo`;
+CREATE TABLE `modulo` (
   `idmodulo` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `idturno` int(11) NOT NULL,
@@ -687,8 +710,10 @@ INSERT INTO `modulo` (`idmodulo`, `idcompeticao`, `idturno`, `descricao`, `n_jog
 -- Estrutura da tabela `noticia`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia` (
+DROP TABLE IF EXISTS `noticia`;
+CREATE TABLE `noticia` (
   `idnoticia` int(11) NOT NULL AUTO_INCREMENT,
+  `idtipo_noticia` int(11) DEFAULT NULL,
   `titulo` varchar(200) DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   `url` varchar(100) DEFAULT NULL,
@@ -697,22 +722,24 @@ CREATE TABLE IF NOT EXISTS `noticia` (
   `data` timestamp NULL DEFAULT NULL,
   `fmf_acontece` tinyint(1) DEFAULT NULL,
   `imagem` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idnoticia`)
+  `destaque` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`idnoticia`),
+  KEY `idtipo_noticia` (`idtipo_noticia`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Extraindo dados da tabela `noticia`
 --
 
-INSERT INTO `noticia` (`idnoticia`, `titulo`, `descricao`, `url`, `texto`, `autor`, `data`, `fmf_acontece`, `imagem`) VALUES
-(1, 'Competições da FMF', 'Campeonatos Sub-19 e Sub-13 terão jogos no fim de semana', 'competicoes-sub19-sub13', '<p> <p>CAMPEONATO MARANHENSE DE FUTEBOL SUB-19</p><br />\r\n<p>JOGOS DO FINAL DE SEMANA</p><br />\r\n<p><strong>S&Aacute;BADO DIA 26 &ndash; MODULO I &ndash; PRIMEIRA FASE &ndash; 3&ordf; RODADA</strong></p><br />\r\n<p>08H00 &ndash; Campo Terra Livre &ndash; XV DE NOVEMBRO&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp; S&Atilde;O LUIS</p><br />\r\n<p>10H00 &ndash; Campo Terra Livre &ndash; GR&Ecirc;MIO MARANHENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INDEPENDENTE</p><br />\r\n<p>08H00 &ndash; Campo George Willian &ndash; S&Atilde;O JOS&Eacute; DE RIBAMAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SANTA QUIT&Eacute;RIA</p><br />\r\n<p>10H00 &ndash; Campo George Willian &ndash; CRUZEIRO DO ANIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ASCREP DO LUMIAR</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 &ndash; MODULO II &ndash; PRIMEIRA FASE &ndash; 3&ordf; RODADA</p><br />\r\n<p>08H00 &ndash; CT Pereira dos Santos &ndash; BABA&Ccedil;U/CEFAMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EXPRESSINHO</p><br />\r\n<p>10H00 &ndash; CT Pereira dos Santos &ndash; MOTO CLUBE DE S&Atilde;O LUIS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMERICANO</p><br />\r\n<p>09H00 &ndash; Campo do Israel &ndash; PITANGUENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SPORTING BRAGA</p><br />\r\n<p>DOMINGO DIA 27</p><br />\r\n<p>09H00 &ndash; CT Jos&eacute; Carlos Macieira &ndash; SAMPAIO CORREA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MARANH&Atilde;O ATL&Eacute;TICO</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 - MODULO III &ndash; REGI&Atilde;O SUL DO MARANH&Atilde;O &ndash; 1&ordf; FASE &ndash; 1&ordf; RODADA</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Frei Epif&acirc;nio D&rsquo;Abadia &ndash; IMPERATRIZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CORDINO</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Cazuza Ribeiro &ndash; BALSAS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JV LIDERAL</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 - MODULO IV &ndash; REGI&Atilde;O DOS COCAIS &ndash; 1&ordf; FASE 1&ordf; RODADA</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Rodolf&atilde;o &ndash; ITAPECURUENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARAIOSES</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>CAMPEONATO MARANHENSE SUB-13 &ndash; SEMIFINAIS</p><br />\r\n<p>S&Aacute;BADO DIA 26</p><br />\r\n<p>08H30 &ndash; CT do Cefama &ndash; BOA VONTADE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XV DE NOVEMBRO</p><br />\r\n<p>09H30 &ndash; CT do Cefama &ndash; BABA&Ccedil;U/CEFAMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ASCREP DO LUMIAR</p></p> ', NULL, '2014-04-26 23:01:00', 1, 'maranhense-sub19-sub13-2014.jpg'),
-(2, 'Série B do Campeonato Brasileiro', 'Sampaio teve o melhor público da primeira rodada da competição', 'serie-b-sampaio-melhor-publico-2014', '<p> <p align="left">O Sampaio Corr&ecirc;a &eacute; destaque nacional. O time boliviano perdeu o jogo para o Paran&aacute; por 2 x 0, no Castel&atilde;o, mas apresentou o maior p&uacute;blico da primeira rodada da S&eacute;rie B do Campeonato Brasileiro. Apesar do feriad&atilde;o da Semana Santa, que esvaziou a cidade, a torcida marcou presen&ccedil;a presen&ccedil;a no est&aacute;dio. Entre pagantes e n&atilde;o-pagantes, o Sampaio levou ao Castel&atilde;o quase 20 mil pessoas.</p><br />\r\n<p align="left">O p&uacute;blico pagante, que &eacute; levado em conta na estat&iacute;stica da CBF, registrou 14.470 torcedores. O Sampaio teve um p&uacute;blico pagante maior do que Santa Cruz-PE e Cear&aacute;-CE, que tamb&eacute;m bancaram seus jogos e ficaram muito abaixo do total do Sampaio, o que demonstra a for&ccedil;a da torcida do representante maranhense.</p><br />\r\n<p align="left">No site oficial da CBF. a entidade ainda n&atilde;o teve condi&ccedil;&atilde;o de fazer uma atualiza&ccedil;&atilde;o completa, porque alguns clubes n&atilde;o mandaram ainda o boletim financeiro dos seus jogos.</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left">Os tr&ecirc;s melhores p&uacute;blicos da rodada inicial s&atilde;o estes:</p><br />\r\n<p align="left">Sampaio 0 x 2 Paran&aacute;</p><br />\r\n<p align="left">14.470 pagantes</p><br />\r\n<p align="left">Santa Cruz 1 x ABC</p><br />\r\n<p align="left">10.024 paganmtes</p><br />\r\n<p align="left">Cear&aacute; 1 x 0 Oeste</p><br />\r\n<p align="left">9.577 pagantes</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left">Entre os p&uacute;blicos divulgados, o menor deles foi no jogo Bragantino 2 x N&aacute;utico, com apenas 884 pagantes, no Est&aacute;dio do Bragantino.</p></p>', NULL, '2014-04-26 23:05:47', 0, 'serie-b-sampaio-melhor-publico-2014.jpg'),
-(3, 'Campeonato Maranhense Sub-19', 'Com jogos nos módulos da capital e interior, competição terá rodada completa no fim de semana', 'maranhense-sub-19-rodada-completa', '<div>Depois de uma paralisa&ccedil;&atilde;o de uma semana, devido ao feriado da Semana Santa, prossegue neste fim de semana o Campeonato Maranhense de Futebol Sub-19, promovido pela FMF na sua terceira rodada, com os seguintes jogos.</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>08h - Campo Terra Livre - Xv de Novembro &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;S&atilde;o Luis</div><br />\r\n<div>10h - Campo Terra Livre - Gr&ecirc;mio Maranhense &nbsp;x &nbsp; &nbsp; Independente</div><br />\r\n<div>08:h - Campo G. Willian &nbsp;- S&atilde;o Jos&eacute; Ribamar &nbsp; &nbsp; x &nbsp; &nbsp;Santa Quit&eacute;ria</div><br />\r\n<div>10h - Campo G. Willian &nbsp;- Cruzeiro do Anil &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;Ascrep Lumiar</div><br />\r\n<div>08h - CT Moto Paran&atilde; &nbsp; &nbsp;- Baba&ccedil;u/Cefama &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;Expressinho</div><br />\r\n<div>10h - CT Moto Paran&atilde; &nbsp; &nbsp;- Moto Clube &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Americano</div><br />\r\n<div>09h - Campo do Israel &nbsp; &nbsp;- Pitanguense &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Sporting Braga</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>DOMINGO DIA 27</div><br />\r\n<div>09h - CT Jos&eacute; C/Macieira - Sampaio Correa &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Maranh&atilde;o</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>M&Oacute;DULO III - REGI&Atilde;O SUL DO MARANH&Atilde;O</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>16h - Frei Epif&acirc;nio &nbsp; &nbsp; - Imperatriz &nbsp; &nbsp; x &nbsp; &nbsp; Cordino</div><br />\r\n<div>16h - Cazuza Ribeiro - Balsas &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp; JV Lideral</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>M&Oacute;DULO IV - REGI&Atilde;O DOS COCAIS</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>16h - Rodolf&atilde;o &nbsp; &nbsp; - Itapecuruense &nbsp; &nbsp; x &nbsp; &nbsp;Araioses&nbsp;</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>CAMPEONATO MARANHENSE SUB-13 - SEMIFINAIS</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>08h30 - Campo do Cefama - Boa Vontade &nbsp; &nbsp;x &nbsp; &nbsp;XV de Novembro</div><br />\r\n<div>09h30 - Campo do Cefama - Baba&ccedil;u/Cefama &nbsp; x &nbsp; Ascrep Lumiar</div><br />\r\n<div>&nbsp;&nbsp;</div><br />\r\n', NULL, '2014-04-26 23:23:13', 1, 'maranhense-sub-19-rodada-completa.jpg'),
-(4, 'Campanha', 'FMF apoia CBF nas ações contra o preconceito racial', 'campanha-cbf-acaoes-contra-preconceito', '<p> <p align="left">A FMF est&aacute; engajada na campanha que a CBF lan&ccedil;ou contra o racismo. A entidade maranhense apoiar&aacute; todas as a&ccedil;&otilde;es da CBF contra o preconceito racial.&nbsp;</p><br />\r\n<p align="left">Campanha&nbsp;</p><br />\r\n<p align="left">A Confedera&ccedil;&atilde;o Brasileira de Futebol decidiu entrar de vez em campo na luta contra qualquer tipo de preconceito e discrimina&ccedil;&atilde;o. No dia 16 de abril, quarta-feira, durante a Assembleia da CBF, a entidade deu in&iacute;cio &agrave; campanha &ldquo;Somos Iguais&rdquo;, idealizada ap&oacute;s os &uacute;ltimos acontecimentos de racismo no futebol brasileiro, como os casos envolvendo os jogadores Tinga, do Cruzeiro, e Arouca, do Santos, e o &aacute;rbitro da Federa&ccedil;&atilde;o Ga&uacute;cha de Futebol, M&aacute;rcio Chagas da Silva.</p><br />\r\n<p align="left">O objetivo da campanha &eacute; a conscientiza&ccedil;&atilde;o e o rep&uacute;dio sobre qualquer ato de preconceito, seja racial, econ&ocirc;mico, religioso, social, sexual, dentre outros. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><br />\r\n<p align="left">- A&ccedil;&otilde;es da campanha</p><br />\r\n<p align="left">Para alcan&ccedil;ar o objetivo da campanha e mover a sociedade contra o preconceito, a CBF far&aacute; a&ccedil;&otilde;es na primeira fase das S&eacute;ries A e B do Campeonato Brasileiro de 2014 e tamb&eacute;m nos dois amistosos que a Sele&ccedil;&atilde;o Brasileira far&aacute; antes do in&iacute;cio da disputa da Copa do Mundo FIFA 2014. Dentre elas, est&atilde;o:&nbsp;</p><br />\r\n<p align="left">Aplicativo de celular para den&uacute;ncia:</p><br />\r\n<p align="left">Foi criado um aplicativo para as pessoas que presenciem qualquer tipo de manifesta&ccedil;&atilde;o preconceituosa em eventos esportivos possam denunci&aacute;-la atrav&eacute;s deste. As den&uacute;ncias que chegarem ser&atilde;o encaminhadas para as autoridades competentes.&nbsp;</p><br />\r\n<p align="left">Patch - &Aacute;rbitros</p><br />\r\n<p align="left">Os &aacute;rbitros de todas as partidas das S&eacute;ries A e B do Campeonato Brasileiro de 2014 ter&atilde;o nos bolsos de seus uniformes o patch com o logo da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">Faixas&nbsp;</p><br />\r\n<p align="left">Faixas com a mensagem da campanha ser&atilde;o levadas a campo antes do in&iacute;cio de cada partida, quando transmitidas por TV Aberta, podendo assim serem vistas pelos torcedores presentes nos est&aacute;dios e pelos que assistirem pela televis&atilde;o.</p><br />\r\n<p align="left">Placas de publicidade</p><br />\r\n<p align="left">Placas publicit&aacute;rias, localizadas em volta dos campos, aparecer&atilde;o com o logo da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">Bolas personalizadas</p><br />\r\n<p align="left">Nos jogos da primeira fase do Campeonato Brasileiro de 2014, das S&eacute;ries A e B, quando forem transmitidas por TV aberta, ser&atilde;o distribu&iacute;das 10 bolas personalizadas com o logo da campanha e o texto &ldquo;fa&ccedil;a um selfie com a bola usando #somosiguais e sua foto poder&aacute; aparecer nas redes sociais da CBF&rdquo; tendo como objetivo fazer o torcedor participar ativamente da campanha.</p><br />\r\n<p align="left">Locu&ccedil;&atilde;o</p><br />\r\n<p align="left">Antes do in&iacute;cio das partidas do Campeonato Brasileiro, S&eacute;ries A e B, ser&aacute; feita locu&ccedil;&atilde;o resumida da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">V&iacute;deo</p><br />\r\n<p align="left">A CBF TV produzir&aacute; um v&iacute;deo de divulga&ccedil;&atilde;o da campanha, transmitindo a mensagem de rep&uacute;dio a qualquer tipo de preconceito. Um dos elementos do v&iacute;deo &eacute; o texto produzido pelo jornalista Mauro Betting, interpretado por atletas e personalidades. Este v&iacute;deo ser&aacute; exibido nos tel&otilde;es de est&aacute;dios do Brasil, al&eacute;m de ficar dispon&iacute;vel no site da entidade e em suas respectivas redes sociais.</p><br />\r\n<p align="left">Sele&ccedil;&atilde;o Brasileira</p><br />\r\n<p align="left">As a&ccedil;&otilde;es propostas na campanha &ldquo;Somos Iguais&rdquo; tamb&eacute;m ser&atilde;o realizadas nos dois amistosos que a Sele&ccedil;&atilde;o Brasileira far&aacute; antes da Copa do Mundo 2014. Os jogadores do Brasil entrar&atilde;o com a faixa contendo a mensagem da campanha. O v&iacute;deo produzido pela CBF TV tamb&eacute;m ser&aacute; transmitido nas partidas. A primeira ser&aacute; realizada no dia 3 de junho, no Est&aacute;dio Serra Dourada, em Goi&acirc;nia, contra o Panam&aacute;. Depois, no dia 6, no Morumbi, em S&atilde;o Paulo, o amistoso ser&aacute; contra a S&eacute;rvia.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 1, 'campanha-cbf-acaoes-contra-preconceito.jpg'),
-(5, 'Boas notícias', 'CBF montará em São Luís um Centro de Treinamento e ajudará na criação da Escola de Árbitros', 'boas-noticias-cbf-ajudara-criacao-escola-arbitro', '<p> <p>N&atilde;o poderia ter sido mais proveitosa a estada, no Rio de Janeiro, do presidente da Federa&ccedil;&atilde;o Maranhense de Futebol (FMF), Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves. Nos quatro dias que passou na cidade maravilhosa, ele recebeu boas not&iacute;cias. A primeira delas foi a informa&ccedil;&atilde;o de que a Confedera&ccedil;&atilde;o Brasileira de Futebol (CBF) construir&aacute; um Centro de Treinamento, para as divis&otilde;es de base (sub-13, Sub-15. Sub-17 e Sub-19) em S&atilde;o Lu&iacute;s.</p><br />\r\n<p>Segundo Am&eacute;rico, a capital maranhense foi escolhida para ganhar o Centro de Treinamento pelo presidente eleito da CBF, Marco Polo Del Nero. &ldquo;Esse &eacute; o resultado de reivindica&ccedil;&atilde;o que v&iacute;nhamos fazendo h&aacute; algum tempo. O presidente Del Nero, na quarta-feira, logo depois de ter sido eleito para comandar a CBF a partir de 2015, me deu a boa nova. O bom &eacute; que o Centro de Treinamento ser&aacute; constru&iacute;do ainda em 2014. Pretendemos inaugur&aacute;-lo entre outrubro e novembro&rdquo;, adiantou o dirigente.&nbsp;</p><br />\r\n<p align="left">O Centro de Treinamento ser&aacute; constru&iacute;do e ser&aacute; de propriedade da CBF, mas que ser&aacute; administrado pela FMF. "O presidente Del Nero j&aacute; havia prometido que o nosso estado ganharia uma obra desse porte para que os jovens atletas sejam lapidados para nossas equipes profissionais e de todo o Brasil&rdquo;, pontuou o presidente da FMF.</p><br />\r\n<p align="left">No projeto, o Centro de Treinamento ter&aacute; dois campos, com medidas oficiais, uma quadra polivalente e ser&aacute; equipado com modernos aparelhos para a pr&aacute;tica de exerc&iacute;cios f&iacute;sicos.</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left"><strong>Escola de &aacute;rbitros</strong> &ndash; Outra boa not&iacute;cia trazida pelo presidente da FMF &eacute; de que o Maranh&atilde;o tamb&eacute;m ganhar&aacute; uma Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros de Futebol, nos moldes da que foi montada recentemente em Recife. &ldquo;O presidente Del Nero nos prometeu ajudar na cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros. Queremos implant&aacute;-la ainda este ano&rdquo;, disse Am&eacute;rico.</p><br />\r\n<p>Caber&aacute; &agrave; Escola de Forma&ccedil;&atilde;o propiciar meios de forma&ccedil;&atilde;o inicial e continuada, a especializa&ccedil;&atilde;o e o aprimoramento dos &aacute;rbitros, assistentes e assessores. A FMF, para montar a escola dever&aacute; firmar conv&ecirc;nio com uma unidade de ensino da capital maranhense para paerticipar do projeto, que &eacute; um velho sonho dos respons&aacute;veis pela arbitragem local. "A cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o ser&aacute; importante. Temos muitos jovens interessados em seguir a profiss&atilde;o. Queremos, com ajuda da CBF, oferecer uma forma&ccedil;&atilde;o qualificada e uniforme, com professores especializados. Vamos tirar isso do papel para tornar realidade&rdquo;, disse o presidente da FMF, que est&aacute; muito interessado em renovar a arbitragem maranhense e preparar &aacute;rbitros de qualidade para o futebol brasileiro.</p></p>', NULL, '2014-04-26 23:23:13', 1, 'boas-noticias-cbf-ajudara-criacao-escola-arbitro.jpg'),
-(6, 'Copa do Nordeste 2015', 'CBF confirma para a FMF a entrada de dois times do Maranhão e do Piauí', 'copa-nordeste-cbf-confirma-times-maranhao-piaui', '<p> <p>Confirmado: Maranh&atilde;o e Piau&iacute; ter&atilde;o mesmo dois representantes (cada) na Copa do Nordeste de 2015. O presidente da FMF, Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves, voltou do Rio de Janeiro, onde participou da elei&ccedil;&atilde;o da CBF, trazendo a confirma&ccedil;&atilde;o sobre a participa&ccedil;&atilde;o dos times maranhenses e piauiense na competi&ccedil;&atilde;o. &ldquo;O novo presidente da CBF, Marco Polo Del Nero, que tinha pedido que ficasse tranquilo, quando foi especulado de que apenas uma equipe de cada estado participaria do torneio, garantiu as duas vagas j&aacute; para a Copa do Nordeste de 2015&rdquo;, informou o dirigente da Federa&ccedil;&atilde;o.</p><br />\r\n<p align="left">Del Nero at&eacute; concedeu entrevista &agrave; imprensa nacional falando sobre o assunto. &ldquo;O presidente da CBF colocou um ponto final nos coment&aacute;rios que alguns dirigentes de Federa&ccedil;&otilde;es do Nordeste vinham fazendo, especulando de que s&oacute; um time de cada estado entraria no Nordest&atilde;o de 2015. Ele bateu o martelo e n&atilde;o h&aacute; mais como mudar&rdquo;, ressaltou o presidente da FMF.</p><br />\r\n<p align="left">Em 2015, a f&oacute;rmula de disputa do torneio, que passar&aacute; das 16 equipes atuais para 20, com a entrada dos representantes de Maranh&atilde;o e Piau&iacute;. &ldquo;Com 20 clubes, a Copa do Nordeste ter&aacute; cinco chaves de quatro&rdquo;, antecipou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A nova chave ser&aacute; formada por Sampaio e Moto, representantes do Maranh&atilde;o, e mais Piau&iacute; Esporte Clube e um segundo time ainda a ser classificado no Campeonato Piauiense, que ainda est&aacute; em andamento. Na primeira fase, as equipes maranhenses e piauienses jogar&atilde;o entre si, se classificando quem tiver melhor aproveitamento t&eacute;cnico para as quartas de final, juntamente com os melhores de cada uma das outras chaves e mais tr&ecirc;s times de melhor &iacute;ndice t&eacute;cnico, independentemente de grupo. As quartas de final ter&atilde;o oito equipes, que jogar&atilde;o entre si para que sejam apontados quatro times para a fase semifinal. &ldquo;Com essa f&oacute;rmula, as chances dos times maranhenses de classifica&ccedil;&atilde;o ser&atilde;o boas. Com todo o respeito que as equipes do Piau&iacute; merecem, Sampaio e Moto t&ecirc;m amplas condi&ccedil;&otilde;es de avan&ccedil;ar na disputa&rdquo;, analisou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A Copa do Nordeste &eacute; uma competi&ccedil;&atilde;o oficial da CBF, que reserva uma vaga na Copa Sul-Americana para quem for campe&atilde;o do torneio. O patroc&iacute;nio &eacute; do Esporte Interativo.</p><br />\r\n<p align="left">&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 1, 'copa-nordeste-cbf-confirma-times-maranhao-piaui.jpg'),
-(7, 'Série B', 'Sampaio sente peso da estreia e perde para o Paraná no Castelão', 'serie-b-sampaio-perde-parana-castelao', '<p> <p>O Sampaio Corr&ecirc;a sentiu o peso da estreia e n&atilde;o resistiu &agrave; maior experi&ecirc;ncia do advers&aacute;rio e perdeu por 2 x 0, nesta sexta-feira &agrave; noite, no Est&aacute;dio Castel&atilde;o, na primeira rodada da S&eacute;rie B do Campeonato Brasileiro de 2014. Ainda se ressentindo de refor&ccedil;os em determinadas posi&ccedil;&otilde;es, o Tricolor maranhense n&atilde;o teve como evitar a derrota.</p><br />\r\n<p>O Paran&aacute; marcou 1 x 0 aos oito minutos, do segundo tempo, com Edson Sitta. Depois, aos 34 minutos, Carlinhos marcou 2 x 0.</p><br />\r\n<p>O Sampaio voltar&aacute; a jogar sexta-feira pr&oacute;xima. Desta feita, enfrentar&aacute; o Icasa, no interior do Cear&aacute;. O Paran&aacute; Clube far&aacute; sua primeira partida em casa na S&eacute;rie B na pr&oacute;xima sexta-feira contra o Joinville.</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 0, 'serie-b-sampaio-perde-parana-castelao.jpg'),
-(8, 'Copa do Brasil 2014', 'MAC perde em Belém e está eliminado da competição', 'copa-do-brasil-2014-mac-perde-belem', '<p> <p>O Maranh&atilde;o Atl&eacute;tico Clube (MAC) foi eliminado da Copa do Brasil ao perder por 2 x 1 para o Paysandu-PA, na noite desta quarta-feira, no Est&aacute;dio Ol&iacute;mpico do Par&aacute;, em Bel&eacute;m. O MAC saiu na frente do placar, dando um susto no Paysandu. Elton marcou 1 x 0, mas ainda no primeiro tempo, o time paraense empatou. Na fase final, virou parta 2 x 1.&nbsp;</p><br />\r\n<p>O MAC jogou jogou uma bola na trave, com Raimundinho, e perdeu v&aacute;rias oportunidades de gol. Na soma dos resultados, o Paysandu venceu por 4 x 3 e enfrentar&aacute; Brasiliense ou Sport, na segunda fase da competi&ccedil;&atilde;o. O MAC n&atilde;o tem mais jogos este ano, pois, at&eacute; para a Copa Cidade de S&atilde;o Lu&iacute;s, no segundo semestre, n&atilde;o conseguiu ficar entre os oito clubes que se classificaram para o torneio. Em 2015, o MAC disputar&aacute; a S&eacute;rie B do maranhense.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 0, 'copa-do-brasil-2014-mac-perde-belem.jpg');
+INSERT INTO `noticia` (`idnoticia`, `idtipo_noticia`, `titulo`, `descricao`, `url`, `texto`, `autor`, `data`, `fmf_acontece`, `imagem`, `destaque`) VALUES
+(1, 4, 'Competições da FMF', 'Campeonatos Sub-19 e Sub-13 terão jogos no fim de semana', 'competicoes-sub19-sub13', '<p> <p>CAMPEONATO MARANHENSE DE FUTEBOL SUB-19</p><br />\r\n<p>JOGOS DO FINAL DE SEMANA</p><br />\r\n<p><strong>S&Aacute;BADO DIA 26 &ndash; MODULO I &ndash; PRIMEIRA FASE &ndash; 3&ordf; RODADA</strong></p><br />\r\n<p>08H00 &ndash; Campo Terra Livre &ndash; XV DE NOVEMBRO&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp; S&Atilde;O LUIS</p><br />\r\n<p>10H00 &ndash; Campo Terra Livre &ndash; GR&Ecirc;MIO MARANHENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INDEPENDENTE</p><br />\r\n<p>08H00 &ndash; Campo George Willian &ndash; S&Atilde;O JOS&Eacute; DE RIBAMAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SANTA QUIT&Eacute;RIA</p><br />\r\n<p>10H00 &ndash; Campo George Willian &ndash; CRUZEIRO DO ANIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ASCREP DO LUMIAR</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 &ndash; MODULO II &ndash; PRIMEIRA FASE &ndash; 3&ordf; RODADA</p><br />\r\n<p>08H00 &ndash; CT Pereira dos Santos &ndash; BABA&Ccedil;U/CEFAMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EXPRESSINHO</p><br />\r\n<p>10H00 &ndash; CT Pereira dos Santos &ndash; MOTO CLUBE DE S&Atilde;O LUIS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMERICANO</p><br />\r\n<p>09H00 &ndash; Campo do Israel &ndash; PITANGUENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SPORTING BRAGA</p><br />\r\n<p>DOMINGO DIA 27</p><br />\r\n<p>09H00 &ndash; CT Jos&eacute; Carlos Macieira &ndash; SAMPAIO CORREA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MARANH&Atilde;O ATL&Eacute;TICO</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 - MODULO III &ndash; REGI&Atilde;O SUL DO MARANH&Atilde;O &ndash; 1&ordf; FASE &ndash; 1&ordf; RODADA</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Frei Epif&acirc;nio D&rsquo;Abadia &ndash; IMPERATRIZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CORDINO</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Cazuza Ribeiro &ndash; BALSAS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JV LIDERAL</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>S&Aacute;BADO DIA 26 - MODULO IV &ndash; REGI&Atilde;O DOS COCAIS &ndash; 1&ordf; FASE 1&ordf; RODADA</p><br />\r\n<p>16H00 &ndash; Est&aacute;dio Rodolf&atilde;o &ndash; ITAPECURUENSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARAIOSES</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>CAMPEONATO MARANHENSE SUB-13 &ndash; SEMIFINAIS</p><br />\r\n<p>S&Aacute;BADO DIA 26</p><br />\r\n<p>08H30 &ndash; CT do Cefama &ndash; BOA VONTADE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XV DE NOVEMBRO</p><br />\r\n<p>09H30 &ndash; CT do Cefama &ndash; BABA&Ccedil;U/CEFAMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ASCREP DO LUMIAR</p></p> ', NULL, '2014-04-26 23:01:00', 1, 'maranhense-sub19-sub13-2014.jpg', 0),
+(2, 2, 'Série B do Campeonato Brasileiro', 'Sampaio teve o melhor público da primeira rodada da competição', 'serie-b-sampaio-melhor-publico-2014', '<p> <p align="left">O Sampaio Corr&ecirc;a &eacute; destaque nacional. O time boliviano perdeu o jogo para o Paran&aacute; por 2 x 0, no Castel&atilde;o, mas apresentou o maior p&uacute;blico da primeira rodada da S&eacute;rie B do Campeonato Brasileiro. Apesar do feriad&atilde;o da Semana Santa, que esvaziou a cidade, a torcida marcou presen&ccedil;a presen&ccedil;a no est&aacute;dio. Entre pagantes e n&atilde;o-pagantes, o Sampaio levou ao Castel&atilde;o quase 20 mil pessoas.</p><br />\r\n<p align="left">O p&uacute;blico pagante, que &eacute; levado em conta na estat&iacute;stica da CBF, registrou 14.470 torcedores. O Sampaio teve um p&uacute;blico pagante maior do que Santa Cruz-PE e Cear&aacute;-CE, que tamb&eacute;m bancaram seus jogos e ficaram muito abaixo do total do Sampaio, o que demonstra a for&ccedil;a da torcida do representante maranhense.</p><br />\r\n<p align="left">No site oficial da CBF. a entidade ainda n&atilde;o teve condi&ccedil;&atilde;o de fazer uma atualiza&ccedil;&atilde;o completa, porque alguns clubes n&atilde;o mandaram ainda o boletim financeiro dos seus jogos.</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left">Os tr&ecirc;s melhores p&uacute;blicos da rodada inicial s&atilde;o estes:</p><br />\r\n<p align="left">Sampaio 0 x 2 Paran&aacute;</p><br />\r\n<p align="left">14.470 pagantes</p><br />\r\n<p align="left">Santa Cruz 1 x ABC</p><br />\r\n<p align="left">10.024 paganmtes</p><br />\r\n<p align="left">Cear&aacute; 1 x 0 Oeste</p><br />\r\n<p align="left">9.577 pagantes</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left">Entre os p&uacute;blicos divulgados, o menor deles foi no jogo Bragantino 2 x N&aacute;utico, com apenas 884 pagantes, no Est&aacute;dio do Bragantino.</p></p>', NULL, '2014-04-26 23:05:47', 0, 'serie-b-sampaio-melhor-publico-2014.jpg', 0),
+(3, 4, 'Campeonato Maranhense Sub-19', 'Com jogos nos módulos da capital e interior, competição terá rodada completa no fim de semana', 'maranhense-sub-19-rodada-completa', '<div>Depois de uma paralisa&ccedil;&atilde;o de uma semana, devido ao feriado da Semana Santa, prossegue neste fim de semana o Campeonato Maranhense de Futebol Sub-19, promovido pela FMF na sua terceira rodada, com os seguintes jogos.</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>08h - Campo Terra Livre - Xv de Novembro &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;S&atilde;o Luis</div><br />\r\n<div>10h - Campo Terra Livre - Gr&ecirc;mio Maranhense &nbsp;x &nbsp; &nbsp; Independente</div><br />\r\n<div>08:h - Campo G. Willian &nbsp;- S&atilde;o Jos&eacute; Ribamar &nbsp; &nbsp; x &nbsp; &nbsp;Santa Quit&eacute;ria</div><br />\r\n<div>10h - Campo G. Willian &nbsp;- Cruzeiro do Anil &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;Ascrep Lumiar</div><br />\r\n<div>08h - CT Moto Paran&atilde; &nbsp; &nbsp;- Baba&ccedil;u/Cefama &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp;Expressinho</div><br />\r\n<div>10h - CT Moto Paran&atilde; &nbsp; &nbsp;- Moto Clube &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Americano</div><br />\r\n<div>09h - Campo do Israel &nbsp; &nbsp;- Pitanguense &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Sporting Braga</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>DOMINGO DIA 27</div><br />\r\n<div>09h - CT Jos&eacute; C/Macieira - Sampaio Correa &nbsp; &nbsp; &nbsp;x &nbsp; &nbsp;Maranh&atilde;o</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>M&Oacute;DULO III - REGI&Atilde;O SUL DO MARANH&Atilde;O</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>16h - Frei Epif&acirc;nio &nbsp; &nbsp; - Imperatriz &nbsp; &nbsp; x &nbsp; &nbsp; Cordino</div><br />\r\n<div>16h - Cazuza Ribeiro - Balsas &nbsp; &nbsp; &nbsp; &nbsp; x &nbsp; &nbsp; JV Lideral</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>M&Oacute;DULO IV - REGI&Atilde;O DOS COCAIS</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>16h - Rodolf&atilde;o &nbsp; &nbsp; - Itapecuruense &nbsp; &nbsp; x &nbsp; &nbsp;Araioses&nbsp;</div><br />\r\n<div>&nbsp;</div><br />\r\n<div>CAMPEONATO MARANHENSE SUB-13 - SEMIFINAIS</div><br />\r\n<div>S&Aacute;BADO DIA 26</div><br />\r\n<div>08h30 - Campo do Cefama - Boa Vontade &nbsp; &nbsp;x &nbsp; &nbsp;XV de Novembro</div><br />\r\n<div>09h30 - Campo do Cefama - Baba&ccedil;u/Cefama &nbsp; x &nbsp; Ascrep Lumiar</div><br />\r\n<div>&nbsp;&nbsp;</div><br />\r\n', NULL, '2014-04-26 23:23:13', 1, 'maranhense-sub-19-rodada-completa.jpg', 0),
+(4, 4, 'Campanha', 'FMF apoia CBF nas ações contra o preconceito racial', 'campanha-cbf-acaoes-contra-preconceito', '<p> <p align="left">A FMF est&aacute; engajada na campanha que a CBF lan&ccedil;ou contra o racismo. A entidade maranhense apoiar&aacute; todas as a&ccedil;&otilde;es da CBF contra o preconceito racial.&nbsp;</p><br />\r\n<p align="left">Campanha&nbsp;</p><br />\r\n<p align="left">A Confedera&ccedil;&atilde;o Brasileira de Futebol decidiu entrar de vez em campo na luta contra qualquer tipo de preconceito e discrimina&ccedil;&atilde;o. No dia 16 de abril, quarta-feira, durante a Assembleia da CBF, a entidade deu in&iacute;cio &agrave; campanha &ldquo;Somos Iguais&rdquo;, idealizada ap&oacute;s os &uacute;ltimos acontecimentos de racismo no futebol brasileiro, como os casos envolvendo os jogadores Tinga, do Cruzeiro, e Arouca, do Santos, e o &aacute;rbitro da Federa&ccedil;&atilde;o Ga&uacute;cha de Futebol, M&aacute;rcio Chagas da Silva.</p><br />\r\n<p align="left">O objetivo da campanha &eacute; a conscientiza&ccedil;&atilde;o e o rep&uacute;dio sobre qualquer ato de preconceito, seja racial, econ&ocirc;mico, religioso, social, sexual, dentre outros. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><br />\r\n<p align="left">- A&ccedil;&otilde;es da campanha</p><br />\r\n<p align="left">Para alcan&ccedil;ar o objetivo da campanha e mover a sociedade contra o preconceito, a CBF far&aacute; a&ccedil;&otilde;es na primeira fase das S&eacute;ries A e B do Campeonato Brasileiro de 2014 e tamb&eacute;m nos dois amistosos que a Sele&ccedil;&atilde;o Brasileira far&aacute; antes do in&iacute;cio da disputa da Copa do Mundo FIFA 2014. Dentre elas, est&atilde;o:&nbsp;</p><br />\r\n<p align="left">Aplicativo de celular para den&uacute;ncia:</p><br />\r\n<p align="left">Foi criado um aplicativo para as pessoas que presenciem qualquer tipo de manifesta&ccedil;&atilde;o preconceituosa em eventos esportivos possam denunci&aacute;-la atrav&eacute;s deste. As den&uacute;ncias que chegarem ser&atilde;o encaminhadas para as autoridades competentes.&nbsp;</p><br />\r\n<p align="left">Patch - &Aacute;rbitros</p><br />\r\n<p align="left">Os &aacute;rbitros de todas as partidas das S&eacute;ries A e B do Campeonato Brasileiro de 2014 ter&atilde;o nos bolsos de seus uniformes o patch com o logo da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">Faixas&nbsp;</p><br />\r\n<p align="left">Faixas com a mensagem da campanha ser&atilde;o levadas a campo antes do in&iacute;cio de cada partida, quando transmitidas por TV Aberta, podendo assim serem vistas pelos torcedores presentes nos est&aacute;dios e pelos que assistirem pela televis&atilde;o.</p><br />\r\n<p align="left">Placas de publicidade</p><br />\r\n<p align="left">Placas publicit&aacute;rias, localizadas em volta dos campos, aparecer&atilde;o com o logo da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">Bolas personalizadas</p><br />\r\n<p align="left">Nos jogos da primeira fase do Campeonato Brasileiro de 2014, das S&eacute;ries A e B, quando forem transmitidas por TV aberta, ser&atilde;o distribu&iacute;das 10 bolas personalizadas com o logo da campanha e o texto &ldquo;fa&ccedil;a um selfie com a bola usando #somosiguais e sua foto poder&aacute; aparecer nas redes sociais da CBF&rdquo; tendo como objetivo fazer o torcedor participar ativamente da campanha.</p><br />\r\n<p align="left">Locu&ccedil;&atilde;o</p><br />\r\n<p align="left">Antes do in&iacute;cio das partidas do Campeonato Brasileiro, S&eacute;ries A e B, ser&aacute; feita locu&ccedil;&atilde;o resumida da campanha &ldquo;Somos Iguais&rdquo;.</p><br />\r\n<p align="left">V&iacute;deo</p><br />\r\n<p align="left">A CBF TV produzir&aacute; um v&iacute;deo de divulga&ccedil;&atilde;o da campanha, transmitindo a mensagem de rep&uacute;dio a qualquer tipo de preconceito. Um dos elementos do v&iacute;deo &eacute; o texto produzido pelo jornalista Mauro Betting, interpretado por atletas e personalidades. Este v&iacute;deo ser&aacute; exibido nos tel&otilde;es de est&aacute;dios do Brasil, al&eacute;m de ficar dispon&iacute;vel no site da entidade e em suas respectivas redes sociais.</p><br />\r\n<p align="left">Sele&ccedil;&atilde;o Brasileira</p><br />\r\n<p align="left">As a&ccedil;&otilde;es propostas na campanha &ldquo;Somos Iguais&rdquo; tamb&eacute;m ser&atilde;o realizadas nos dois amistosos que a Sele&ccedil;&atilde;o Brasileira far&aacute; antes da Copa do Mundo 2014. Os jogadores do Brasil entrar&atilde;o com a faixa contendo a mensagem da campanha. O v&iacute;deo produzido pela CBF TV tamb&eacute;m ser&aacute; transmitido nas partidas. A primeira ser&aacute; realizada no dia 3 de junho, no Est&aacute;dio Serra Dourada, em Goi&acirc;nia, contra o Panam&aacute;. Depois, no dia 6, no Morumbi, em S&atilde;o Paulo, o amistoso ser&aacute; contra a S&eacute;rvia.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 1, 'campanha-cbf-acaoes-contra-preconceito.jpg', 0),
+(5, 4, 'Boas notícias', 'CBF montará em São Luís um Centro de Treinamento e ajudará na criação da Escola de Árbitros', 'boas-noticias-cbf-ajudara-criacao-escola-arbitro', '<p> <p>N&atilde;o poderia ter sido mais proveitosa a estada, no Rio de Janeiro, do presidente da Federa&ccedil;&atilde;o Maranhense de Futebol (FMF), Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves. Nos quatro dias que passou na cidade maravilhosa, ele recebeu boas not&iacute;cias. A primeira delas foi a informa&ccedil;&atilde;o de que a Confedera&ccedil;&atilde;o Brasileira de Futebol (CBF) construir&aacute; um Centro de Treinamento, para as divis&otilde;es de base (sub-13, Sub-15. Sub-17 e Sub-19) em S&atilde;o Lu&iacute;s.</p><br />\r\n<p>Segundo Am&eacute;rico, a capital maranhense foi escolhida para ganhar o Centro de Treinamento pelo presidente eleito da CBF, Marco Polo Del Nero. &ldquo;Esse &eacute; o resultado de reivindica&ccedil;&atilde;o que v&iacute;nhamos fazendo h&aacute; algum tempo. O presidente Del Nero, na quarta-feira, logo depois de ter sido eleito para comandar a CBF a partir de 2015, me deu a boa nova. O bom &eacute; que o Centro de Treinamento ser&aacute; constru&iacute;do ainda em 2014. Pretendemos inaugur&aacute;-lo entre outrubro e novembro&rdquo;, adiantou o dirigente.&nbsp;</p><br />\r\n<p align="left">O Centro de Treinamento ser&aacute; constru&iacute;do e ser&aacute; de propriedade da CBF, mas que ser&aacute; administrado pela FMF. "O presidente Del Nero j&aacute; havia prometido que o nosso estado ganharia uma obra desse porte para que os jovens atletas sejam lapidados para nossas equipes profissionais e de todo o Brasil&rdquo;, pontuou o presidente da FMF.</p><br />\r\n<p align="left">No projeto, o Centro de Treinamento ter&aacute; dois campos, com medidas oficiais, uma quadra polivalente e ser&aacute; equipado com modernos aparelhos para a pr&aacute;tica de exerc&iacute;cios f&iacute;sicos.</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left"><strong>Escola de &aacute;rbitros</strong> &ndash; Outra boa not&iacute;cia trazida pelo presidente da FMF &eacute; de que o Maranh&atilde;o tamb&eacute;m ganhar&aacute; uma Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros de Futebol, nos moldes da que foi montada recentemente em Recife. &ldquo;O presidente Del Nero nos prometeu ajudar na cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros. Queremos implant&aacute;-la ainda este ano&rdquo;, disse Am&eacute;rico.</p><br />\r\n<p>Caber&aacute; &agrave; Escola de Forma&ccedil;&atilde;o propiciar meios de forma&ccedil;&atilde;o inicial e continuada, a especializa&ccedil;&atilde;o e o aprimoramento dos &aacute;rbitros, assistentes e assessores. A FMF, para montar a escola dever&aacute; firmar conv&ecirc;nio com uma unidade de ensino da capital maranhense para paerticipar do projeto, que &eacute; um velho sonho dos respons&aacute;veis pela arbitragem local. "A cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o ser&aacute; importante. Temos muitos jovens interessados em seguir a profiss&atilde;o. Queremos, com ajuda da CBF, oferecer uma forma&ccedil;&atilde;o qualificada e uniforme, com professores especializados. Vamos tirar isso do papel para tornar realidade&rdquo;, disse o presidente da FMF, que est&aacute; muito interessado em renovar a arbitragem maranhense e preparar &aacute;rbitros de qualidade para o futebol brasileiro.</p></p>', NULL, '2014-04-26 23:23:13', 1, 'boas-noticias-cbf-ajudara-criacao-escola-arbitro.jpg', 0),
+(6, 4, 'Copa do Nordeste 2015', 'CBF confirma para a FMF a entrada de dois times do Maranhão e do Piauí', 'copa-nordeste-cbf-confirma-times-maranhao-piaui', '<p> <p>Confirmado: Maranh&atilde;o e Piau&iacute; ter&atilde;o mesmo dois representantes (cada) na Copa do Nordeste de 2015. O presidente da FMF, Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves, voltou do Rio de Janeiro, onde participou da elei&ccedil;&atilde;o da CBF, trazendo a confirma&ccedil;&atilde;o sobre a participa&ccedil;&atilde;o dos times maranhenses e piauiense na competi&ccedil;&atilde;o. &ldquo;O novo presidente da CBF, Marco Polo Del Nero, que tinha pedido que ficasse tranquilo, quando foi especulado de que apenas uma equipe de cada estado participaria do torneio, garantiu as duas vagas j&aacute; para a Copa do Nordeste de 2015&rdquo;, informou o dirigente da Federa&ccedil;&atilde;o.</p><br />\r\n<p align="left">Del Nero at&eacute; concedeu entrevista &agrave; imprensa nacional falando sobre o assunto. &ldquo;O presidente da CBF colocou um ponto final nos coment&aacute;rios que alguns dirigentes de Federa&ccedil;&otilde;es do Nordeste vinham fazendo, especulando de que s&oacute; um time de cada estado entraria no Nordest&atilde;o de 2015. Ele bateu o martelo e n&atilde;o h&aacute; mais como mudar&rdquo;, ressaltou o presidente da FMF.</p><br />\r\n<p align="left">Em 2015, a f&oacute;rmula de disputa do torneio, que passar&aacute; das 16 equipes atuais para 20, com a entrada dos representantes de Maranh&atilde;o e Piau&iacute;. &ldquo;Com 20 clubes, a Copa do Nordeste ter&aacute; cinco chaves de quatro&rdquo;, antecipou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A nova chave ser&aacute; formada por Sampaio e Moto, representantes do Maranh&atilde;o, e mais Piau&iacute; Esporte Clube e um segundo time ainda a ser classificado no Campeonato Piauiense, que ainda est&aacute; em andamento. Na primeira fase, as equipes maranhenses e piauienses jogar&atilde;o entre si, se classificando quem tiver melhor aproveitamento t&eacute;cnico para as quartas de final, juntamente com os melhores de cada uma das outras chaves e mais tr&ecirc;s times de melhor &iacute;ndice t&eacute;cnico, independentemente de grupo. As quartas de final ter&atilde;o oito equipes, que jogar&atilde;o entre si para que sejam apontados quatro times para a fase semifinal. &ldquo;Com essa f&oacute;rmula, as chances dos times maranhenses de classifica&ccedil;&atilde;o ser&atilde;o boas. Com todo o respeito que as equipes do Piau&iacute; merecem, Sampaio e Moto t&ecirc;m amplas condi&ccedil;&otilde;es de avan&ccedil;ar na disputa&rdquo;, analisou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A Copa do Nordeste &eacute; uma competi&ccedil;&atilde;o oficial da CBF, que reserva uma vaga na Copa Sul-Americana para quem for campe&atilde;o do torneio. O patroc&iacute;nio &eacute; do Esporte Interativo.</p><br />\r\n<p align="left">&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 1, 'copa-nordeste-cbf-confirma-times-maranhao-piaui.jpg', 1),
+(7, 2, 'Série B', 'Sampaio sente peso da estreia e perde para o Paraná no Castelão', 'serie-b-sampaio-perde-parana-castelao', '<p> <p>O Sampaio Corr&ecirc;a sentiu o peso da estreia e n&atilde;o resistiu &agrave; maior experi&ecirc;ncia do advers&aacute;rio e perdeu por 2 x 0, nesta sexta-feira &agrave; noite, no Est&aacute;dio Castel&atilde;o, na primeira rodada da S&eacute;rie B do Campeonato Brasileiro de 2014. Ainda se ressentindo de refor&ccedil;os em determinadas posi&ccedil;&otilde;es, o Tricolor maranhense n&atilde;o teve como evitar a derrota.</p><br />\r\n<p>O Paran&aacute; marcou 1 x 0 aos oito minutos, do segundo tempo, com Edson Sitta. Depois, aos 34 minutos, Carlinhos marcou 2 x 0.</p><br />\r\n<p>O Sampaio voltar&aacute; a jogar sexta-feira pr&oacute;xima. Desta feita, enfrentar&aacute; o Icasa, no interior do Cear&aacute;. O Paran&aacute; Clube far&aacute; sua primeira partida em casa na S&eacute;rie B na pr&oacute;xima sexta-feira contra o Joinville.</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 0, 'serie-b-sampaio-perde-parana-castelao.jpg', 1),
+(8, 2, 'Copa do Brasil 2014', 'MAC perde em Belém e está eliminado da competição', 'copa-do-brasil-2014-mac-perde-belem', '<p> <p>O Maranh&atilde;o Atl&eacute;tico Clube (MAC) foi eliminado da Copa do Brasil ao perder por 2 x 1 para o Paysandu-PA, na noite desta quarta-feira, no Est&aacute;dio Ol&iacute;mpico do Par&aacute;, em Bel&eacute;m. O MAC saiu na frente do placar, dando um susto no Paysandu. Elton marcou 1 x 0, mas ainda no primeiro tempo, o time paraense empatou. Na fase final, virou parta 2 x 1.&nbsp;</p><br />\r\n<p>O MAC jogou jogou uma bola na trave, com Raimundinho, e perdeu v&aacute;rias oportunidades de gol. Na soma dos resultados, o Paysandu venceu por 4 x 3 e enfrentar&aacute; Brasiliense ou Sport, na segunda fase da competi&ccedil;&atilde;o. O MAC n&atilde;o tem mais jogos este ano, pois, at&eacute; para a Copa Cidade de S&atilde;o Lu&iacute;s, no segundo semestre, n&atilde;o conseguiu ficar entre os oito clubes que se classificaram para o torneio. Em 2015, o MAC disputar&aacute; a S&eacute;rie B do maranhense.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 0, 'copa-do-brasil-2014-mac-perde-belem.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -720,7 +747,8 @@ INSERT INTO `noticia` (`idnoticia`, `titulo`, `descricao`, `url`, `texto`, `auto
 -- Estrutura da tabela `noticia_arbitro`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia_arbitro` (
+DROP TABLE IF EXISTS `noticia_arbitro`;
+CREATE TABLE `noticia_arbitro` (
   `idnoticia` int(11) NOT NULL,
   `idarbitro` int(11) NOT NULL,
   KEY `idarbitro` (`idarbitro`),
@@ -733,7 +761,8 @@ CREATE TABLE IF NOT EXISTS `noticia_arbitro` (
 -- Estrutura da tabela `noticia_clube`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia_clube` (
+DROP TABLE IF EXISTS `noticia_clube`;
+CREATE TABLE `noticia_clube` (
   `idnoticia` int(11) NOT NULL,
   `clube_idclube` int(11) NOT NULL,
   PRIMARY KEY (`idnoticia`,`clube_idclube`),
@@ -754,7 +783,8 @@ INSERT INTO `noticia_clube` (`idnoticia`, `clube_idclube`) VALUES
 -- Estrutura da tabela `noticia_competicao`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia_competicao` (
+DROP TABLE IF EXISTS `noticia_competicao`;
+CREATE TABLE `noticia_competicao` (
   `idcompeticao` int(11) NOT NULL,
   `idnoticia` int(11) NOT NULL,
   PRIMARY KEY (`idcompeticao`,`idnoticia`),
@@ -768,7 +798,8 @@ CREATE TABLE IF NOT EXISTS `noticia_competicao` (
 -- Estrutura da tabela `rodada`
 --
 
-CREATE TABLE IF NOT EXISTS `rodada` (
+DROP TABLE IF EXISTS `rodada`;
+CREATE TABLE `rodada` (
   `fase_idfase` int(11) NOT NULL,
   `jogo_idjogo` int(11) DEFAULT NULL,
   `apelido` varchar(45) DEFAULT NULL,
@@ -846,7 +877,8 @@ INSERT INTO `rodada` (`fase_idfase`, `jogo_idjogo`, `apelido`, `n_jogos`) VALUES
 -- Estrutura da tabela `tipo_fase`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_fase` (
+DROP TABLE IF EXISTS `tipo_fase`;
+CREATE TABLE `tipo_fase` (
   `idtipo_fase` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idtipo_fase`)
@@ -872,7 +904,8 @@ INSERT INTO `tipo_fase` (`idtipo_fase`, `nome`) VALUES
 -- Estrutura da tabela `tipo_grupo`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_grupo` (
+DROP TABLE IF EXISTS `tipo_grupo`;
+CREATE TABLE `tipo_grupo` (
   `idtipo_grupo` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idtipo_grupo`)
@@ -894,10 +927,34 @@ INSERT INTO `tipo_grupo` (`idtipo_grupo`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tipo_noticia`
+--
+
+DROP TABLE IF EXISTS `tipo_noticia`;
+CREATE TABLE `tipo_noticia` (
+  `idtipo_noticia` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(250) NOT NULL,
+  PRIMARY KEY (`idtipo_noticia`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `tipo_noticia`
+--
+
+INSERT INTO `tipo_noticia` (`idtipo_noticia`, `nome`) VALUES
+(1, 'Sem Classificacao'),
+(2, 'Clubes'),
+(3, 'Arbitragem'),
+(4, 'FMF_Acontece');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `turno`
 --
 
-CREATE TABLE IF NOT EXISTS `turno` (
+DROP TABLE IF EXISTS `turno`;
+CREATE TABLE `turno` (
   `idturno` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`idturno`)
@@ -919,7 +976,8 @@ INSERT INTO `turno` (`idturno`, `nome`) VALUES
 -- Estrutura da tabela `usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `usuario` (
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_bin DEFAULT NULL,
@@ -1038,6 +1096,12 @@ ALTER TABLE `local`
 ALTER TABLE `modulo`
   ADD CONSTRAINT `fk_competicao_has_turno_competicao` FOREIGN KEY (`idcompeticao`) REFERENCES `competicao` (`idcompeticao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_competicao_has_turno_turno1` FOREIGN KEY (`idturno`) REFERENCES `turno` (`idturno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `noticia`
+--
+ALTER TABLE `noticia`
+  ADD CONSTRAINT `fk_tipo_noticia` FOREIGN KEY (`idtipo_noticia`) REFERENCES `tipo_noticia` (`idtipo_noticia`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Limitadores para a tabela `noticia_arbitro`
