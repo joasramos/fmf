@@ -1,0 +1,323 @@
+/* 
+    Created on : 20/04/2014, 17:39:08
+    Author     : joasaraujo
+
+Contém estilos padrões para todo o site e para o template
+*/
+
+body{
+    background: #dcdcdc;
+    /*border-top: 2px #f9f9f9 double;*/
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-default .navbar-nav > .active{
+    color: red;
+    background: #d65c14;
+}
+
+.barra-times-topo{
+    /*border-top: 2px #f9f9f9 double;*/
+    /*height: 30px*/
+}
+
+.container-topo{
+    width: 100%;
+}
+
+#titulo{
+    font-family: Garamond, serif;
+    line-height: 1em;
+    color: #fff9d6;
+    font-weight:bold;
+    /*font-size: 20px;*/
+    text-shadow:0px 0px 0 rgb(216,216,216),
+        1px 1px 0 rgb(187,187,187),
+        2px 2px 0 rgb(158,158,158), 
+        3px 3px 0 rgb(129,129,129),
+        4px 4px 3px rgba(0,0,0,0.6),
+        4px 4px 1px rgba(0,0,0,0.5),
+        0px 0px 3px rgba(0,0,0,.2);
+}
+
+.title-header-content{
+    font-family: Garamond, serif;
+    line-height: 2em;
+    color: #7b7b7b;
+    font-weight:bold;
+    font-size: 30px;
+    text-shadow:0px 0px 0 rgb(216,216,216),
+        1px 1px 0 rgb(187,187,187),
+        2px 2px 0 rgb(158,158,158), 
+        /*3px 3px 0 rgb(129,129,129),*/
+        /*4px 4px 3px rgba(0,0,0,0.6),*/
+        /*4px 4px 1px rgba(0,0,0,0.5),*/
+        0px 0px 5px rgba(0,0,0,.2);
+    margin-left: 5.333333333%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#topo-log-img{
+    background: url("/fmf/assets/themes/default/logos/logo.png");
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    margin-left: 0.999999999em;
+}
+
+nav{
+    z-index: 1;
+}
+
+.navbar-brand, .navbar-nav li a {
+    line-height: 40px;
+    height: 40px;
+    padding-top: 0;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar{
+    min-height: 30px;
+}
+
+.navbar-brand img{
+    margin: 0;
+    margin-right: -15px;
+}
+
+.navbar{
+    background: none;
+    border: none;
+    margin-bottom: 0;
+}
+
+.nav.navbar-nav li a{
+    color: white;
+    font-size: 16px;
+}
+
+.nav.navbar-nav li{ 
+    border-right: 1px solid #013777;
+    border-left:  1px solid #013777;
+    border-top:  1px solid #013777;
+}
+.nav.navbar-nav li a:hover{
+    background-color: #013777;
+    color: white; 
+}
+
+.list-serie {
+    /*border: 1px solid red;*/
+    display: table;
+    /*border:none;*/    
+}
+
+.list-serie li{
+    border-bottom: 1px outset #ccc;
+    font-size: 10px;
+    background-color: #343434;
+}
+
+.list-serie li a{
+     color:white;
+     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.list-serie li:first-child{
+    border-left: 1px inset #ccc;
+}
+
+.list-serie li:last-child{
+    border-right: 1px outset #ccc;
+    padding-right: 10px
+}
+
+.list-times li, .list-serie li{
+    float: left;
+    padding-left: 10px;
+}
+
+.list-times, .list-serie{
+    list-style: none;
+    margin-top: 10px
+}
+
+#ouvidoria{
+    border-left: 1px inset #ccc;
+    border-right: 1px outset #ccc;
+    border-bottom: 1px outset #ccc;
+    width: 150px;
+    padding-bottom: 5px;   
+    text-align: center;
+    border-radius: 0px 0px 60px 60px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold
+}
+
+.bg-white{
+    background-color: white;
+}
+
+.box-shadow{
+    margin-top: 20px; 
+    /*box-shadow: 0px 0px 10px 0px, 0px 0px 100px 0px;*/ 
+    padding: 20px;
+    box-shadow: 0px 0px 20px 0px; 
+}
+
+.box-shadow-simple{
+    margin-top: 20px; 
+    box-shadow: 0px 0px 2px 0px; 
+    padding: 20px
+}
+
+.nav-tabs{
+    /*background-color: #dcdcdc;*/
+    box-shadow: 0px 0px 30px 5px #ccc inset;
+    /*background-color: red;*/
+}
+
+.tab-pane{
+    padding: 20px;
+}
+
+.nav-tabs li a{
+    color: #7b7b7b;
+    border-right: 1px solid #ccc;
+}
+
+.tab-pane .titulo{
+    /*color:#802420;*/
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    /*border-bottom: 1px dotted #802420;*/
+    /*border-bottom: 1px dotted #dcdcdc;*/
+}
+
+.titulo-box{
+    color:#802420;
+    font-size: 16px;
+    font-weight: bold;
+    /*border-bottom: 1px dotted #802420;*/
+}
+
+.sombra-bottom{
+    -webkit-box-shadow: 0px 13px 7px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 13px 7px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 13px 7px 0px rgba(50, 50, 50, 0.75);
+}
+
+.sombra-right{
+    -webkit-box-shadow: 5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow:    5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+    box-shadow:         5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+}
+
+.sombra-left{
+    -webkit-box-shadow: -5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow:    -5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+    box-shadow:         -5px 0px 3px 0px rgba(50, 50, 50, 0.37);
+}
+
+.sombra-top{
+    -webkit-box-shadow: 0px -5px 3px 0px rgba(50, 50, 50, 0.37);
+    -moz-box-shadow:    0px -5px 3px 0px rgba(50, 50, 50, 0.37);
+    box-shadow:         0px -5px 3px 0px rgba(50, 50, 50, 0.37)
+}
+
+.sombra{
+    -webkit-box-shadow: 0px 1px 6px 0px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0px 1px 6px 0px rgba(50, 50, 50, 1);
+    box-shadow:         0px 1px 6px 0px rgba(50, 50, 50, 1);
+}
+.col-md-offset-1{
+    margin-left: 5.333333333333332%;
+}
+
+.borda-bottom-marrom{
+    border-bottom: 4px #802420 solid;
+}
+
+.borda-right-marrom{
+    border-left: 4px #802420 solid;
+    padding-left: 5px
+}
+
+.padding-default{
+    padding: 15px;
+}
+
+.margin-default{
+    margin: 15px;
+}
+
+.img-default{
+    padding: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 6.333333%;
+}
+
+.text-noticia{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.fonte-media{
+    font-size: 14px;
+}
+
+.border-bottom-dotted{
+    border-bottom: 1px dotted #ccc;
+}
+
+.border-right-dotted{
+    border-right: 1px dotted #ccc;
+}
+
+.border-left-dotted{
+    border-left: 1px dotted #ccc;
+}
+
+.border-top-dotted{
+    border-top: 1px dotted #ccc;
+}
+
+.col-md-10.column.bg-white.box-shadow{
+    min-height: 768px;
+    margin-left: 5.333333333%;
+}
+
+.cont-border-dott{
+    border: 1px dotted #ccc;
+}
+
+.title-simple{
+    font-size: 14px;
+    color: #802420;
+    font-weight: bold
+}
+
+.title-simple-medio{
+    font-size: 18px;
+    color: #802420;
+    font-weight: bold
+}
+
+
+/**
+    COR DOS LINKS
+*/
+
+.link-default{
+    color: black;
+}
+
+
+.link-default:hover{
+    color: black;
+}
