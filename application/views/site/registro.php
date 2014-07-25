@@ -1,5 +1,5 @@
 <h3 class='title-header-content'>
-    Registro de Jogadores
+    Registro de Jogador
 </h3>
 
 <div class="container">
