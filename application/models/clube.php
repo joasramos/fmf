@@ -37,4 +37,28 @@ class Clube extends MY_Model {
         return $this->db->get()->result();
     }
 
+    /**
+     * Insere convidado em grupo de uma determinada fase
+     */
+    public function insereConv($idfase, $idgrupo, $idclube) {
+        $data = array(
+            "idfase" => $idfase,
+            "idgrupo" => $idgrupo,
+            "idclube" => $idclube
+        );
+
+        $this->db->insert("convidado", $data);
+    }
+
+    /*
+     * Verifica se um time já foi convidado
+     */
+
+    public function findConv($idfase, $idgrupo, $idclube) {
+        $this->db->where("idfase", $idfase);
+        $this->db->where("idgrupo", $idgrupo);
+        $this->db->where("idclube", $idclube);
+        return $this->db->get("convidado")->result();
+    }
+
 }

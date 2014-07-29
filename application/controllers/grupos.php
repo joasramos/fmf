@@ -32,14 +32,16 @@ class Grupos extends MY_Controller {
         
     }
 
+    /**
+     * Método que carrega os convidado de um determinado grupo.
+     * Os dados são carregados em uma nova view.
+     */    
     public function showConv() {
         $this->output->unset_template();
 
         $this->load->model("clube");
 
         $idgrupo = $this->input->post("idgrupo");
-//        $idfase = $this->input->post("idfase");
-
         $data['conv'] = $this->clube->findCluByGru($idgrupo);
         $data['clubes'] = $this->clube->findAll("clube", array(), $this->clube->ALL, array());
 

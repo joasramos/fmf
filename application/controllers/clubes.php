@@ -37,10 +37,54 @@ class Clubes extends MY_Controller {
         $this->load->view("admin/novo-clube", $data);
     }
 
+    public function insertConv() {
+        $this->output->unset_template();
+        /*
+         * Pega variaveis via post
+         */
+        $idgrupo = $this->input->post("idgrupo");
+        $idclube = $this->input->post("idclube");
+        $idfase = $this->input->post("idfase");
+        /*
+         * Verifica-se se o convidado já não foi inserido
+         */
+        if (count($this->clube->findConv($idfase, $idgrupo, $idclube)) == 0) {
+            /*
+             * Insere convidado no grupo
+             */
+            $this->clube->insereConv($idfase, $idgrupo, $idclube);
+        }
+        /*
+         * Busca os convidados
+         */
+        $data['conv'] = $this->clube->findCluByGru($idgrupo);
+
+        /*
+         * Carrega lista com novos convidados
+         */
+        $this->load->view("admin/list-conv-add", $data);
+    }
+
     public function removeConv() {
         $this->output->unset_template();
+        /*
+         * Pega variaveis via post
+         */
+        $idconv = $this->input->post("idconvidado");
+        $idgrupo = $this->input->post("idgrupo");
+        /*
+         * Insere convidado no grupo
+         */
+        $this->clube->drop("idconvidado", $idconv, "convidado");
+        /*
+         * Busca os convidados
+         */
+        $data['conv'] = $this->clube->findCluByGru($idgrupo);
 
-        print_r($_POST);
+        /*
+         * Carrega lista com novos convidados
+         */
+        $this->load->view("admin/list-conv-add", $data);
     }
 
     public function drop() {
@@ -163,13 +207,13 @@ class Clubes extends MY_Controller {
         $this->load->model("rodada");
         $data['clube_jogos']['casa'] = $this->rodada->findRodadaByClube($idclube);
         $data['clube_jogos']['fora'] = $this->rodada->findRodadaByClubeOut($idclube);
-        
+
         /**
          * Buscar classificação do clube
          */
         $this->load->model("competicao");
         $data["cla"] = $this->competicao->findClassificacaoByClube(null, $idclube);
-        
+
         /**
          * Exibir view com detalhes do clube
          */

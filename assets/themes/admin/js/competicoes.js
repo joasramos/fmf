@@ -7,6 +7,7 @@
 var PATH = "http://" + document.domain + "/fmf/";
 var idfase;
 var idmod;
+var idgrupo;
 
 $(function() {
     hidePanels(Array("#comp-fases", "#comp-grupos", "#comp-conv", "#comp-rod", "#comp-jogos"));
@@ -83,9 +84,16 @@ var detailFaseGru = function() {
         $(linha).css("background-color", "#a1a5fe");
     });
 
+    /*
+     * Chamada para o método que carrega os grupos 
+     */
     showGrupos();
 };
 
+/*
+ * Método é chamado quando clica-se na opção para
+ * exibir detalhes de uma fase.
+ */
 function showGrupos() {
     $.ajax({
         url: PATH + "fases/showGrupos",
@@ -211,9 +219,14 @@ var detailJog = function() {
     });
 };
 
+/*
+ *  Método para exibir os detalhes de um grupo. 
+ *  Tais como os convidados do grupo.
+ *  É chamado toda vez que o usuário clica sobre a opção de gerenciar grupo.
+ */
 var detailGru = function() {
 
-    var idgrupo = $(this).parent().parent().children("td[column='idgrupo']").html();
+    idgrupo = $(this).parent().parent().children("td[column='idgrupo']").html();
 
     /**
      * Ativar linhar selecionada, mudando cor de fundo
@@ -224,7 +237,17 @@ var detailGru = function() {
         $(this).css("background-color", "#FFF");
         $(linha).css("background-color", "#a1a5fe");
     });
+    /*
+     * Chamada para o método que carrega os convidados do grupo
+     */
+    showConv();
+};
 
+/*
+ * 
+ * @param {type} idgrupo do grupo selecionado
+ */
+function showConv() {
     $.ajax({
         url: PATH + "grupos/showConv",
         data: {
@@ -236,19 +259,11 @@ var detailGru = function() {
             alert("Error ao buscar convidados.");
         },
         success: function(data, textStatus, jqXHR) {
-            $("#comp-conv").fadeIn(1000, function() {
-                $(this).html(data);
-                /*
-                 * Atualizar DOM
-                 */
-                $(function() {
-
-                });
-            });
-
+            $("#comp-conv").show();
+            $("#comp-conv").html(data);
         }
     });
-};
+}
 
 /**
  * Método para ocultar painels

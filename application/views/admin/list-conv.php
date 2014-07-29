@@ -7,42 +7,55 @@
     tbody tr td{ text-align: center  }
     tbody tr td img{cursor: pointer;}
 </style>
+
+<!--VIEW DE CONVIDADOS DE UM DETERMINADO GRUPO-->
 <div class="col-md-12 col-md-offset-2">
     <div class="row-fluid clearfix">
         <div class="col-md-7">
-            <select class="form-control">
+
+            <!--LOAD COMBO COM OS CLUBES-->
+            <select class="form-control" id="sel-clube">
                 <?php foreach ($clubes as $cl): ?>
-                    <option idclube="<?= $cl->idclube ?>"> <?= $cl->apelido ?></option>
+                    <option value="<?= $cl->idclube ?>"> <?= $cl->apelido ?></option>
                 <?php endforeach; ?>
             </select>            
+            <!--END LOAD-->
+
         </div>
-        <button class="btn btn-primary"> + </button>
+        <button class="btn btn-primary" id="add-grupo"> + </button>
     </div>
-    <div class="col-md-7" style="padding-top: 2em">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>
-                        Clube
-                    </th>
-                    <th>
-                        Ação
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($conv) > 0): foreach ($conv as $key => $c): ?>
-                        <tr class="tr-conv row-color-over">
-                            <td column="clu_nome" idconv="<?= $c->idconvidado ?>"><?= $c->apelido ?></td>
-                            <td>
-                                <img class="del" width="22" src="<?= base_url() ?>/assets/images/icon/delete-icon.png"/>                            
-                            </td>
-                        </tr>
-                        <?php
-                    endforeach;
-                endif;
-                ?>
-            </tbody>   
-        </table>
+
+    <!-- LOAD TABELA COM OS CONVIDADOS DE UM GRUPO-->
+    <div class="col-md-7" style="padding-top: 2em" id="list-conv-grupo">
+        <?php include 'list-conv-add.php'; ?>
     </div>
+    <!--END LOAD-->
+
 </div>
+
+<!--END VIEW-->
+
+<script>
+    $(function() {
+        $("#add-grupo").click(function() {
+            var idclube = $("#sel-clube option:selected").val();
+            $.ajax({
+                url: PATH + "clubes/insertConv",
+                type: "POST",
+                data: {
+                    idclube: idclube,
+                    idfase: idfase,
+                    idgrupo: idgrupo
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("Erro ao inserir convidado");
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log("Convidado inserido com sucesso!");
+                    $("#list-conv-grupo").html(data);
+                }
+            });
+        });
+
+    });
+</script>
