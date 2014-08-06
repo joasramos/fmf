@@ -66,7 +66,14 @@ class Noticias extends MY_Controller {
         $this->load->js("assets/js/jquery-ui/js/jquery-ui-1.10.3.custom.js");
         $this->load->css("assets/js/jquery-ui/css/south-street/jquery-ui-1.10.4.custom.css");
 
-        $this->load->view("admin/nova-noticia");
+        $data['tipo_n'] = $this->noticia->getTipoNoticia();
+        
+//        GAMBIARRA DETECTADA
+        $data['clubes'] = $this->noticia->findAll("clube", array(), array(), array());
+        $data['arbitragem'] = $this->noticia->findAll("arbitro", array(), array(), array());       
+//        END GAMBIARRA
+        
+        $this->load->view("admin/nova-noticia", $data);
     }
 
     public function drop() {
@@ -77,6 +84,10 @@ class Noticias extends MY_Controller {
         $this->output->set_template("admin");
     }
 
+    /**
+     * Método executado na Área administrativa.
+     * É chamado toda vez que o usuário deseja cadastrar/atualizar uma nova notícia.
+     */
     public function insert() {
         $this->output->set_template("admin");
 
@@ -92,7 +103,7 @@ class Noticias extends MY_Controller {
             /**
              * Set colunas da tabela que serão atualizadas
              */
-            $this->noticia->setColInsert(array("titulo", "descricao", "url", "texto", "autor", "data", "fmf_acontece", "imagem"));
+            $this->noticia->setColInsert(array("titulo", "descricao", "texto", "autor", "data", "fmf_acontece", "destaque"));
             /**
              * Verificar se é uma nova noticia, senão atualiza
              */

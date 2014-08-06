@@ -68,6 +68,12 @@ abstract class MY_Controller extends CI_Controller {
         $this->setData($data);
     }
 
+    function gerarUrl($str) {
+        $variavel_limpa = strtolower(ereg_replace("[^a-zA-Z0-9-]", "-", strtr(utf8_decode(trim($str)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
+
+        return $variavel_limpa;
+    }
+
     abstract function insert();
 
     abstract function drop();

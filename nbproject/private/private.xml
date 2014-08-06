@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/fmf/application/views/site/registro.php</file>
-            <file>file:/C:/xampp/htdocs/fmf/application/config/database.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/models/clube.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/views/admin/list-grupo.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/controllers/grupos.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/views/admin/list-conv-add.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/controllers/clubes.php</file>
+            <file>file:/C:/xampp/htdocs/fmf/assets/themes/admin/js/competicoes.js</file>
+            <file>file:/C:/xampp/htdocs/fmf/application/views/admin/list-conv.php</file>
         </group>
     </open-files>
 </project-private>

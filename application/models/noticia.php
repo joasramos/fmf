@@ -45,5 +45,9 @@ class Noticia extends MY_Model {
         $this->db->order_by("data", "desc");
         return $this->db->get("noticia n")->result();
     }
+    
+    public function getTipoNoticia(){
+        return $this->db->get("tipo_noticia")->result();
+    }
 
 }

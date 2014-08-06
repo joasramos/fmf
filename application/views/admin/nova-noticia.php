@@ -42,45 +42,53 @@
                     </div>
                 </div>
 
-                <!-- Text input-->
+                <!-- Classficacao da noticia -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_url">Url</label>  
-                    <div class="col-md-5">
-                        <input id="not_url" name="not_url" placeholder="" class="form-control input-md" type="text">
-
-                    </div>
-                </div>
-
-                <!-- File Button --> 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_img">Imagem</label>
-                    <div class="col-md-4">
-                        <input id="not_img" name="not_img" class="input-file" type="file">
-                    </div>
-                </div>
-
-                <!-- Multiple Radios (inline) -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_opt">Opções Adicionais</label>
+                    <label class="col-md-4 control-label" for="not_opt">Referência</label>
                     <div class="col-md-5"> 
-                        <label class="radio-inline" for="not_opt-0">
-                            <input name="not_opt" id="not_opt-0" value="arb" checked="checked" type="radio">
-                            Árbitro
-                        </label> 
-                        <label class="radio-inline" for="not_opt-1">
-                            <input name="not_opt" id="not_opt-1" value="clu" type="radio">
-                            Clube
-                        </label> 
-                        <label class="radio-inline" for="not_opt-2">
-                            <input name="not_opt" id="not_opt-2" value="com" type="radio">
-                            Competição
-                        </label> 
-                        <label class="radio-inline" for="not_opt-3">
-                            <input name="not_opt" id="not_opt-3" value="fmf" type="radio">
-                            FMF Acontece
-                        </label>
+                        <select name="not_tipo" class="form-control" id="not_tipo">
+                        <?php if ($tipo_n): foreach ($tipo_n as $tn): ?>
+                                        <option value="<?= $tn->idtipo_noticia ?>"> <?= $tn->nome ?></option>
+                                            <?php
+                                        endforeach;
+                                    endif;
+                                    ?>
+                        </select>
                     </div>
                 </div>
+
+                <!--PAINEL PARA SELEÇÃO DE CLUBE-->
+                <div class="form-group" style="display: none" id="pn_sel_clu">
+                    <label class="col-md-4 control-label">Selecione o clube</label>
+                    <div class="col-md-5"> 
+                        <select name="not_clube" class="form-control">
+                            <?php
+                            if ($clubes):
+                                foreach ($clubes as $clu):
+                                    ?>
+                                    <option value="<?= $clu->idclube ?>"> <?= $clu->apelido ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!--PAINEL PARA SELEÇÃO DE ARBITRO-->
+<!--                <div class="form-group" style="display: none" id="pn_sel_arb" >
+                    <label class="col-md-4 control-label">Selecione o arbitro</label>
+                    <div class="col-md-5"> 
+                        <select name="not_arb" class="form-control">
+                            <?php if ($arbitragem): foreach ($arbitragem as $arb): ?>
+                                    <option value="<?= $arb->idarbitro ?>"> <?= $arb->nome ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
+                        </select>
+                    </div>
+                </div>-->
 
                 <!-- Textarea -->
                 <div class="form-group">
@@ -104,3 +112,28 @@
 
     </div>
 </div>
+
+<script>
+    $(function() {
+        $("select[name='not_tipo']").change(function() {
+            var str_sel = $(this).find(":selected").text();
+            console.log(str_sel);
+            switch (str_sel) {
+                case " Clubes":
+                    $("#pn_sel_clu").show();
+                    $("#pn_sel_arb").hide();
+                    break;
+                case " Arbitragem":
+                    $("#pn_sel_clu").hide();
+                    $("#pn_sel_arb").show();
+                    break;
+                default:
+                    $("#pn_sel_clu").hide();
+                    $("#pn_sel_arb").hide();
+                    break;
+            }
+        });
+    });
+
+
+</script>
