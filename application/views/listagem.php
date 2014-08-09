@@ -66,6 +66,13 @@
                             <a href="#" onclick="javascript:alert('Ainda não implementado')"> 
                                 <img width="22" src="<?= base_url() ?>/assets/images/icon/delete-icon.png"/> 
                             </a>
+                            <?php if (count($extra)): ?>
+                                <?php foreach ($extra as $e): ?>
+                                    <a href="<?= base_url() . $e['url'] ?>"> 
+                                        <img width="22" src="<?= base_url() . $e['url_icon'] ?>"/> 
+                                    </a>                            
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -73,6 +80,3 @@
         </table>
     </div>
 </div>
-<script>
-    
-</script>

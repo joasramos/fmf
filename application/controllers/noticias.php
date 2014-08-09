@@ -54,9 +54,39 @@ class Noticias extends MY_Controller {
     public function showAll() {
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 
-        $list = $this->noticia->findBySimpleValue("noticia", array("titulo", "descricao", "data"), "titulo", $value);
+        $list = $this->noticia->findBySimpleValueOrder("noticia", array("idnoticia", "titulo", "descricao", "data"), "titulo", $value, "data desc");
 
-        $this->loadTable("noticias", array("Título", "Descrição", "Data"), $list);
+        /*
+         * Adicionando ações a tabela padrão
+         */
+        $this->extra_action[0]['url'] = "noticias/mngGallery/" . $list[0]->idnoticia; //função para chamar
+        $this->extra_action[0]['url_icon'] = "assets/images/icon/edit-icon.png"; //icone da ação
+
+        $this->loadTable("noticias", array("ID", "Título", "Descrição", "Data"), $list);
+    }
+
+    /*
+     * Método para carrega a galeria de imagens de uma
+     * noticia.
+     * O id da noticia é passado por parametro
+     */
+
+    public function mngGallery($id = null) {
+        $this->output->set_template("admin");
+        
+        /**
+         * Buscamos dados da noticia
+         */
+        echo $id;
+        
+        /*
+         * Verificamos se existe um diretório para essa noticia
+         */
+        
+        
+        /**
+         * Carregamos area de upload
+         */
     }
 
     public function newElement() {
@@ -67,12 +97,12 @@ class Noticias extends MY_Controller {
         $this->load->css("assets/js/jquery-ui/css/south-street/jquery-ui-1.10.4.custom.css");
 
         $data['tipo_n'] = $this->noticia->getTipoNoticia();
-        
+
 //        GAMBIARRA DETECTADA
         $data['clubes'] = $this->noticia->findAll("clube", array(), array(), array());
-        $data['arbitragem'] = $this->noticia->findAll("arbitro", array(), array(), array());       
+        $data['arbitragem'] = $this->noticia->findAll("arbitro", array(), array(), array());
 //        END GAMBIARRA
-        
+
         $this->load->view("admin/nova-noticia", $data);
     }
 
@@ -84,76 +114,71 @@ class Noticias extends MY_Controller {
         $this->output->set_template("admin");
     }
 
-    /**
-     * Método executado na Área administrativa.
-     * É chamado toda vez que o usuário deseja cadastrar/atualizar uma nova notícia.
-     */
-    public function insert() {
-        $this->output->set_template("admin");
-
-        $msg = $this->setFileUpload();
-
-        if ($msg == "Ok") {
-
-            /**
-             * Seta noticia para ser inserida, apenas se for possivel o upload da imagem
-             */
-            $obj = $this->setObject();
-            $idnoticia;
-            /**
-             * Set colunas da tabela que serão atualizadas
-             */
-            $this->noticia->setColInsert(array("titulo", "descricao", "texto", "autor", "data", "fmf_acontece", "destaque"));
-            /**
-             * Verificar se é uma nova noticia, senão atualiza
-             */
-            if (isset($obj[8])) {
-                //atualiza
-            } else {
-                $idnoticia = $this->noticia->insert("noticia", $obj);                
-                switch ($obj[6]){
-                    case "arb":
-                        //insere noticia em arbitro
-                        break;
-                    case "clu":
-                        //insere noticia em clube
-                        break;
-                    case "com":
-                        //insere noticia em competicao
-                        break;
-                }
-            }
-            redirect(base_url() . "noticias/showAll");
-        } else {
-            $data['msg'] = $msg;
-            $this->load->view("admin/nova-noticia", $data);
-        }
-    }
-
     public function setObject() {
         $obj = array();
-        $obj[0] = $this->input->post("not_titulo");
-        $obj[1] = $this->input->post("not_desc");
-        $obj[2] = $this->input->post("not_url");
-        $obj[3] = $this->input->post("not_texto");
-        $obj[4] = $this->input->post("not_autor");
+
+        $obj["idtipo_noticia"] = $this->input->post("not_tipo");
+        $obj["titulo"] = $this->input->post("not_titulo");
+        $obj["descricao"] = $this->input->post("not_desc");
+
+        /*
+         * Gerando URL
+         */
+
+        $obj["url"] = $this->gerarUrl($obj['descricao']);
+
+        $obj["texto"] = $this->input->post("not_texto");
+        $obj["autor"] = $this->input->post("not_autor");
 
         /*
          * Formatar data
          */
         $a = $this->input->post("not_data");
         $timestamp = date("Y-m-d", strtotime($a)) . " " . date("H:i:s");
-        $obj[5] = $timestamp;
+        $obj["data"] = $timestamp;
 
         /*
-         * Verificar se é uma noticia da fmf
+         * Verifica-se o tipo da noticia. Caso igual a 4, marcamos como noticia do tipo FMF Acontece
          */
-        $b = $this->input->post("not_opt");
-        $obj[6] = $b == "fmf" ? 1 : 0;
+        $obj["fmf_acontece"] = $obj["idtipo_noticia"] == 4 ? 1 : 0;
 
-        $obj[7] = $this->info_img_up['file_name'];
+        $tipo = $this->input->post("not_dest");
+
+        if (isset($tipo)) {
+            $obj["destaque"] = 1;
+        }
 
         return $obj;
+    }
+
+    public function insert() {
+        $this->output->set_template("admin");
+
+        $obj = $this->setObject();
+
+//        print_r($this->input->post());
+        if (isset($obj["idnoticia"])) {
+            
+        } else {
+
+            $idnoticia = $this->noticia->insertSimple("noticia", $obj);
+            $data["idnoticia"] = $idnoticia;
+
+            switch ($obj["idtipo_noticia"]) {
+                case "2":
+                    //insere noticia em clube                
+                    $data["clube_idclube"] = $this->input->post("not_clube");
+                    $this->noticia->insertSimple("noticia_clube", $data);
+                    break;
+                case "3":
+                    //insere noticia em arbitro
+                    $data["idarbitro"] = $this->input->post("not_arb");
+                    $this->noticia->insertSimple("noticia_arbitro", $data);
+                    break;
+            }
+        }
+
+        redirect("noticias/showAll", "refresh");
     }
 
     public function setFileUpload() {

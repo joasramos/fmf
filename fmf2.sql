@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 25-Jul-2014 às 03:31
--- Versão do servidor: 5.6.16
--- PHP Version: 5.5.11
+-- Servidor: localhost
+-- Tempo de Geração: 09/08/2014 às 15h44min
+-- Versão do Servidor: 5.5.38
+-- Versão do PHP: 5.3.10-1ubuntu3.13
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `fmf2`
+-- Banco de Dados: `fmf2`
 --
 
 -- --------------------------------------------------------
@@ -26,8 +26,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `arbitragem`
 --
 
-DROP TABLE IF EXISTS `arbitragem`;
-CREATE TABLE `arbitragem` (
+CREATE TABLE IF NOT EXISTS `arbitragem` (
   `idarbitragem` int(11) NOT NULL AUTO_INCREMENT,
   `idarbitro` int(11) NOT NULL,
   `idjogo` int(11) NOT NULL,
@@ -43,8 +42,7 @@ CREATE TABLE `arbitragem` (
 -- Estrutura da tabela `arbitro`
 --
 
-DROP TABLE IF EXISTS `arbitro`;
-CREATE TABLE `arbitro` (
+CREATE TABLE IF NOT EXISTS `arbitro` (
   `idarbitro` int(11) NOT NULL AUTO_INCREMENT,
   `indicacao_data_hora` varchar(100) DEFAULT NULL,
   `nome` varchar(300) CHARACTER SET utf8 DEFAULT NULL,
@@ -109,8 +107,7 @@ INSERT INTO `arbitro` (`idarbitro`, `indicacao_data_hora`, `nome`, `nascimento`,
 -- Estrutura da tabela `arquivo_competicao`
 --
 
-DROP TABLE IF EXISTS `arquivo_competicao`;
-CREATE TABLE `arquivo_competicao` (
+CREATE TABLE IF NOT EXISTS `arquivo_competicao` (
   `idarquivo_competicao` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `iddocumento` int(11) NOT NULL,
@@ -125,8 +122,7 @@ CREATE TABLE `arquivo_competicao` (
 -- Estrutura da tabela `arquivo_jogo`
 --
 
-DROP TABLE IF EXISTS `arquivo_jogo`;
-CREATE TABLE `arquivo_jogo` (
+CREATE TABLE IF NOT EXISTS `arquivo_jogo` (
   `idarquivo_jogo` int(11) NOT NULL AUTO_INCREMENT,
   `idjogo` int(11) NOT NULL,
   `iddocumento` int(11) NOT NULL,
@@ -141,8 +137,7 @@ CREATE TABLE `arquivo_jogo` (
 -- Estrutura da tabela `ci_sessions`
 --
 
-DROP TABLE IF EXISTS `ci_sessions`;
-CREATE TABLE `ci_sessions` (
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
   `session_id` int(11) NOT NULL,
   `ip_address` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `user_agent` varchar(125) COLLATE utf8_bin NOT NULL,
@@ -165,8 +160,7 @@ INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activ
 -- Estrutura da tabela `classificacao`
 --
 
-DROP TABLE IF EXISTS `classificacao`;
-CREATE TABLE `classificacao` (
+CREATE TABLE IF NOT EXISTS `classificacao` (
   `idclassificacao` int(11) NOT NULL AUTO_INCREMENT,
   `idconvidado` int(11) NOT NULL,
   `jogos` int(11) NOT NULL,
@@ -220,8 +214,7 @@ INSERT INTO `classificacao` (`idclassificacao`, `idconvidado`, `jogos`, `pontos`
 -- Estrutura da tabela `clube`
 --
 
-DROP TABLE IF EXISTS `clube`;
-CREATE TABLE `clube` (
+CREATE TABLE IF NOT EXISTS `clube` (
   `idclube` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `apelido` varchar(45) DEFAULT NULL,
@@ -254,8 +247,7 @@ INSERT INTO `clube` (`idclube`, `nome`, `apelido`, `bandeira`, `url`, `fundacao`
 -- Estrutura da tabela `competicao`
 --
 
-DROP TABLE IF EXISTS `competicao`;
-CREATE TABLE `competicao` (
+CREATE TABLE IF NOT EXISTS `competicao` (
   `idcompeticao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `apelido` varchar(100) DEFAULT NULL,
@@ -284,8 +276,7 @@ INSERT INTO `competicao` (`idcompeticao`, `nome`, `apelido`, `ano`, `ativa`, `n_
 -- Estrutura da tabela `contrato`
 --
 
-DROP TABLE IF EXISTS `contrato`;
-CREATE TABLE `contrato` (
+CREATE TABLE IF NOT EXISTS `contrato` (
   `idcontrato` int(11) NOT NULL AUTO_INCREMENT,
   `idjogador` int(11) NOT NULL,
   `idclube` int(11) NOT NULL,
@@ -303,8 +294,7 @@ CREATE TABLE `contrato` (
 -- Estrutura da tabela `convidado`
 --
 
-DROP TABLE IF EXISTS `convidado`;
-CREATE TABLE `convidado` (
+CREATE TABLE IF NOT EXISTS `convidado` (
   `idconvidado` int(11) NOT NULL AUTO_INCREMENT,
   `idgrupo` int(11) NOT NULL,
   `idclube` int(11) NOT NULL,
@@ -355,8 +345,7 @@ INSERT INTO `convidado` (`idconvidado`, `idgrupo`, `idclube`, `idfase`) VALUES
 -- Estrutura da tabela `detalhe_jogador`
 --
 
-DROP TABLE IF EXISTS `detalhe_jogador`;
-CREATE TABLE `detalhe_jogador` (
+CREATE TABLE IF NOT EXISTS `detalhe_jogador` (
   `iddetalhe_jogador` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `idcontrato` int(11) NOT NULL,
@@ -375,8 +364,7 @@ CREATE TABLE `detalhe_jogador` (
 -- Estrutura da tabela `divisao`
 --
 
-DROP TABLE IF EXISTS `divisao`;
-CREATE TABLE `divisao` (
+CREATE TABLE IF NOT EXISTS `divisao` (
   `iddivisao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `n_times` int(11) DEFAULT NULL,
@@ -397,8 +385,7 @@ INSERT INTO `divisao` (`iddivisao`, `nome`, `n_times`) VALUES
 -- Estrutura da tabela `divisao_clube`
 --
 
-DROP TABLE IF EXISTS `divisao_clube`;
-CREATE TABLE `divisao_clube` (
+CREATE TABLE IF NOT EXISTS `divisao_clube` (
   `idclube` int(11) NOT NULL,
   `iddivisao` int(11) NOT NULL,
   `ano` int(11) DEFAULT NULL,
@@ -429,8 +416,7 @@ INSERT INTO `divisao_clube` (`idclube`, `iddivisao`, `ano`) VALUES
 -- Estrutura da tabela `documento`
 --
 
-DROP TABLE IF EXISTS `documento`;
-CREATE TABLE `documento` (
+CREATE TABLE IF NOT EXISTS `documento` (
   `iddocumento` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(100) DEFAULT NULL,
   `descricao` varchar(200) DEFAULT NULL,
@@ -454,8 +440,7 @@ INSERT INTO `documento` (`iddocumento`, `titulo`, `descricao`, `data`, `url`) VA
 -- Estrutura da tabela `estadio`
 --
 
-DROP TABLE IF EXISTS `estadio`;
-CREATE TABLE `estadio` (
+CREATE TABLE IF NOT EXISTS `estadio` (
   `idestadio` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) DEFAULT NULL,
   `apelido` varchar(100) DEFAULT NULL,
@@ -470,8 +455,7 @@ CREATE TABLE `estadio` (
 -- Estrutura da tabela `fase`
 --
 
-DROP TABLE IF EXISTS `fase`;
-CREATE TABLE `fase` (
+CREATE TABLE IF NOT EXISTS `fase` (
   `idfase` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_fase` int(11) NOT NULL,
   `idmodulo` int(11) NOT NULL,
@@ -505,8 +489,7 @@ INSERT INTO `fase` (`idfase`, `idtipo_fase`, `idmodulo`, `n_jogos`, `n_grupos`, 
 -- Estrutura da tabela `galeria`
 --
 
-DROP TABLE IF EXISTS `galeria`;
-CREATE TABLE `galeria` (
+CREATE TABLE IF NOT EXISTS `galeria` (
   `idimagem` int(11) NOT NULL,
   `idnoticia` int(11) NOT NULL,
   PRIMARY KEY (`idimagem`,`idnoticia`),
@@ -519,8 +502,7 @@ CREATE TABLE `galeria` (
 -- Estrutura da tabela `grupo`
 --
 
-DROP TABLE IF EXISTS `grupo`;
-CREATE TABLE `grupo` (
+CREATE TABLE IF NOT EXISTS `grupo` (
   `idgrupo` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_grupo` int(11) NOT NULL,
   `idfase` int(11) NOT NULL,
@@ -550,8 +532,7 @@ INSERT INTO `grupo` (`idgrupo`, `idtipo_grupo`, `idfase`, `n_classificados`) VAL
 -- Estrutura da tabela `imagem`
 --
 
-DROP TABLE IF EXISTS `imagem`;
-CREATE TABLE `imagem` (
+CREATE TABLE IF NOT EXISTS `imagem` (
   `idimagem` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`idimagem`)
@@ -563,8 +544,7 @@ CREATE TABLE `imagem` (
 -- Estrutura da tabela `jogador`
 --
 
-DROP TABLE IF EXISTS `jogador`;
-CREATE TABLE `jogador` (
+CREATE TABLE IF NOT EXISTS `jogador` (
   `idjogador` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `idade` int(11) DEFAULT NULL,
@@ -579,8 +559,7 @@ CREATE TABLE `jogador` (
 -- Estrutura da tabela `jogo`
 --
 
-DROP TABLE IF EXISTS `jogo`;
-CREATE TABLE `jogo` (
+CREATE TABLE IF NOT EXISTS `jogo` (
   `idjogo` int(11) NOT NULL AUTO_INCREMENT,
   `n_jogo` int(11) NOT NULL,
   `time_casa` int(11) DEFAULT NULL,
@@ -665,8 +644,7 @@ INSERT INTO `jogo` (`idjogo`, `n_jogo`, `time_casa`, `time_visitante`, `data`, `
 -- Estrutura da tabela `local`
 --
 
-DROP TABLE IF EXISTS `local`;
-CREATE TABLE `local` (
+CREATE TABLE IF NOT EXISTS `local` (
   `idestadio` int(11) NOT NULL,
   `idjogo` int(11) NOT NULL,
   `observacoes` text,
@@ -681,8 +659,7 @@ CREATE TABLE `local` (
 -- Estrutura da tabela `modulo`
 --
 
-DROP TABLE IF EXISTS `modulo`;
-CREATE TABLE `modulo` (
+CREATE TABLE IF NOT EXISTS `modulo` (
   `idmodulo` int(11) NOT NULL AUTO_INCREMENT,
   `idcompeticao` int(11) NOT NULL,
   `idturno` int(11) NOT NULL,
@@ -710,8 +687,7 @@ INSERT INTO `modulo` (`idmodulo`, `idcompeticao`, `idturno`, `descricao`, `n_jog
 -- Estrutura da tabela `noticia`
 --
 
-DROP TABLE IF EXISTS `noticia`;
-CREATE TABLE `noticia` (
+CREATE TABLE IF NOT EXISTS `noticia` (
   `idnoticia` int(11) NOT NULL AUTO_INCREMENT,
   `idtipo_noticia` int(11) DEFAULT NULL,
   `titulo` varchar(200) DEFAULT NULL,
@@ -725,7 +701,7 @@ CREATE TABLE `noticia` (
   `destaque` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idnoticia`),
   KEY `idtipo_noticia` (`idtipo_noticia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Extraindo dados da tabela `noticia`
@@ -739,7 +715,9 @@ INSERT INTO `noticia` (`idnoticia`, `idtipo_noticia`, `titulo`, `descricao`, `ur
 (5, 4, 'Boas notícias', 'CBF montará em São Luís um Centro de Treinamento e ajudará na criação da Escola de Árbitros', 'boas-noticias-cbf-ajudara-criacao-escola-arbitro', '<p> <p>N&atilde;o poderia ter sido mais proveitosa a estada, no Rio de Janeiro, do presidente da Federa&ccedil;&atilde;o Maranhense de Futebol (FMF), Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves. Nos quatro dias que passou na cidade maravilhosa, ele recebeu boas not&iacute;cias. A primeira delas foi a informa&ccedil;&atilde;o de que a Confedera&ccedil;&atilde;o Brasileira de Futebol (CBF) construir&aacute; um Centro de Treinamento, para as divis&otilde;es de base (sub-13, Sub-15. Sub-17 e Sub-19) em S&atilde;o Lu&iacute;s.</p><br />\r\n<p>Segundo Am&eacute;rico, a capital maranhense foi escolhida para ganhar o Centro de Treinamento pelo presidente eleito da CBF, Marco Polo Del Nero. &ldquo;Esse &eacute; o resultado de reivindica&ccedil;&atilde;o que v&iacute;nhamos fazendo h&aacute; algum tempo. O presidente Del Nero, na quarta-feira, logo depois de ter sido eleito para comandar a CBF a partir de 2015, me deu a boa nova. O bom &eacute; que o Centro de Treinamento ser&aacute; constru&iacute;do ainda em 2014. Pretendemos inaugur&aacute;-lo entre outrubro e novembro&rdquo;, adiantou o dirigente.&nbsp;</p><br />\r\n<p align="left">O Centro de Treinamento ser&aacute; constru&iacute;do e ser&aacute; de propriedade da CBF, mas que ser&aacute; administrado pela FMF. "O presidente Del Nero j&aacute; havia prometido que o nosso estado ganharia uma obra desse porte para que os jovens atletas sejam lapidados para nossas equipes profissionais e de todo o Brasil&rdquo;, pontuou o presidente da FMF.</p><br />\r\n<p align="left">No projeto, o Centro de Treinamento ter&aacute; dois campos, com medidas oficiais, uma quadra polivalente e ser&aacute; equipado com modernos aparelhos para a pr&aacute;tica de exerc&iacute;cios f&iacute;sicos.</p><br />\r\n<p align="left">&nbsp;</p><br />\r\n<p align="left"><strong>Escola de &aacute;rbitros</strong> &ndash; Outra boa not&iacute;cia trazida pelo presidente da FMF &eacute; de que o Maranh&atilde;o tamb&eacute;m ganhar&aacute; uma Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros de Futebol, nos moldes da que foi montada recentemente em Recife. &ldquo;O presidente Del Nero nos prometeu ajudar na cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o de &Aacute;rbitros. Queremos implant&aacute;-la ainda este ano&rdquo;, disse Am&eacute;rico.</p><br />\r\n<p>Caber&aacute; &agrave; Escola de Forma&ccedil;&atilde;o propiciar meios de forma&ccedil;&atilde;o inicial e continuada, a especializa&ccedil;&atilde;o e o aprimoramento dos &aacute;rbitros, assistentes e assessores. A FMF, para montar a escola dever&aacute; firmar conv&ecirc;nio com uma unidade de ensino da capital maranhense para paerticipar do projeto, que &eacute; um velho sonho dos respons&aacute;veis pela arbitragem local. "A cria&ccedil;&atilde;o da Escola de Forma&ccedil;&atilde;o ser&aacute; importante. Temos muitos jovens interessados em seguir a profiss&atilde;o. Queremos, com ajuda da CBF, oferecer uma forma&ccedil;&atilde;o qualificada e uniforme, com professores especializados. Vamos tirar isso do papel para tornar realidade&rdquo;, disse o presidente da FMF, que est&aacute; muito interessado em renovar a arbitragem maranhense e preparar &aacute;rbitros de qualidade para o futebol brasileiro.</p></p>', NULL, '2014-04-26 23:23:13', 1, 'boas-noticias-cbf-ajudara-criacao-escola-arbitro.jpg', 0),
 (6, 4, 'Copa do Nordeste 2015', 'CBF confirma para a FMF a entrada de dois times do Maranhão e do Piauí', 'copa-nordeste-cbf-confirma-times-maranhao-piaui', '<p> <p>Confirmado: Maranh&atilde;o e Piau&iacute; ter&atilde;o mesmo dois representantes (cada) na Copa do Nordeste de 2015. O presidente da FMF, Ant&ocirc;nio Am&eacute;rico Lobato Gon&ccedil;alves, voltou do Rio de Janeiro, onde participou da elei&ccedil;&atilde;o da CBF, trazendo a confirma&ccedil;&atilde;o sobre a participa&ccedil;&atilde;o dos times maranhenses e piauiense na competi&ccedil;&atilde;o. &ldquo;O novo presidente da CBF, Marco Polo Del Nero, que tinha pedido que ficasse tranquilo, quando foi especulado de que apenas uma equipe de cada estado participaria do torneio, garantiu as duas vagas j&aacute; para a Copa do Nordeste de 2015&rdquo;, informou o dirigente da Federa&ccedil;&atilde;o.</p><br />\r\n<p align="left">Del Nero at&eacute; concedeu entrevista &agrave; imprensa nacional falando sobre o assunto. &ldquo;O presidente da CBF colocou um ponto final nos coment&aacute;rios que alguns dirigentes de Federa&ccedil;&otilde;es do Nordeste vinham fazendo, especulando de que s&oacute; um time de cada estado entraria no Nordest&atilde;o de 2015. Ele bateu o martelo e n&atilde;o h&aacute; mais como mudar&rdquo;, ressaltou o presidente da FMF.</p><br />\r\n<p align="left">Em 2015, a f&oacute;rmula de disputa do torneio, que passar&aacute; das 16 equipes atuais para 20, com a entrada dos representantes de Maranh&atilde;o e Piau&iacute;. &ldquo;Com 20 clubes, a Copa do Nordeste ter&aacute; cinco chaves de quatro&rdquo;, antecipou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A nova chave ser&aacute; formada por Sampaio e Moto, representantes do Maranh&atilde;o, e mais Piau&iacute; Esporte Clube e um segundo time ainda a ser classificado no Campeonato Piauiense, que ainda est&aacute; em andamento. Na primeira fase, as equipes maranhenses e piauienses jogar&atilde;o entre si, se classificando quem tiver melhor aproveitamento t&eacute;cnico para as quartas de final, juntamente com os melhores de cada uma das outras chaves e mais tr&ecirc;s times de melhor &iacute;ndice t&eacute;cnico, independentemente de grupo. As quartas de final ter&atilde;o oito equipes, que jogar&atilde;o entre si para que sejam apontados quatro times para a fase semifinal. &ldquo;Com essa f&oacute;rmula, as chances dos times maranhenses de classifica&ccedil;&atilde;o ser&atilde;o boas. Com todo o respeito que as equipes do Piau&iacute; merecem, Sampaio e Moto t&ecirc;m amplas condi&ccedil;&otilde;es de avan&ccedil;ar na disputa&rdquo;, analisou Ant&ocirc;nio Am&eacute;rico.</p><br />\r\n<p align="left">A Copa do Nordeste &eacute; uma competi&ccedil;&atilde;o oficial da CBF, que reserva uma vaga na Copa Sul-Americana para quem for campe&atilde;o do torneio. O patroc&iacute;nio &eacute; do Esporte Interativo.</p><br />\r\n<p align="left">&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 1, 'copa-nordeste-cbf-confirma-times-maranhao-piaui.jpg', 1),
 (7, 2, 'Série B', 'Sampaio sente peso da estreia e perde para o Paraná no Castelão', 'serie-b-sampaio-perde-parana-castelao', '<p> <p>O Sampaio Corr&ecirc;a sentiu o peso da estreia e n&atilde;o resistiu &agrave; maior experi&ecirc;ncia do advers&aacute;rio e perdeu por 2 x 0, nesta sexta-feira &agrave; noite, no Est&aacute;dio Castel&atilde;o, na primeira rodada da S&eacute;rie B do Campeonato Brasileiro de 2014. Ainda se ressentindo de refor&ccedil;os em determinadas posi&ccedil;&otilde;es, o Tricolor maranhense n&atilde;o teve como evitar a derrota.</p><br />\r\n<p>O Paran&aacute; marcou 1 x 0 aos oito minutos, do segundo tempo, com Edson Sitta. Depois, aos 34 minutos, Carlinhos marcou 2 x 0.</p><br />\r\n<p>O Sampaio voltar&aacute; a jogar sexta-feira pr&oacute;xima. Desta feita, enfrentar&aacute; o Icasa, no interior do Cear&aacute;. O Paran&aacute; Clube far&aacute; sua primeira partida em casa na S&eacute;rie B na pr&oacute;xima sexta-feira contra o Joinville.</p><br />\r\n<p>&nbsp;</p><br />\r\n<p>&nbsp;</p></p>', NULL, '2014-04-26 23:23:13', 0, 'serie-b-sampaio-perde-parana-castelao.jpg', 1),
-(8, 2, 'Copa do Brasil 2014', 'MAC perde em Belém e está eliminado da competição', 'copa-do-brasil-2014-mac-perde-belem', '<p> <p>O Maranh&atilde;o Atl&eacute;tico Clube (MAC) foi eliminado da Copa do Brasil ao perder por 2 x 1 para o Paysandu-PA, na noite desta quarta-feira, no Est&aacute;dio Ol&iacute;mpico do Par&aacute;, em Bel&eacute;m. O MAC saiu na frente do placar, dando um susto no Paysandu. Elton marcou 1 x 0, mas ainda no primeiro tempo, o time paraense empatou. Na fase final, virou parta 2 x 1.&nbsp;</p><br />\r\n<p>O MAC jogou jogou uma bola na trave, com Raimundinho, e perdeu v&aacute;rias oportunidades de gol. Na soma dos resultados, o Paysandu venceu por 4 x 3 e enfrentar&aacute; Brasiliense ou Sport, na segunda fase da competi&ccedil;&atilde;o. O MAC n&atilde;o tem mais jogos este ano, pois, at&eacute; para a Copa Cidade de S&atilde;o Lu&iacute;s, no segundo semestre, n&atilde;o conseguiu ficar entre os oito clubes que se classificaram para o torneio. Em 2015, o MAC disputar&aacute; a S&eacute;rie B do maranhense.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 0, 'copa-do-brasil-2014-mac-perde-belem.jpg', 0);
+(8, 2, 'Copa do Brasil 2014', 'MAC perde em Belém e está eliminado da competição', 'copa-do-brasil-2014-mac-perde-belem', '<p> <p>O Maranh&atilde;o Atl&eacute;tico Clube (MAC) foi eliminado da Copa do Brasil ao perder por 2 x 1 para o Paysandu-PA, na noite desta quarta-feira, no Est&aacute;dio Ol&iacute;mpico do Par&aacute;, em Bel&eacute;m. O MAC saiu na frente do placar, dando um susto no Paysandu. Elton marcou 1 x 0, mas ainda no primeiro tempo, o time paraense empatou. Na fase final, virou parta 2 x 1.&nbsp;</p><br />\r\n<p>O MAC jogou jogou uma bola na trave, com Raimundinho, e perdeu v&aacute;rias oportunidades de gol. Na soma dos resultados, o Paysandu venceu por 4 x 3 e enfrentar&aacute; Brasiliense ou Sport, na segunda fase da competi&ccedil;&atilde;o. O MAC n&atilde;o tem mais jogos este ano, pois, at&eacute; para a Copa Cidade de S&atilde;o Lu&iacute;s, no segundo semestre, n&atilde;o conseguiu ficar entre os oito clubes que se classificaram para o torneio. Em 2015, o MAC disputar&aacute; a S&eacute;rie B do maranhense.</p></p>\r\n', NULL, '2014-04-26 23:23:13', 0, 'copa-do-brasil-2014-mac-perde-belem.jpg', 0),
+(16, 2, 'Noticia 1', 'Titulo da Noticia', 'titulo-da-noticia', '', 'Joas Ramos', '2014-08-13 15:36:07', 0, NULL, 1),
+(17, 3, 'Noticia 2', 'Titulo da Noticia 2', 'titulo-da-noticia-2', '<p>Texto da Noticia</p>', 'Joas Ramos', '2014-08-08 15:39:36', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -747,13 +725,19 @@ INSERT INTO `noticia` (`idnoticia`, `idtipo_noticia`, `titulo`, `descricao`, `ur
 -- Estrutura da tabela `noticia_arbitro`
 --
 
-DROP TABLE IF EXISTS `noticia_arbitro`;
-CREATE TABLE `noticia_arbitro` (
+CREATE TABLE IF NOT EXISTS `noticia_arbitro` (
   `idnoticia` int(11) NOT NULL,
   `idarbitro` int(11) NOT NULL,
   KEY `idarbitro` (`idarbitro`),
   KEY `idnoticia` (`idnoticia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `noticia_arbitro`
+--
+
+INSERT INTO `noticia_arbitro` (`idnoticia`, `idarbitro`) VALUES
+(17, 1);
 
 -- --------------------------------------------------------
 
@@ -761,8 +745,7 @@ CREATE TABLE `noticia_arbitro` (
 -- Estrutura da tabela `noticia_clube`
 --
 
-DROP TABLE IF EXISTS `noticia_clube`;
-CREATE TABLE `noticia_clube` (
+CREATE TABLE IF NOT EXISTS `noticia_clube` (
   `idnoticia` int(11) NOT NULL,
   `clube_idclube` int(11) NOT NULL,
   PRIMARY KEY (`idnoticia`,`clube_idclube`),
@@ -775,7 +758,8 @@ CREATE TABLE `noticia_clube` (
 --
 
 INSERT INTO `noticia_clube` (`idnoticia`, `clube_idclube`) VALUES
-(7, 1);
+(7, 1),
+(16, 3);
 
 -- --------------------------------------------------------
 
@@ -783,8 +767,7 @@ INSERT INTO `noticia_clube` (`idnoticia`, `clube_idclube`) VALUES
 -- Estrutura da tabela `noticia_competicao`
 --
 
-DROP TABLE IF EXISTS `noticia_competicao`;
-CREATE TABLE `noticia_competicao` (
+CREATE TABLE IF NOT EXISTS `noticia_competicao` (
   `idcompeticao` int(11) NOT NULL,
   `idnoticia` int(11) NOT NULL,
   PRIMARY KEY (`idcompeticao`,`idnoticia`),
@@ -798,8 +781,7 @@ CREATE TABLE `noticia_competicao` (
 -- Estrutura da tabela `rodada`
 --
 
-DROP TABLE IF EXISTS `rodada`;
-CREATE TABLE `rodada` (
+CREATE TABLE IF NOT EXISTS `rodada` (
   `fase_idfase` int(11) NOT NULL,
   `jogo_idjogo` int(11) DEFAULT NULL,
   `apelido` varchar(45) DEFAULT NULL,
@@ -877,8 +859,7 @@ INSERT INTO `rodada` (`fase_idfase`, `jogo_idjogo`, `apelido`, `n_jogos`) VALUES
 -- Estrutura da tabela `tipo_fase`
 --
 
-DROP TABLE IF EXISTS `tipo_fase`;
-CREATE TABLE `tipo_fase` (
+CREATE TABLE IF NOT EXISTS `tipo_fase` (
   `idtipo_fase` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idtipo_fase`)
@@ -904,8 +885,7 @@ INSERT INTO `tipo_fase` (`idtipo_fase`, `nome`) VALUES
 -- Estrutura da tabela `tipo_grupo`
 --
 
-DROP TABLE IF EXISTS `tipo_grupo`;
-CREATE TABLE `tipo_grupo` (
+CREATE TABLE IF NOT EXISTS `tipo_grupo` (
   `idtipo_grupo` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idtipo_grupo`)
@@ -930,8 +910,7 @@ INSERT INTO `tipo_grupo` (`idtipo_grupo`, `nome`) VALUES
 -- Estrutura da tabela `tipo_noticia`
 --
 
-DROP TABLE IF EXISTS `tipo_noticia`;
-CREATE TABLE `tipo_noticia` (
+CREATE TABLE IF NOT EXISTS `tipo_noticia` (
   `idtipo_noticia` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(250) NOT NULL,
   PRIMARY KEY (`idtipo_noticia`)
@@ -953,8 +932,7 @@ INSERT INTO `tipo_noticia` (`idtipo_noticia`, `nome`) VALUES
 -- Estrutura da tabela `turno`
 --
 
-DROP TABLE IF EXISTS `turno`;
-CREATE TABLE `turno` (
+CREATE TABLE IF NOT EXISTS `turno` (
   `idturno` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`idturno`)
@@ -976,8 +954,7 @@ INSERT INTO `turno` (`idturno`, `nome`) VALUES
 -- Estrutura da tabela `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE `usuario` (
+CREATE TABLE IF NOT EXISTS `usuario` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_bin DEFAULT NULL,
@@ -996,45 +973,45 @@ INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `user`, `pass`, `url`, `adm
 (1, 'Administrador', 'joasramos@uol.com.br', 'admin', 'root123', 'administrador', 1);
 
 --
--- Constraints for dumped tables
+-- Restrições para as tabelas dumpadas
 --
 
 --
--- Limitadores para a tabela `arbitragem`
+-- Restrições para a tabela `arbitragem`
 --
 ALTER TABLE `arbitragem`
   ADD CONSTRAINT `arbitragem_ibfk_1` FOREIGN KEY (`idarbitro`) REFERENCES `arbitro` (`idarbitro`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_arbitragem_jogo1` FOREIGN KEY (`idjogo`) REFERENCES `jogo` (`idjogo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `arquivo_competicao`
+-- Restrições para a tabela `arquivo_competicao`
 --
 ALTER TABLE `arquivo_competicao`
   ADD CONSTRAINT `fk_arquivo_competicao_competicao1` FOREIGN KEY (`idcompeticao`) REFERENCES `competicao` (`idcompeticao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_arquivo_competicao_documento1` FOREIGN KEY (`iddocumento`) REFERENCES `documento` (`iddocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `arquivo_jogo`
+-- Restrições para a tabela `arquivo_jogo`
 --
 ALTER TABLE `arquivo_jogo`
   ADD CONSTRAINT `fk_arquivo_jogo_documento1` FOREIGN KEY (`iddocumento`) REFERENCES `documento` (`iddocumento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_arquivo_jogo_jogo1` FOREIGN KEY (`idjogo`) REFERENCES `jogo` (`idjogo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `classificacao`
+-- Restrições para a tabela `classificacao`
 --
 ALTER TABLE `classificacao`
   ADD CONSTRAINT `fk_classificacao_convidado1` FOREIGN KEY (`idconvidado`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `contrato`
+-- Restrições para a tabela `contrato`
 --
 ALTER TABLE `contrato`
   ADD CONSTRAINT `fk_contrato_clube1` FOREIGN KEY (`idclube`) REFERENCES `clube` (`idclube`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_contrato_jogador1` FOREIGN KEY (`idjogador`) REFERENCES `jogador` (`idjogador`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `convidado`
+-- Restrições para a tabela `convidado`
 --
 ALTER TABLE `convidado`
   ADD CONSTRAINT `fk_convidado_clube1` FOREIGN KEY (`idclube`) REFERENCES `clube` (`idclube`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -1042,90 +1019,90 @@ ALTER TABLE `convidado`
   ADD CONSTRAINT `fk_convidado_grupo1` FOREIGN KEY (`idgrupo`) REFERENCES `grupo` (`idgrupo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `detalhe_jogador`
+-- Restrições para a tabela `detalhe_jogador`
 --
 ALTER TABLE `detalhe_jogador`
   ADD CONSTRAINT `fk_detalhe_jogador_competicao1` FOREIGN KEY (`idcompeticao`) REFERENCES `competicao` (`idcompeticao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_detalhe_jogador_contrato1` FOREIGN KEY (`idcontrato`) REFERENCES `contrato` (`idcontrato`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `divisao_clube`
+-- Restrições para a tabela `divisao_clube`
 --
 ALTER TABLE `divisao_clube`
   ADD CONSTRAINT `fk_clube_has_divisao_clube1` FOREIGN KEY (`idclube`) REFERENCES `clube` (`idclube`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_clube_has_divisao_divisao1` FOREIGN KEY (`iddivisao`) REFERENCES `divisao` (`iddivisao`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `fase`
+-- Restrições para a tabela `fase`
 --
 ALTER TABLE `fase`
   ADD CONSTRAINT `fk_modulo_has_tipo_fase_modulo1` FOREIGN KEY (`idmodulo`) REFERENCES `modulo` (`idmodulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_modulo_has_tipo_fase_tipo_fase1` FOREIGN KEY (`idtipo_fase`) REFERENCES `tipo_fase` (`idtipo_fase`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `galeria`
+-- Restrições para a tabela `galeria`
 --
 ALTER TABLE `galeria`
   ADD CONSTRAINT `galeria_ibfk_1` FOREIGN KEY (`idimagem`) REFERENCES `imagem` (`idimagem`),
   ADD CONSTRAINT `galeria_ibfk_2` FOREIGN KEY (`idnoticia`) REFERENCES `noticia` (`idnoticia`);
 
 --
--- Limitadores para a tabela `grupo`
+-- Restrições para a tabela `grupo`
 --
 ALTER TABLE `grupo`
   ADD CONSTRAINT `fk_grupo_tipo_grupo1` FOREIGN KEY (`idtipo_grupo`) REFERENCES `tipo_grupo` (`idtipo_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `grupo_ibfk_1` FOREIGN KEY (`idfase`) REFERENCES `fase` (`idfase`);
 
 --
--- Limitadores para a tabela `jogo`
+-- Restrições para a tabela `jogo`
 --
 ALTER TABLE `jogo`
   ADD CONSTRAINT `fk_jogo_convidado1` FOREIGN KEY (`time_casa`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_jogo_convidado2` FOREIGN KEY (`time_visitante`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `local`
+-- Restrições para a tabela `local`
 --
 ALTER TABLE `local`
   ADD CONSTRAINT `fk_estadio_has_jogo_estadio1` FOREIGN KEY (`idestadio`) REFERENCES `estadio` (`idestadio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_estadio_has_jogo_jogo1` FOREIGN KEY (`idjogo`) REFERENCES `jogo` (`idjogo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `modulo`
+-- Restrições para a tabela `modulo`
 --
 ALTER TABLE `modulo`
   ADD CONSTRAINT `fk_competicao_has_turno_competicao` FOREIGN KEY (`idcompeticao`) REFERENCES `competicao` (`idcompeticao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_competicao_has_turno_turno1` FOREIGN KEY (`idturno`) REFERENCES `turno` (`idturno`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `noticia`
+-- Restrições para a tabela `noticia`
 --
 ALTER TABLE `noticia`
   ADD CONSTRAINT `fk_tipo_noticia` FOREIGN KEY (`idtipo_noticia`) REFERENCES `tipo_noticia` (`idtipo_noticia`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
--- Limitadores para a tabela `noticia_arbitro`
+-- Restrições para a tabela `noticia_arbitro`
 --
 ALTER TABLE `noticia_arbitro`
   ADD CONSTRAINT `noticia_arbitro_ibfk_1` FOREIGN KEY (`idnoticia`) REFERENCES `noticia` (`idnoticia`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `noticia_arbitro_ibfk_2` FOREIGN KEY (`idarbitro`) REFERENCES `arbitro` (`idarbitro`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `noticia_clube`
+-- Restrições para a tabela `noticia_clube`
 --
 ALTER TABLE `noticia_clube`
   ADD CONSTRAINT `fk_noticia_clube_clube1` FOREIGN KEY (`clube_idclube`) REFERENCES `clube` (`idclube`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_noticia_clube_noticia1` FOREIGN KEY (`idnoticia`) REFERENCES `noticia` (`idnoticia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `noticia_competicao`
+-- Restrições para a tabela `noticia_competicao`
 --
 ALTER TABLE `noticia_competicao`
   ADD CONSTRAINT `fk_noticia_competicao_competicao1` FOREIGN KEY (`idcompeticao`) REFERENCES `competicao` (`idcompeticao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_noticia_competicao_noticia1` FOREIGN KEY (`idnoticia`) REFERENCES `noticia` (`idnoticia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Limitadores para a tabela `rodada`
+-- Restrições para a tabela `rodada`
 --
 ALTER TABLE `rodada`
   ADD CONSTRAINT `fk_fase_has_jogo_fase1` FOREIGN KEY (`fase_idfase`) REFERENCES `fase` (`idfase`) ON DELETE NO ACTION ON UPDATE NO ACTION,

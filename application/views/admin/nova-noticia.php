@@ -6,6 +6,7 @@
                 <!-- Form Name -->
                 <legend>Cadastro/Edição de Notícia</legend>
                 <?= isset($msg) ? $msg : "" ?>
+
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_titulo">Tag</label>  
@@ -47,12 +48,12 @@
                     <label class="col-md-4 control-label" for="not_opt">Referência</label>
                     <div class="col-md-5"> 
                         <select name="not_tipo" class="form-control" id="not_tipo">
-                        <?php if ($tipo_n): foreach ($tipo_n as $tn): ?>
-                                        <option value="<?= $tn->idtipo_noticia ?>"> <?= $tn->nome ?></option>
-                                            <?php
-                                        endforeach;
-                                    endif;
-                                    ?>
+                            <?php if ($tipo_n): foreach ($tipo_n as $tn): ?>
+                                    <option value="<?= $tn->idtipo_noticia ?>"> <?= $tn->nome ?></option>
+                                    <?php
+                                endforeach;
+                            endif;
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                 </div>
 
                 <!--PAINEL PARA SELEÇÃO DE ARBITRO-->
-<!--                <div class="form-group" style="display: none" id="pn_sel_arb" >
+                <div class="form-group" style="display: none" id="pn_sel_arb" >
                     <label class="col-md-4 control-label">Selecione o arbitro</label>
                     <div class="col-md-5"> 
                         <select name="not_arb" class="form-control">
@@ -88,7 +89,15 @@
                             ?>
                         </select>
                     </div>
-                </div>-->
+                </div>
+
+                <!--DESTAQUE-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label"> Destaque </label>
+                    <div class="col-md-1">
+                        <input class="form-control" type="checkbox" name="not_dest" />
+                    </div>
+                </div>
 
                 <!-- Textarea -->
                 <div class="form-group">

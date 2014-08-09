@@ -7,6 +7,8 @@
  */
 abstract class MY_Controller extends CI_Controller {
 
+    public $extra_action = array();
+
     public function __construct($template = null) {
         parent::__construct();
         /*
@@ -54,6 +56,7 @@ abstract class MY_Controller extends CI_Controller {
         $data['controle'] = $controle;
         $data['colunas'] = $colunas;
         $data['list'] = $list;
+        $data['extra'] = $this->extra_action;
         $this->output->set_template("admin");
         $this->load->view("listagem", $data);
     }
@@ -69,7 +72,7 @@ abstract class MY_Controller extends CI_Controller {
     }
 
     function gerarUrl($str) {
-        $variavel_limpa = strtolower(ereg_replace("[^a-zA-Z0-9-]", "-", strtr(utf8_decode(trim($str)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
+        $variavel_limpa = strtolower(preg_replace("/[^a-zA-Z0-9-]/", "-", strtr(utf8_decode(trim($str)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
 
         return $variavel_limpa;
     }

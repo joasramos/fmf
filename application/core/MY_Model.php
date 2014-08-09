@@ -59,6 +59,15 @@ class MY_Model extends CI_Model {
         return $this->db->get($entity)->result();
     }
 
+    public function findBySimpleValueOrder($entity, $columns, $column, $value, $order) {
+        if (count($columns) > 0) {
+            $this->db->select(implode(", ", $columns));
+        }
+        $this->db->like($column, $value);
+        $this->db->order_by($order);
+        return $this->db->get($entity)->result();
+    }
+
     /**
      * Metodo para retornar um registro especifico
      * @param type $entity - representa a tabela onde será feita a busca
@@ -90,6 +99,16 @@ class MY_Model extends CI_Model {
         foreach ($this->col_insert as $key => $coluna) {
             $data[$coluna] = $values[$key];
         }
+
+        $this->db->trans_start();
+        $this->db->insert($entity, $data);
+        $id = $this->db->insert_id();
+        $this->db->trans_complete();
+
+        return $id;
+    }
+
+    public function insertSimple($entity, $data) {
 
         $this->db->trans_start();
         $this->db->insert($entity, $data);
@@ -135,7 +154,7 @@ class MY_Model extends CI_Model {
      * atualizadas
      */
     public function setColInsert($values) {
-        $this->col_insert = array(); 
+        $this->col_insert = array();
         foreach ($values as $key => $value) {
             $this->col_insert[$key] = $value;
         }
