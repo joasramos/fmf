@@ -11,8 +11,6 @@ if (!defined("BASEPATH")) {
  */
 class Noticias extends MY_Controller {
 
-    private $info_img_up = array();
-
     public function __construct($template = null) {
         parent::__construct($template);
         $this->setTitle("Notícias");
@@ -30,6 +28,13 @@ class Noticias extends MY_Controller {
         $this->load->view("site/noticias", $data);
     }
 
+    /**
+     * Método para gerenciar qual ABA noticia exibir, quando o usuário
+     * selecionar uma noticia. 
+     * @param type $aba - ABA SELECIONADA
+     * @param type $noticia - OBJETO QUE REPRESENTA A NOTICIA
+     * @return type
+     */
     private function managerNews($aba, $noticia) {
         $news_selected = array();
 
@@ -59,8 +64,10 @@ class Noticias extends MY_Controller {
         /*
          * Adicionando ações a tabela padrão
          */
-        $this->extra_action[0]['url'] = "noticias/mngGallery/" . $list[0]->idnoticia; //função para chamar
-        $this->extra_action[0]['url_icon'] = "assets/images/icon/edit-icon.png"; //icone da ação
+        foreach ($list as $k => $l) {
+            $this->extra_action[$k]['url'] = "noticias/mngGallery/" . $l->idnoticia; //função para chamar
+            $this->extra_action[$k]['url_icon'] = "assets/images/icon/edit-icon.png"; //icone da ação
+        }
 
         $this->loadTable("noticias", array("ID", "Título", "Descrição", "Data"), $list);
     }
@@ -73,32 +80,55 @@ class Noticias extends MY_Controller {
 
     public function mngGallery($id = null) {
         $this->output->set_template("admin");
-        
+
         /**
          * Buscamos dados da noticia
          */
-        echo $id;
-        
+        $data['noticia'] = $this->noticia->findBySimpleValueExact("noticia", array(), "idnoticia", $id, array());
+
         /*
          * Verificamos se existe um diretório para essa noticia
          */
-        
-        
+
+        if (!is_dir('uploads/' . $data['noticia'][0]->url)) {
+            mkdir('./uploads/' . $data['noticia'][0]->url, 0777, TRUE);
+        }
+
+
         /**
-         * Carregamos area de upload
+         * Carregamos area de upload, passando a url da noticia e o id da mema.
          */
+        redirect("upload/index/" . $data['noticia'][0]->url . "/" . $id);
     }
 
+    /**
+     * Exibe view para cadastro de nova noticia
+     */
     public function newElement() {
         $this->output->set_template("admin");
+
+        /*
+         * Editor de texto
+         */
         $this->load->js("assets/js/tinymce/js/tinymce/tinymce.min.js");
         $this->load->js("assets/themes/admin/js/noticias.js");
+
+        /*
+         * Jquery Library necessária para carregarmos o módulo do calendário
+         */
         $this->load->js("assets/js/jquery-ui/js/jquery-ui-1.10.3.custom.js");
+
+        /**
+         * Estilo do calendário
+         */
         $this->load->css("assets/js/jquery-ui/css/south-street/jquery-ui-1.10.4.custom.css");
 
+        /*
+         * Carregamos tipo da noticia
+         */
         $data['tipo_n'] = $this->noticia->getTipoNoticia();
 
-//        GAMBIARRA DETECTADA
+//        GAMBIARRA DETECTADA - (Deveriamos ter entidades clube e arbitragem chamando o metodo findAll, mas assim funciona :) )
         $data['clubes'] = $this->noticia->findAll("clube", array(), array(), array());
         $data['arbitragem'] = $this->noticia->findAll("arbitro", array(), array(), array());
 //        END GAMBIARRA
@@ -107,13 +137,34 @@ class Noticias extends MY_Controller {
     }
 
     public function drop() {
-        
+        $idnot = $this->input->post('idnoticia');
+        $idtipo = $this->input->post('idtipo');
+
+        /**
+         * Verificamos qual o tipo da noticia e excluimos-o
+         */
+        //CODIGO AQUI
+
+        /*
+         * Excluimos a Galeria
+         */
+
+        //CODIGO AQUI
+        /*
+         * Enfim, deletamos a noticia
+         */
+        //CODIGO AQUI
     }
 
     public function find() {
         $this->output->set_template("admin");
     }
 
+    /**
+     *  Método para seta um objeto array que representa uma noticia.
+     * Dados são recuperados via POST
+     * @return um objeto que representa uma noticia
+     */
     public function setObject() {
         $obj = array();
 
@@ -151,16 +202,24 @@ class Noticias extends MY_Controller {
         return $obj;
     }
 
+    /**
+     * Método para inserir ou atualizar uma noticia no banco
+     */
     public function insert() {
         $this->output->set_template("admin");
 
+        /**
+         * Setamos o objeto noticia
+         */
         $obj = $this->setObject();
 
-//        print_r($this->input->post());
         if (isset($obj["idnoticia"])) {
-            
+            //SE ESTAMOS EDITANDO
         } else {
 
+            /**
+             * Inserimos e recuperamos o id da noticia inserida
+             */
             $idnoticia = $this->noticia->insertSimple("noticia", $obj);
             $data["idnoticia"] = $idnoticia;
 
@@ -180,59 +239,4 @@ class Noticias extends MY_Controller {
 
         redirect("noticias/showAll", "refresh");
     }
-
-    public function setFileUpload() {
-        /*
-         * HELPERS FORM E URL FORAM CARREGADOS no autoload.php
-         */
-
-        /**
-         * Setar path onde será salva a imagem
-         */
-        $config['upload_path'] = "assets/images/noticias";
-
-        /**
-         * Imagens permitidas
-         */
-        $config['allowed_types'] = "gif|jpg|png";
-
-        /**
-         * Sobrescrever caso imagem já exista
-         */
-        $config['overwrite'] = "TRUE";
-
-        /**
-         * Carregar a biblioteca que realiza upload
-         */
-        $this->load->library('upload');
-
-        /**
-         * Inicializa a programa de upload
-         */
-        $this->upload->initialize($config);
-
-        /**
-         * Seta tipos permitidos
-         */
-//        $this->upload->set_allowed_types("*");
-        //$data['upload_data'] = '';
-
-        /**
-         * Verifica se foi possivel realizar o upload
-         */
-        if (!$this->upload->do_upload('not_img')) {
-            $data = array('msg' => $this->upload->display_errors());
-        } else {
-            $data = array('msg' => "Ok");
-
-            $this->info_img_up = $this->upload->data();
-        }
-
-        return $data['msg'];
-    }
-
-    public function update() {
-        
-    }
-
 }

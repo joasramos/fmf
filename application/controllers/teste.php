@@ -9,15 +9,15 @@ if (!defined("BASEPATH")) {
  *
  * @author joasaraujo
  */
-class Registro extends MY_Controller{
+class Teste extends MY_Controller {
 
     public function __construct($template = null) {
         parent::__construct($template);
         $this->setTitle("Registro");
     }
-    
-    public function index(){
-        $this->load->view("site/registro");
+
+    public function index() {
+        $this->load->view("teste/teste_upload");
     }
 
     public function drop() {
@@ -36,8 +36,9 @@ class Registro extends MY_Controller{
         
     }
 
-    public function update() {
-        
+    public function setUpload() {
+        $data = $this->realizaUpload("teste", "", "userfile");
+        $this->load->view("teste/teste_upload", $data);
     }
 
 }

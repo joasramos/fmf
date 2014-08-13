@@ -24,7 +24,8 @@ and open the template in the editor.
     <noscript><link rel="stylesheet" href="<?= base_url() ?>assets/js/fileupload/css/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="<?= base_url() ?>assets/js/fileupload/css/jquery.fileupload-ui-noscript.css"></noscript>
     <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="upload/do_upload" method="POST" enctype="multipart/form-data">
+    <form id="fileupload" action="upload/do_upload/<?= $g_url ?>/<?= $g_id ?>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" value="<?= $g_url ?>" id="<?= $g_id ?>"/>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="col-lg-7">
@@ -112,7 +113,7 @@ and open the template in the editor.
         <td>
         <span class="preview">
         {% if (file.thumbnailUrl) { %}
-        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}" width=32 height=32></a>
         {% } %}
         </span>
         </td>

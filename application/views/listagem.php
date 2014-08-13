@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($list as $value): $objeto = (array) $value ?>
+                <?php foreach ($list as $k => $value): $objeto = (array) $value ?>
                     <tr class="row-color-over">
                         <?php
                         $id;
@@ -67,11 +67,9 @@
                                 <img width="22" src="<?= base_url() ?>/assets/images/icon/delete-icon.png"/> 
                             </a>
                             <?php if (count($extra)): ?>
-                                <?php foreach ($extra as $e): ?>
-                                    <a href="<?= base_url() . $e['url'] ?>"> 
-                                        <img width="22" src="<?= base_url() . $e['url_icon'] ?>"/> 
-                                    </a>                            
-                                <?php endforeach; ?>
+                                <a href="<?= base_url() . $extra[$k]['url'] ?>"> 
+                                    <img width="22" src="<?= base_url() . $extra[$k]['url_icon'] ?>"/> 
+                                </a>                            
                             <?php endif; ?>
                         </td>
                     </tr>

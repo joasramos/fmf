@@ -12,7 +12,7 @@ $active_record = TRUE;
 // configurações banco LOCAL
 $db['localhost']['hostname'] = 'localhost';
 $db['localhost']['username'] = 'root';
-$db['localhost']['password'] = '1q2w3e';
+$db['localhost']['password'] = '';
 $db['localhost']['database'] = 'fmf2';
 $db['localhost']['dbdriver'] = 'mysqli';
 $db['localhost']['dbprefix'] = '';

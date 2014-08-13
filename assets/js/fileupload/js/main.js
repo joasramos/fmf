@@ -11,25 +11,27 @@
 
 /* global $, window */
 
-$(function () {
+$(function() {
     'use strict';
-
+    var path = $("input[type='hidden']").val(), id = $("input[type='hidden']").attr("id");
     // Initialize the jQuery File Upload widget:
+    console.log(path);
+    
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
-        url: 'upload/do_upload/'
+        url: 'upload/do_upload/' + path + "/" + id
     });
 
     // Enable iframe cross-domain access via redirect option:
     $('#fileupload').fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
+            'option',
+            'redirect',
+            window.location.href.replace(
+                    /\/[^\/]*$/,
+                    '/cors/result.html?%s'
+                    )
+            );
 
     if (window.location.hostname === 'blueimp.github.io') {
         // Demo settings:
@@ -39,7 +41,7 @@ $(function () {
             // which actually support image resizing, but fail to
             // send Blob objects via XHR requests:
             disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator.userAgent),
+                    .test(window.navigator.userAgent),
             maxFileSize: 5000000,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
         });
@@ -48,11 +50,11 @@ $(function () {
             $.ajax({
                 url: '//jquery-file-upload.appspot.com/',
                 type: 'HEAD'
-            }).fail(function () {
+            }).fail(function() {
                 $('<div class="alert alert-danger"/>')
-                    .text('Upload server currently unavailable - ' +
-                            new Date())
-                    .appendTo('#fileupload');
+                        .text('Upload server currently unavailable - ' +
+                                new Date())
+                        .appendTo('#fileupload');
             });
         }
     } else {
@@ -64,11 +66,12 @@ $(function () {
             url: $('#fileupload').fileupload('option', 'url'),
             dataType: 'json',
             context: $('#fileupload')[0]
-        }).always(function () {
+        }).always(function() {
             $(this).removeClass('fileupload-processing');
-        }).done(function (result) {
+        }).done(function(result) {
+            console.log(result);
             $(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});
+                    .call(this, $.Event('done'), {result: result});
         });
     }
 

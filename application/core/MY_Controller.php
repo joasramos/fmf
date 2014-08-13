@@ -21,7 +21,15 @@ abstract class MY_Controller extends CI_Controller {
          */
         $this->load->model('clube');
         $this->load->model('competicao');
+
+        /*
+         * Carregamos os clubes exibidos na homepage
+         */
         $this->loadClubes();
+
+        /**
+         * Carregamos as competições exibidas na combobox na home page
+         */
         $this->loadCompeticao();
         $this->_init($template);
     }
@@ -44,13 +52,25 @@ abstract class MY_Controller extends CI_Controller {
         $this->output->set_template($template);
     }
 
+    /*
+     * Método para ajustar titulo da página
+     */
+
     function setTitle($title) {
         $this->output->set_title($title);
     }
 
+    /**
+     * 
+     * Método para passar dados para a home page
+     */
     function setData($data) {
         $this->output->set_data($data);
     }
+
+    /*
+     * Carrega table padrão para entity utilizadas na área admin.
+     */
 
     function loadTable($controle, $colunas, $list) {
         $data['controle'] = $controle;
@@ -61,20 +81,98 @@ abstract class MY_Controller extends CI_Controller {
         $this->load->view("listagem", $data);
     }
 
+    /*
+     * Carrega clubes
+     */
+
     private function loadClubes() {
         $data['serie_a'] = $this->clube->getClubeByDivisao('Série A');
         $this->setData($data);
     }
+
+    /*
+     * Carrega competições
+     */
 
     private function loadCompeticao() {
         $data['competicao'] = $this->competicao->findBySimpleValueExact("competicao", array('apelido', 'url'), "ano", date('Y'), array());
         $this->setData($data);
     }
 
+    /*
+     * Gerar uma url automática do tipo minha-url-gerada.
+     * Ex.:  minha url gerada => minha-url-gerada.
+     */
+
     function gerarUrl($str) {
         $variavel_limpa = strtolower(preg_replace("/[^a-zA-Z0-9-]/", "-", strtr(utf8_decode(trim($str)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"), "aaaaeeiooouuncAAAAEEIOOOUUNC-")));
 
         return $variavel_limpa;
+    }
+
+    /*
+     * Método utilizado para upload de arquivos
+     */
+
+    public function realizaUpload($path = "", $tipo_arq = "", $html_item) {
+        /*
+         * HELPERS FORM E URL FORAM CARREGADOS no autoload.php
+         */
+        $input = $html_item ? $html_item : FALSE;
+
+        if (!$input) {
+            echo "NÃO FOI POSSIVEL MANIPULAR ARQUIVO PARA UPLOAD";
+            return FALSE;
+        }
+
+        $this->criarDiretorio($path);
+        /**
+         * Setar path onde será salva a imagem
+         */
+        $config['upload_path'] = "uploads/" . $path;
+
+        /**
+         * Imagens permitidas
+         */
+        $config['allowed_types'] = "gif|jpg|png|" . $tipo_arq;
+
+        /**
+         * Sobrescrever caso imagem já exista
+         */
+        $config['overwrite'] = "TRUE";
+
+        /**
+         * Carregar a biblioteca que realiza upload
+         */
+        $this->load->library('upload');
+
+        /**
+         * Inicializa a programa de upload
+         */
+        $this->upload->initialize($config);
+
+        /**
+         * Seta tipos permitidos
+         */
+        /**
+         * Verifica se foi possivel realizar o upload
+         */
+        if (!$this->upload->do_upload($input)) {
+            $data = array('msg' => $this->upload->display_errors());
+        } else {
+            $data = array('file' => $this->upload->data(), 'status' => 1);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Método para criar um diretorio caso ele não exista
+     */
+    function criarDiretorio($dir) {
+        if (!is_dir('uploads/' . $dir)) {
+            mkdir('./uploads/' . $dir, 0777, TRUE);
+        }
     }
 
     abstract function insert();

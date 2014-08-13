@@ -11,14 +11,14 @@ class Upload extends CI_Controller {
         $this->load->helper(array('form', 'url', 'file'));
     }
 
-    public function index() {
-        $this->load->view('admin/upload', array('error' => ''));
+    public function index($gallery_url = null, $id = null) {
+        $this->load->view('admin/upload', array('error' => '', 'g_url' => $gallery_url, 'g_id' => $id));
     }
 
-    public function do_upload() {
-        $upload_path_url = base_url() . 'uploads/';
+    public function do_upload($gallery_url = null, $id = null) {
+        $upload_path_url = base_url() . 'uploads/' . $gallery_url . "/";
 
-        $config['upload_path'] = FCPATH . 'uploads/';
+        $config['upload_path'] = FCPATH . 'uploads/' . $gallery_url . "/";
         $config['allowed_types'] = 'jpg|jpeg|png|gif';
         $config['max_size'] = '30000';
 
@@ -27,18 +27,21 @@ class Upload extends CI_Controller {
         if (!$this->upload->do_upload()) {
             //$error = array('error' => $this->upload->display_errors());
             //$this->load->view('upload', $error);
+           
             //Load the list of existing files in the upload directory
             $existingFiles = get_dir_file_info($config['upload_path']);
             $foundFiles = array();
             $f = 0;
             foreach ($existingFiles as $fileName => $info) {
                 if ($fileName != 'thumbs') {//Skip over thumbs directory
+                    
                     //set the data for the json array   
                     $foundFiles[$f]['name'] = $fileName;
                     $foundFiles[$f]['size'] = $info['size'];
-                    $foundFiles[$f]['url'] = $upload_path_url . $fileName;
-                    $foundFiles[$f]['thumbnailUrl'] = $upload_path_url . 'thumbs/' . $fileName;
-                    $foundFiles[$f]['deleteUrl'] = base_url() . 'upload/deleteImage/' . $fileName;
+                    $foundFiles[$f]['url'] = $upload_path_url . "/" . $fileName;
+//                    $foundFiles[$f]['thumbnailUrl'] = $upload_path_url . 'thumbs/' . $fileName;
+                    $foundFiles[$f]['thumbnailUrl'] = $upload_path_url . "/" . $fileName;
+                    $foundFiles[$f]['deleteUrl'] = base_url() . 'upload/deleteImage/' . $gallery_url . "/" . $fileName . "/" . $id;
                     $foundFiles[$f]['deleteType'] = 'DELETE';
                     $foundFiles[$f]['error'] = null;
 
@@ -49,6 +52,7 @@ class Upload extends CI_Controller {
                     ->set_content_type('application/json')
                     ->set_output(json_encode(array('files' => $foundFiles)));
         } else {
+            
             $data = $this->upload->data();
             /*
              * Array
@@ -70,17 +74,17 @@ class Upload extends CI_Controller {
               )
              */
             // to re-size for thumbnail images un-comment and set path here and in json array
-            $config = array();
-            $config['image_library'] = 'gd2';
-            $config['source_image'] = $data['full_path'];
-            $config['create_thumb'] = TRUE;
-            $config['new_image'] = $data['file_path'] . 'thumbs/';
-            $config['maintain_ratio'] = TRUE;
-            $config['thumb_marker'] = '';
-            $config['width'] = 75;
-            $config['height'] = 50;
-            $this->load->library('image_lib', $config);
-            $this->image_lib->resize();
+//            $config = array();
+//            $config['image_library'] = 'gd2';
+//            $config['source_image'] = $data['full_path'];
+//            $config['create_thumb'] = TRUE;
+//            $config['new_image'] = $data['file_path'];
+//            $config['maintain_ratio'] = TRUE;
+//            $config['thumb_marker'] = '';
+//            $config['width'] = 75;
+//            $config['height'] = 50;
+//            $this->load->library('image_lib', $config);
+//            $this->image_lib->resize();
 
 
             //set the data for the json array
@@ -88,10 +92,10 @@ class Upload extends CI_Controller {
             $info->name = $data['file_name'];
             $info->size = $data['file_size'] * 1024;
             $info->type = $data['file_type'];
-            $info->url = $upload_path_url . $data['file_name'];
+            $info->url = $upload_path_url . "/" . $data['file_name'];
             // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
-            $info->thumbnailUrl = $upload_path_url . 'thumbs/' . $data['file_name'];
-            $info->deleteUrl = base_url() . 'upload/deleteImage/' . $data['file_name'];
+            $info->thumbnailUrl = $upload_path_url . '/' . $data['file_name'];
+            $info->deleteUrl = base_url() . 'upload/deleteImage/' . $gallery_url . "/" . $data['file_name'] . "/" . $id;
             $info->deleteType = 'DELETE';
             $info->error = null;
 
@@ -110,9 +114,9 @@ class Upload extends CI_Controller {
         }
     }
 
-    public function deleteImage($file) {//gets the job done but you might want to add error checking and security
-        $success = unlink(FCPATH . 'uploads/' . $file);
-        $success = unlink(FCPATH . 'uploads/thumbs/' . $file);
+    public function deleteImage($dir, $file, $id) {//gets the job done but you might want to add error checking and security
+        $success = unlink(FCPATH . 'uploads/' . $dir . "/" . $file);
+//        $success = unlink(FCPATH . 'uploads/thumbs/' . $file);
         //info to see if it is doing what it is supposed to
         $info = new StdClass;
         $info->sucess = $success;
