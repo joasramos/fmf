@@ -46,11 +46,16 @@ class Arbitragens extends MY_Controller {
         
     }
 
+    public function newElement() {
+        $this->output->set_template("admin");
+        $this->load->view("admin/novo-arb");
+    }
+
     public function showDetailArbitro($idarb) {
         $this->output->unset_template();
-        
+
         $data['arb_info'] = $this->arbitragem->findBySimpleValueExact("arbitro", $this->arbitragem->ALL, "idarbitro", $idarb, array());
-        
+
         $this->load->view("site/detail-arbitro", $data);
     }
 

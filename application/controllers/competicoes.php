@@ -62,20 +62,42 @@ class Competicoes extends MY_Controller {
         $mod = $this->input->post("idmod");
         $fase = $this->input->post("idfase");
         $data['classificacao'] = $this->competicao->findClassByModFase($mod, $fase);
-        
+
         $this->load->view("site/class-tabela", $data);
     }
 
+    /**
+     * FUNÇÕES DA AREA ADMNISTRATIVA
+     */
+    /*
+     * Método que exibe todas as competições cadastradas
+     */
     public function showAll() {
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
         $list = $this->competicao->findBySimpleValue("competicao", array("idcompeticao", "nome", "apelido", "ano"), "nome", $value);
-//        $this->load->js("assets/themes/admin/js/competicoes.js");
         $this->loadTable("competicoes", array("ID", "Nome", "Apelido", "Ano"), $list);
     }
 
+    /*
+     * Método para deletar um competicao
+     */
+
     public function drop() {
-        
+
+        /*
+         * Tenta deletar a competicao
+         */
+
+        /*
+         * Redireciona para a area de competicoes,
+         * passando a mensagem de retorno da ação deletar
+         * como parametro
+         */
     }
+
+    /*
+     * Método para editar uma competicao 
+     */
 
     public function find($id = null) {
         $this->output->set_template("admin");
@@ -83,8 +105,8 @@ class Competicoes extends MY_Controller {
         $this->load->model("documento");
 
         $data['comp'] = $this->competicao->findBySimpleValueExact("competicao", array(), "idcompeticao", $id, array());
+        
         $data['modulos'] = $this->modulo->findModByComp($id);
-
         $data['documentos'] = $this->documento->findDocByComp($id);
 
         $this->load->js("assets/themes/admin/js/competicoes.js");
@@ -92,18 +114,17 @@ class Competicoes extends MY_Controller {
         /* Buscando turnos */
         $data['turnos'] = $this->getTurnos();
 
-        /* Buscando Fases */
-//        $this->load->model("fase");
-//        $data['fases'] = $this->fase->findFaseByMod($this->input->post("idmod"));
-//        $data['n_fases'] = count($data['fases']);
-
         $this->load->view("admin/nova-competicao", $data);
     }
 
-    public function getTurnos() {
+    private function getTurnos() {
         $this->load->model("modulo");
         return $this->modulo->findTurno();
     }
+
+    /*
+     * Método para persistir uma competição 
+     */
 
     public function insert() {
         $obj = $this->setObject();
@@ -121,6 +142,11 @@ class Competicoes extends MY_Controller {
         redirect(base_url() . "competicoes/showAll");
     }
 
+    /*
+     * Edita um array que representa uma competicao.
+     * Dados são recuperados via post
+     */
+
     public function setObject() {
         $obj = array();
         $obj[0] = $this->input->post('comp_nome');
@@ -135,9 +161,9 @@ class Competicoes extends MY_Controller {
         return $obj;
     }
 
-    public function update() {
-        
-    }
+    /*
+     * Exibe o formulário para cadastro de nova competicao
+     */
 
     public function newElement() {
         $this->output->set_template("admin");

@@ -1,10 +1,13 @@
-<div style="width: 500px; height: 250px">
-    <span class="b-close btn btn-danger col-md-offset-12">X</span>
+
+<!--VIEW PARA CADASTRAR OU EDITAR UM MODULO-->
+
+<div style="width: 480px; height: 250px; padding: 0">
+    <span class="b-close btn btn-danger col-md-offset-11">&nbsp;x&nbsp;</span>
     <form class="form-horizontal" id="form-cad-mod" action="javascript:void(0)">
         <fieldset>
 
             <!-- Form Name -->
-            <legend class="text-center text-info">Novo/Editar Módulo</legend>
+            <legend class="text-center text-info">Informações do Módulo</legend>
             <input type="hidden" name="mod_id" value="<?= isset($modulo[0]) ? $modulo[0]->idmodulo : "" ?>"/>
             <!-- Select Basic -->
             <div class="form-group">
@@ -43,8 +46,15 @@
 
         $("#btn_save_mod").click(function() {
 
+            /*
+             * 
+             * Serializamos os dados vindos do form de cadastro de módulo
+             */
             var data = $("#form-cad-mod").serialize() + "&id_comp=" + $("#comp_id").val() + "&mod_id=" + $("input[name='mod_id']").val();
 
+            /*
+             * Realizamos uma requisão ajax para armazenar o módulo
+             */
             $.ajax({
                 url: PATH + "modulos/insert",
                 data: data,
@@ -53,8 +63,14 @@
                     alert("Error ao cadastrar módulo!");
                 },
                 success: function(data, textStatus, jqXHR) {
+                    /*
+                     * Depois que inserimos um módulo o painel de módulos é recarregado
+                     */
                     $("#comp-mod").fadeIn(3000, function() {
                         $(this).html(data);
+                        /*
+                         * É importante recarregar os eventos do painel
+                         */
                         eventos();
                     });
                 }

@@ -1,17 +1,36 @@
 <style>
-    .row-color-over:hover{
-        background-color: #a1a5fe;
-    }
-    thead tr {background-color: #dbdcf4}
     thead tr th{ text-align: center }
     tbody tr td{ text-align: center  }
-    tbody tr td img{cursor: pointer;}
+    tbody tr td img{cursor: pointer}
+
+    .pn{
+        border: 1px solid #ccc;
+    }
+
+    .pn h5{
+        background-color: #285e8e;
+        padding: 0.5em;
+        color: white;
+    }
+
+    .back-row-head{
+        background-color: black;
+        color: white;
+        opacity: .6;
+    }
 </style>
-<!--TABELAS COM LISTAS DE MODULOS DE UMA DETERMINADA COMPETICAO-->
-<div class="col-md-12">
-    <table class="table table-bordered">
+
+<!--BOTAO QUE EXIBE A VIEW PARA CADASTRO OU EDIÇÃO DE GRUPO-->
+<div class="row-fluid clearfix">
+    <button class="btn btn-primary" id="btn-novo-gru"> + Alocação de Clubes</button>
+</div>
+
+<!--TABELA COM LISTA DE GRUPOS DE UMA DETERMINADA FASE-->
+<div class="col-md-12 pn">
+    <h5 class="text-center text-warning" id="nomefasegru"></h5>  
+    <table class="table">
         <thead>
-            <tr>
+            <tr class="back-row-head">
                 <th>
                     ID
                 </th>
@@ -28,7 +47,7 @@
         </thead>
         <tbody>
             <?php if (count($grupos) > 0): foreach ($grupos as $key => $g): ?>
-                    <tr class="tr-gru row-color-over">
+                    <tr class="tr-gru">
                         <td column="idgrupo"><?= $g->idgrupo ?></td>
                         <td column="tg"><?= $g->nome ?></td>
                         <td column="n_cla>"><?= $g->n_classificados ?></td>
@@ -45,14 +64,13 @@
         </tbody>   
     </table>
 </div>
-<div class="row-fluid clearfix">
-    <div class="col-md-12">
-        <button class="btn btn-primary" id="btn-novo-gru"> + Alocação de Clubes</button>
-    </div>
-    <div class="row-fluid clearfix" id="novo-grupo" style="display: none; background-color: white">
 
-    </div>
+<!--DIV QUE ONDE SERA CARREGADA A VIEW PARA CADASTRO OU EDIÇÃO DE UM GRUPO-->
+<div class="row-fluid clearfix" id="novo-grupo" style="display: none; background-color: white">
+
 </div>
+
+<!--SCRIPT DA PAGINA-->
 <script>
     $(function() {
         /**

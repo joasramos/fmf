@@ -1,23 +1,39 @@
 <style>
-    .row-color-over:hover{
-        background-color: #a1a5fe;
-    }
-    thead tr {background-color: #dbdcf4}
     thead tr th{ text-align: center }
     tbody tr td{ text-align: center  }
-    tbody tr td img{cursor: pointer;}
+    tbody tr td img{cursor: pointer}
+
+    .pn{
+        border: 1px solid #ccc;
+    }
+
+    .pn h5{
+        background-color: #285e8e;
+        padding: 0.5em;
+        color: white;
+    }
+
+    .back-row-head{
+        background-color: black;
+        color: white;
+        opacity: .6;
+    }
 </style>
-<!--TABELAS COM LISTAS DE RODADAS DE UMA DETERMINADA FASE-->
-<div class="col-md-12" style="padding-top: 1em">
-    <table class="table table-bordered">
+
+<!--BOTAO NOVA RODADA-->
+<div class="row-fluid clearfix" style="margin-top: 2em">
+    <button class="btn btn-primary" id="btn-add-rod"> + Novo Rodada</button>
+</div>
+
+<!--TABELA COM LISTAS DE RODADAS DE UMA DETERMINADA FASE-->
+<div class="col-md-12 pn" style="padding-top: 1em">
+    <h5 class="text-center text-warning" id="nomegruporod"></h5>  
+    <table class="table">
         <thead>
-            <tr>
+            <tr class="back-row-head">
                 <th>
                     Rodada
                 </th>
-<!--                <th>
-                    Módulo
-                </th>-->
                 <th>
                     Nº Jogos
                 </th>           
@@ -28,7 +44,7 @@
         </thead>
         <tbody>
             <?php if (count($rodadas) > 0): foreach ($rodadas as $key => $r): ?>
-                    <tr class="tr-rodada row-color-over">
+                    <tr class="tr-rodada">
                         <td column="aprod"><?= $r->apelido ?></td>
                         <td column="n_jogos>"><?= $r->n_jogos ?></td>
                         <td>
@@ -44,16 +60,13 @@
         </tbody>   
     </table>
 </div>
-<div class="row-fluid clearfix">
-    <div class="col-md-12">
-        <button class="btn btn-primary" id="btn-add-rod"> + Novo Rodada</button>
-    </div>
-</div>
 
+<!--DIV QUE REPRESENTA O PAINEL PARA CADASTRO OU EDIÇÃO DE UMA RODADA-->
 <div class="row-fluid clearfix" id="novo-rod" style="display: none; background-color: white">
 
 </div>
 
+<!--SCRIPT DESSA PÁGINA-->
 <script>
     $(function() {
         $("#btn-add-rod").click(function() {

@@ -1,26 +1,43 @@
 <style>
-    .row-color-over:hover{
-        background-color: #a1a5fe;
-    }
-    thead tr {background-color: #dbdcf4}
     thead tr th{ text-align: center }
     tbody tr td{ text-align: center  }
-    tbody tr td img{cursor: pointer;}
+    tbody tr td img{cursor: pointer}
+
+    .pn{
+        border: 1px solid #ccc;
+    }
+
+    .pn h5{
+        background-color: #285e8e;
+        padding: 0.5em;
+        color: white;
+    }
+
+    .back-row-head{
+        background-color: black;
+        color: white;
+        opacity: .6;
+    }
 </style>
-<!--TABELAS COM LISTAS DE MODULOS DE UMA DETERMINADA COMPETICAO-->
-<div class="col-md-12">
-    <table class="table table-bordered">
+
+<!--BOTAO QUE ABRE A DIV DA CADASTRO/EDIÇÃO DE UMA NOVA FASE-->
+<div class="row-fluid clearfix">
+    <button class="btn btn-primary" id="btn-nova-fase"> + Novo Fase</button>
+</div>
+
+<!--TABELAS COM LISTAS DE FASES DE UM DETERMINADO MÓDULO-->
+<div class="col-md-12 pn">
+    <!--O NOME DO MODULO É CARREGADO EM competicoes.js-->
+    <h5 class="text-center text-warning" id="nomemod_fase"></h5>    
+    <table class="table">
         <thead>
-            <tr>
+            <tr class="back-row-head">
                 <th>
                     ID
                 </th>
                 <th>
                     Tipo Fase
                 </th>
-<!--                <th>
-                    Módulo
-                </th>-->
                 <th>
                     Nº Jogos
                 </th>
@@ -37,7 +54,7 @@
         </thead>
         <tbody>
             <?php if (count($fases) > 0): foreach ($fases as $key => $f): ?>
-                    <tr class="tr-fase row-color-over">
+                    <tr class="tr-fase">
                         <td column="idfase"><?= $f->idfase ?></td>
                         <td column="id_tf"><?= $f->nome ?></td>
                         <td column="n_jogos>"><?= $f->n_jogos ?></td>
@@ -57,15 +74,13 @@
         </tbody>   
     </table>
 </div>
-<div class="row-fluid clearfix">
-    <div class="col-md-12">
-        <button class="btn btn-primary" id="btn-nova-fase"> + Novo Fase</button>
-    </div>
-</div>
+
+<!--NESSA DIV SERA CARREGADO O PAINEL DE CADASTRO/EDIÇÃO DE UMA NOVA FASE-->
 <div class="row-fluid clearfix" id="nova-fase" style="display: none; background-color: white">
 
 </div>
 
+<!--SCRIPT DESSA PÁGINA-->
 <script>
     $(function() {
         /**

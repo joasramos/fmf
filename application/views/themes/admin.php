@@ -42,9 +42,9 @@
         <![endif]-->
 
         <!-- Le fav and touch icons -->
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/themes/default/logos/logo.png" type="image/x-icon"/>
-        <meta property="og:image" content="<?php echo base_url(); ?>assets/themes/default/images/facebook-thumb.png"/>
-        <link rel="image_src" href="<?php echo base_url(); ?>assets/themes/default/images/facebook-thumb.png" />
+        <!--<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/themes/default/logos/logo.png" type="image/x-icon"/>-->
+        <!--<meta property="og:image" content="<?php echo base_url(); ?>assets/themes/default/images/facebook-thumb.png"/>-->
+        <!--<link rel="image_src" href="<?php echo base_url(); ?>assets/themes/default/images/facebook-thumb.png" />-->
         <script src="<?= base_url() ?>assets/themes/default/js/bootstrap.min.js"></script>
 
         <style type="text/css">
@@ -145,7 +145,7 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="<?= base_url() ?>arbitragens/showAll">Arbitro</a></li>
                                 <li><a href="<?= base_url() ?>clubes/showAll">Clubes</a></li>
-                                <li><a href="#">Estádios</a></li>
+                                <li><a href="<?= base_url() ?>estadios/showAll">Estádios</a></li>
                                 <li><a href="<?= base_url() ?>noticias/showAll">Noticias</a></li>
                                 <li><a href="#">Documentos</a></li>
                                 <li class="dropdown">

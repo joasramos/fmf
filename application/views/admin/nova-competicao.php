@@ -26,20 +26,27 @@ if (isset($comp)) {
                     <a href="#p_comp" data-toggle="tab">Descrição</a>
                 </li>
                 <li>
-                    <a href="#p_mod" data-toggle="tab">Módulos</a>
+                    <a href="#p_mod" data-toggle="tab">Estrutura</a>
                 </li> 
                 <li>
                     <a href="#p_doc" data-toggle="tab">Documentos</a>
                 </li>
             </ul>
             <div class="tab-content">
+
+                <!--CARREGA PAINEL COM O FORMULÁRIO DE CADASTRO DE UMA COMPETIÇÃO-->
                 <div class="tab-pane active" id="p_comp">
                     <?php include 'comp.php'; ?>
                 </div>
+
+                <!--CARREGA PAINEL COM A ESTRUTURA DO CAMPEONATO-->
                 <div class="tab-pane" id="p_mod" style="margin: 2em">
+                    
+                    <!--O PAINEL COM OS MODULOS/TURNOS DO CAMPEONATO É CARREGADO AUTOMATICAMENTE-->
                     <div class="row-fluid clearfix" id="comp-mod">
                         <?php include 'list-mod.php' ?>
                     </div>
+
                     <div class="row-fluid clearfix" id="comp-fases" style="padding-top: 2em">
 
                     </div>
@@ -58,9 +65,6 @@ if (isset($comp)) {
                 </div>
                 <div class="tab-pane" id="p_doc">
                     <?php include 'list-doc.php'; ?>
-                </div>
-                <div class="tab-pane" id="p_arb">
-
                 </div>
             </div>
         </div>

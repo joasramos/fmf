@@ -48,15 +48,6 @@ class Modulos extends MY_Controller {
         $this->load->view("admin/cad-mod", $data);
     }
 
-    /*
-    public function editModuloView($mod) {
-        $this->output->unset_template();
-        $data['modulo'] = $this->modulo->findBySimpleValueExact("modulo", array(), "idmodulo", $mod, array());
-        $data['turnos'] = $this->modulo->findTurno();
-
-        $this->load->view("admin/cad-mod", $data);
-    }*/
-
     public function showFases() {
         $this->output->unset_template();
 
@@ -66,44 +57,15 @@ class Modulos extends MY_Controller {
          * Buscar Fases de um modulo especificado por ID
          */
         $data['fases'] = $this->fase->findFaseByMod($this->input->post("idmod"));
-//        $data['n_fases'] = $this->input->post("n_fases");
-//        $data['tipo_fases'] = $this->fase->findTipoFase();
-//        $this->setGruposFases($data['fases'], $data);
+
         /**
          * Carregar list - que é uma view - com as fases encontradas
          */
         $this->load->view("admin/list-fase", $data);
     }
 
-    private function setGruposFases($fases, $data) {
-        $this->load->model("grupo");
-
-        $data['grupos'] = array();
-
-        foreach ($fases as $k => $f) {
-            $data['grupos'][$k] = $this->grupo->findGrupoByFase($f->idfase);
-        }
-
-        $data['tipo_grupos'] = $this->grupo->findTipoGrupo();
-
-        $this->setConvGrupos($data);
-    }
-
-    private function setConvGrupos($data) {
-        $this->load->model("clube");
-
-        foreach ($data['grupos'] as $k => $grupos) {
-            foreach ($grupos as $l => $grupo) {
-                $grupo->conv = $this->clube->findCluByGru($grupo->idgrupo);
-            }
-        }
-
-        $this->load->view("admin/comp-mod-fases", $data);
-    }
-
     public function insert() {
         $this->output->unset_template();
-        $obj = array();
         $obj = $this->setObject();
         $this->modulo->setColInsert(array("idcompeticao", "idturno", "descricao"));
 
@@ -120,6 +82,10 @@ class Modulos extends MY_Controller {
         /* retorna modulos da competicao */
         $data['modulos'] = $this->modulo->findModByComp($obj[0]);
 
+        /*
+         * Recarrega view que representa os modulos e retorna-a para o script localizado
+         * em cad-mod.php
+         */
         $this->load->view("admin/list-mod", $data);
     }
 
@@ -131,9 +97,4 @@ class Modulos extends MY_Controller {
         $obj[3] = $this->input->post("mod_id") ? $this->input->post("mod_id") : null;
         return $obj;
     }
-
-    public function update() {
-        
-    }
-
 }

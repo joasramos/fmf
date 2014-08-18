@@ -16,7 +16,7 @@ class Rodada extends MY_Model {
     }
 
     public function findRodadas($comp, $modulo) {
-        $sql= ("select j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
+        $sql = ("select j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
                 . "from rodada r "
@@ -41,14 +41,14 @@ class Rodada extends MY_Model {
                 . "and m.idturno = tn.idturno "
                 . "and m.idcompeticao = comp.idcompeticao "
                 . "and comp.idcompeticao = ? and m.idmodulo = ? order by j.idjogo desc ");
-        
+
         $result = $this->db->query($sql, array($comp, $modulo));
 
         return $result->result();
     }
-    
+
     public function findRodadaByClube($idclube) {
-        $sql= ("select tf.nome as nome_fase, tn.nome as nome_turno, comp.nome as nome_comp, j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
+        $sql = ("select tf.nome as nome_fase, tn.nome as nome_turno, comp.nome as nome_comp, j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
                 . "from rodada r "
@@ -73,14 +73,14 @@ class Rodada extends MY_Model {
                 . "and m.idturno = tn.idturno "
                 . "and m.idcompeticao = comp.idcompeticao "
                 . "and cc1.idclube = ? order by j.data desc ");
-        
+
         $result = $this->db->query($sql, $idclube);
 
         return $result->result();
     }
-    
-     public function findRodadaByClubeOut($idclube) {
-        $sql= ("select tf.nome as nome_fase, tn.nome as nome_turno, j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
+
+    public function findRodadaByClubeOut($idclube) {
+        $sql = ("select tf.nome as nome_fase, tn.nome as nome_turno, j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
                 . "from rodada r "
@@ -105,12 +105,12 @@ class Rodada extends MY_Model {
                 . "and m.idturno = tn.idturno "
                 . "and m.idcompeticao = comp.idcompeticao "
                 . "and cc2.idclube = ? order by j.data desc ");
-        
+
         $result = $this->db->query($sql, $idclube);
 
         return $result->result();
     }
-    
+
     public function findRodByFase($idfase) {
         $this->db->select("apelido, n_jogos");
         $this->db->where("fase_idfase", $idfase);
@@ -136,5 +136,32 @@ class Rodada extends MY_Model {
         $this->db->order_by("j.n_jogo asc");
         return $this->db->get()->result();
     }
- 
+
+    /*
+     * Método para retornar o maior numero de um jogo de uma rodada em uma fase
+     */
+
+    public function getMaxNjogo($fase) {
+
+        $this->db->select("max(n_jogo) as n_jogo");
+        $this->db->from("jogo j");
+        $this->db->join("rodada r", "j.idjogo = r.jogo_idjogo", "inner");
+        $this->db->where("r.fase_idfase", $fase);
+
+        /*
+          $sql = "SELECT max(n_jogo) as n_jogo FROM jogo j
+          INNER JOIN rodada r ON j.idjogo = r.jogo_idjogo
+          WHERE r.fase_idfase = ?";
+         */
+        $result = $this->db->get()->result();
+
+        return $result[0]->n_jogo;
+    }
+
+    public function updateRod($fase, $rodada, $data) {
+        $this->db->where("fase_idfase", $fase);
+        $this->db->where("apelido", $rodada);
+        return $this->db->update("rodada", $data);
+    }
+
 }

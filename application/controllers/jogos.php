@@ -32,44 +32,72 @@ class Jogos extends MY_Controller {
         
     }
 
-    public function cadJogoView($mod = null) {
-        $this->output->unset_template();       
-        $this->load->view("admin/cad-jogo");
+    public function cadJogoView($idfase = NULL) {
+        $this->output->unset_template();
+
+        /* Carregamos convidados */
+        $this->load->model("clube");
+        $data['conv'] = $this->clube->findConvByFase($idfase);
+
+        /*
+         * Exibimos a view
+         */
+        $this->load->view("admin/cad-jogo", $data);
     }
 
     public function insert() {
         $this->output->unset_template();
-        $obj = array();
+
         $obj = $this->setObject();
-        $this->modulo->setColInsert(array("idcompeticao", "idturno", "descricao"));
+
+        $idjogo;
+        $rodada = $this->input->post("rodada");
 
         /* Insere se for um novo */
-        if (!$obj[3]) {
-            $this->modulo->insert("modulo", $obj);
+        if (!isset($obj['idjogo'])) {
+            $idjogo = $this->rodada->insertSimple("jogo", $obj);
+
+            $fase = $this->input->post('idfase');
+            $data['jogo_idjogo'] = $idjogo;
+
+//            VAI TER QUE TER GAMBIARRA
+            if ($obj['n_jogo'] == 1) {
+                $this->rodada->updateRod($fase, $rodada, $data);
+            } else {
+                $r = array();
+                $r['fase_idfase'] = $fase;
+                $r['jogo_idjogo'] = $idjogo;
+                $r['apelido'] = $rodada;
+                $this->rodada->insertSimple("rodada", $r);
+            }
+//            END GAMBIARRA
         } else {
-            /*
-             * Edita se não for
-             */
-            $this->modulo->update("idmodulo", $obj[3], "modulo", $obj);
+            
         }
-
-        /* retorna modulos da competicao */
-        $data['modulos'] = $this->modulo->findModByComp($obj[0]);
-
-        $this->load->view("admin/list-mod", $data);
     }
+
+    /*
+     * Seta array que representa um jogo via POST
+     */
 
     public function setObject() {
         $obj = array();
-        $obj[0] = $this->input->post("id_comp");
-        $obj[1] = $this->input->post("mod_tp");
-        $obj[2] = $this->input->post("mod_nome");
-        $obj[3] = $this->input->post("mod_id") ? $this->input->post("mod_id") : null;
-        return $obj;
-    }
 
-    public function update() {
-        
+        $idfase = $this->input->post('idfase');
+
+        $n_jogo = $this->rodada->getMaxNjogo($idfase);
+
+        $obj['n_jogo'] = $n_jogo != 0 ? $n_jogo + 1 : 1;
+
+        /*
+          $bordero = $this->realizaUpload("bordero", "pdf", "jogo_bord");
+          $sumula = $this->realizaUpload("sumula", "pdf", "jogo_sum");
+         */
+
+        $obj['time_casa'] = $this->input->post('clube_casa');
+        $obj['time_visitante'] = $this->input->post('clube_fora');
+
+        return $obj;
     }
 
 }

@@ -25,10 +25,11 @@ class Clubes extends MY_Controller {
     }
 
     public function showAll() {
+        $this->output->set_template("admin");
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 
-        $list = $this->clube->findBySimpleValue("clube", array("nome", "apelido"), "nome", $value);
-        $this->loadTable("clubes", array("Nome", "Apelido"), $list);
+        $list = $this->clube->findBySimpleValue("clube", array('idclube', "nome", "apelido"), "nome", $value);
+        $this->loadTable("clubes", array("ID", "Nome", "Apelido"), $list);
     }
 
     public function newElement() {
@@ -87,8 +88,13 @@ class Clubes extends MY_Controller {
         $this->load->view("admin/list-conv-add", $data);
     }
 
-    public function drop() {
-        
+    public function drop($idclube = null) {
+        $this->output->unset_template();
+
+        $this->clube->drop("idclube", $idclube, "divisao_clube");
+        $this->clube->drop("idclube", $idclube, "clube");
+
+        redirect("clubes/showAll");
     }
 
     public function find() {

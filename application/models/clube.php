@@ -61,4 +61,14 @@ class Clube extends MY_Model {
         return $this->db->get("convidado")->result();
     }
 
+    /*
+     * Buscamos os convidados de uma determinada fase
+     */
+
+    public function findConvByFase($idfase) {
+        $this->db->join('clube cc', 'cc.idclube = c.idclube', 'join');
+        $this->db->where("idfase", $idfase);
+        return $this->db->get("convidado c")->result();
+    }
+
 }

@@ -14,6 +14,7 @@ class Estadios extends MY_Controller {
     public function __construct($template = null) {
         parent::__construct($template);
         $this->setTitle("Estádios");
+        $this->load->model("estadio");
     }
 
     public function index() {
@@ -22,30 +23,51 @@ class Estadios extends MY_Controller {
     }
 
     public function showAll() {
-//        $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
-//
-//        $list = $this->noticia->findBySimpleValue("clube", array("nome", "apelido"), "titulo", $value);
-//        $this->loadTable("clubes", array("Nome", "Apelido"), $list);
+        $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
+        $list = $this->estadio->findBySimpleValue("estadio", array("idestadio", "nome", "apelido", "cidade"), "nome", $value);
+        $this->loadTable("estadios", array("ID", "Nome", "Apelido", "Cidade"), $list);
     }
 
-    public function drop() {
-        
+    public function drop($idestadio = null) {
+        $this->output->unset_template();
+
+//        echo "<script>alert(" . $idestadio . ")</script>";
+
+        $this->estadio->drop("idestadio", $idestadio, "estadio");
+        redirect('estadios/showAll', 'refresh');
     }
 
     public function find() {
-        //$this->load->view("detail_estadio");
     }
 
     public function insert() {
-        
+        $this->output->set_template("admin");
+        $obj = $this->setObject();
+
+        if (isset($obj['idestadio'])) {
+            //edita estadio
+        } else {
+            $this->estadio->insertSimple("estadio", $obj);
+        }
+
+        redirect('estadios/showAll', 'refresh');
     }
 
     public function setObject() {
-//        $nome = $this->input->post("nome");
+        $obj = array();
+
+        $obj['nome'] = $this->input->post('nome');
+        $obj['apelido'] = $this->input->post('apelido');
+        $obj['cidade'] = $this->input->post('cidade');
+
+        $obj['url'] = $this->gerarUrl($obj['nome']);
+
+        return $obj;
     }
 
-    public function update() {
-        
+    public function newElement() {
+        $this->output->set_template("admin");
+        $this->load->view('admin/novo-estadio');
     }
 
 }

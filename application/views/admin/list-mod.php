@@ -1,23 +1,46 @@
 <style>
-    .row-color-over:hover{
-        background-color: #a1a5fe;
-    }
-    /*thead tr {background-color: #003399}*/
+
     thead tr th{ text-align: center }
     tbody tr td{ text-align: center  }
-    tbody tr td img{cursor: pointer;}
+    tbody tr td img{cursor: pointer}
+
+    .pn{
+        border: 1px solid #ccc;
+    }
+
+    .pn h5{
+        background-color: #285e8e;
+        padding: 0.5em;
+        color: white;
+    }
+
+    .back-row-head{
+        background-color: black;
+        color: white;
+        opacity: .6;
+    }
+
 </style>
-<!--TABELAS COM LISTAS DE MODULOS DE UMA DETERMINADA COMPETICAO-->
+
+<!--TABELA COM A LISTA DE MODULOS DE UMA DETERMINADA COMPETICAO-->
 <?php
 if (!isset($modulos)) {
     echo "<h3>Você precisa salvar a competição primeiro!</h3>";
     return 0;
 }
 ?>
-<div class="col-md-12">
-    <table class="table table-bordered">
+
+<!--BOTAO QUE ABRE A DIV DA CADASTRO/EDIÇÃO DE UM NOVO MODULO-->
+<div class="row-fluid clearfix">
+    <button class="btn btn-primary" id="btn-novo-mod"> + Novo Módulo</button>
+</div>
+
+<!--TABELA-->
+<div class="col-md-12 pn">    
+    <h5 class="text-center text-warning">Módulos</h5>    
+    <table class="table">
         <thead>
-            <tr>
+            <tr class="back-row-head">
                 <th>
                     ID
                 </th>
@@ -34,7 +57,7 @@ if (!isset($modulos)) {
         </thead>
         <tbody>
             <?php if (count($modulos) > 0): foreach ($modulos as $key => $mod): ?>
-                    <tr class="tr-mod row-color-over">
+                    <tr class="tr-mod">
                         <td column="idmod"><?= $mod->idmodulo ?></td>
                         <td column="nome"><?= $mod->nome ?></td>
                         <td column="desc"><?= $mod->descricao ?></td>
@@ -51,14 +74,13 @@ if (!isset($modulos)) {
         </tbody>   
     </table>
 </div>
-<div class="row-fluid clearfix">
-    <div class="col-md-12">
-        <button class="btn btn-primary" id="btn-novo-mod"> + Novo Módulo</button>
-    </div>
-</div>
+
+<!--NESSA DIV SERA CARREGADO O PAINEL DE CADASTRO/EDIÇÃO DE UM NOVO MODULO-->
 <div class="row-fluid clearfix" id="novo-mod" style="display: none; background-color: white">
 
 </div>
+
+<!--SCRIPT DESSA PÁGINA-->
 <script>
     $(function() {
         /**
@@ -95,7 +117,8 @@ if (!isset($modulos)) {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert("Não foi possivel excluir módulo");
-                $(function(){});
+                $(function() {
+                });
             },
             success: function(data, textStatus, jqXHR) {
                 $("#comp-mod").html(data);

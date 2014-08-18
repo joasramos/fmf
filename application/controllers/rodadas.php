@@ -33,43 +33,43 @@ class Rodadas extends MY_Controller {
     }
 
     public function cadRodView($mod = null) {
-        $this->output->unset_template();       
+        $this->output->unset_template();
         $this->load->view("admin/cad-rod");
     }
 
+    /*
+     * Método que insere ou edita uma rodada
+     */
+
     public function insert() {
         $this->output->unset_template();
-        $obj = array();
+
         $obj = $this->setObject();
-        $this->modulo->setColInsert(array("idcompeticao", "idturno", "descricao"));
+
+        $idrod = $this->input->post("idrod");
 
         /* Insere se for um novo */
-        if (!$obj[3]) {
-            $this->modulo->insert("modulo", $obj);
+        if (!$idrod) {
+            $this->rodada->insertSimple("rodada", $obj);
         } else {
             /*
              * Edita se não for
              */
-            $this->modulo->update("idmodulo", $obj[3], "modulo", $obj);
+            $this->rodada->update("idmodulo", $obj['idrod'], "modulo", $obj);
         }
-
-        /* retorna modulos da competicao */
-        $data['modulos'] = $this->modulo->findModByComp($obj[0]);
-
-        $this->load->view("admin/list-mod", $data);
     }
+
+    /*
+     * Seta um array que representa uma rodada via POST
+     */
 
     public function setObject() {
         $obj = array();
-        $obj[0] = $this->input->post("id_comp");
-        $obj[1] = $this->input->post("mod_tp");
-        $obj[2] = $this->input->post("mod_nome");
-        $obj[3] = $this->input->post("mod_id") ? $this->input->post("mod_id") : null;
-        return $obj;
-    }
+        $obj['fase_idfase'] = $this->input->post("idfase");
+        $obj['apelido'] = $this->input->post("apelido");
+        $obj['n_jogos'] = $this->input->post("n_jogos");
 
-    public function update() {
-        
+        return $obj;
     }
 
 }

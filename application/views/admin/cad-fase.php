@@ -1,7 +1,10 @@
+
+<!--VIEW PARA CADASTRO OU EDIÇÃO DE UMA FASE-->
+
 <div style="width: 500px; height: 500px">
-    <span class="b-close btn btn-danger col-md-offset-12">X</span>
+    <span class="b-close btn btn-danger col-md-offset-11">&nbsp;x&nbsp;</span>
     <fieldset>
-        <legend class="text-center text-info"> Cadastrar/Editar Fase</legend>
+        <legend class="text-center text-info"> Informações da Fase</legend>
         <form id="form-cad-fase" action="javascript:void(0)">
             <?php if (isset($fase[0]->idfase)): ?>
                 <input  type="hidden" name="idfase" value="<?= $fase[0]->idfase ?>" />
@@ -64,6 +67,7 @@
     $(function() {
         $("#btn_save_fase").click(function() {
             var data = $("#form-cad-fase").serialize() + "&idmod=" + idmod;
+            var nomemod = $("#nomemod_fase").text();
 
             $.ajax({
                 url: PATH + "fases/insert",
@@ -73,7 +77,7 @@
                     alert("Erro ao cadastrar fase!");
                 },
                 success: function(data, textStatus, jqXHR) {
-                    showFases();
+                    showFases(nomemod);
                 }
             });
         });
