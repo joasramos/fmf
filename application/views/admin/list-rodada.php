@@ -32,6 +32,9 @@
         <thead>
             <tr class="back-row-head">
                 <th>
+                    ID
+                </th>
+                <th>
                     Rodada
                 </th>
                 <th>
@@ -45,6 +48,7 @@
         <tbody>
             <?php if (count($rodadas) > 0): foreach ($rodadas as $key => $r): ?>
                     <tr class="tr-rodada">
+                        <td column="idrodada"><?= $r->idrodada ?></td>
                         <td column="aprod"><?= $r->apelido ?></td>
                         <td column="n_jogos>"><?= $r->n_jogos ?></td>
                         <td>

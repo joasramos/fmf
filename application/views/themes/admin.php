@@ -1,6 +1,7 @@
 <html lang="pt-br">
     <head>
         <title><?php echo $title; ?></title>
+        <base href="<?= base_url() ?>">
         <meta name="resource-type" content="document" />
         <meta name="robots" content="all, index, follow"/>
         <meta name="googlebot" content="all, index, follow" />

@@ -50,12 +50,12 @@ class Rodadas extends MY_Controller {
 
         /* Insere se for um novo */
         if (!$idrod) {
-            $this->rodada->insertSimple("rodada", $obj);
+            $this->rodada->insertSimple("rodada_fix", $obj);
         } else {
             /*
              * Edita se não for
              */
-            $this->rodada->update("idmodulo", $obj['idrod'], "modulo", $obj);
+            //$this->rodada->update("idmodulo", $obj['idrod'], "modulo", $obj);
         }
     }
 
@@ -65,7 +65,9 @@ class Rodadas extends MY_Controller {
 
     public function setObject() {
         $obj = array();
-        $obj['fase_idfase'] = $this->input->post("idfase");
+        
+//        $obj['fase_idfase'] = $this->input->post("idfase");
+        $obj['idfase'] = $this->input->post("idfase");
         $obj['apelido'] = $this->input->post("apelido");
         $obj['n_jogos'] = $this->input->post("n_jogos");
 

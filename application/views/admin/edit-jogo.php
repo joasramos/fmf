@@ -23,32 +23,48 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <select name="clube_casa"> 
-                                        <option value="0"> Selecione um Time</option>
-                                        <?php foreach ($conv as $c): ?>
-                                            <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <!--SE TIVER CLUBE EXIBE-O-->
+                                    <?php if ($jogo[0]->c1_nome): ?>
+                                        <input name='clube_nome_1' value='<?= $jogo[0]->c1_nome ?>' style='text-align: center'/>  
+                                        <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c1_band ?>"/>
+                                    <?php else: ?>
+                                        <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
+                                        <select name="clube_casa"> 
+                                            <option value="0"> Selecione um Time</option>
+                                            <?php foreach ($conv as $c): ?>
+                                                <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <input name='clube_casa_gols' size="2" style='text-align: center'/>
                                 </td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
                                 <td>
-                                    <select name="clube_fora"> 
-                                        <option value="0"> Selecione um Time</option>
-                                        <?php foreach ($conv as $c): ?>
-                                            <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input name='clube_fora_gols' size="2" style='text-align: center'/>
+                                </td>
+                                <td>
+                                    <!--SE TIVER CLUBE EXIBE-O-->
+                                    <?php if ($jogo[0]->c2_nome): ?>
+                                        <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c2_band ?>"/>
+                                        <input name='clube_nome_2' value='<?= $jogo[0]->c2_nome ?>' style='text-align: center'/>                                    
+                                    <?php else: ?>
+                                        <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
+                                        <select name="clube_fora"> 
+                                            <option value="0"> Selecione um Time</option>
+                                            <?php foreach ($conv as $c): ?>
+                                                <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php endif; ?>
                                 </td>
                             </tr>                                
                         </tbody>
                     </table>
                 </div>                        
             </div>    
-
             <h5 class="text-center text-primary">Informações do Jogo:</h5>
-
             <div class="col-md-5">
                 <!-- Text input-->
                 <div class="form-group">
@@ -106,6 +122,20 @@
             </div>
         </form>      
     </fieldset>
+    <div class='row-fluid' style='position: absolute; border-top: 1px dotted #ccc; bottom: 0; right: 0'>
+        <div class='col-md-3'>
+            <h6><?= $jogo[0]->nome_comp ?></h6>
+        </div>
+        <div class='col-md-3'>
+            <h6><?= $jogo[0]->nome_turno ?></h6>
+        </div>
+        <div class='col-md-3'>
+            <h6><?= $jogo[0]->nome_fase ?></h6>
+        </div>
+        <div class='col-md-3'>
+            <h6><?= $jogo[0]->apelido ?></h6>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -113,9 +143,9 @@
         $("#btn_save_jogo").click(function() {
             var formData = new FormData($("#form-cad-jogo")[0]);
             var apelido = $(".tr-rodada").children("td[column='aprod']").html();
-            
+
             formData.append('idrodada', idrodada);
-            
+
             var status = validarForm();
 
             if (status == "null_values") {

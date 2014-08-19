@@ -8,6 +8,7 @@ var PATH = "http://" + document.domain + "/fmf/";
 var idfase;
 var idmod;
 var idgrupo;
+var idrodada;
 
 /*
  * 
@@ -94,7 +95,7 @@ function showFases(nomemod) {
                     $(".tr-fase").on("click", ".rodada", detailFaseRod);
                     $(".tr-fase").on("click", ".del", delFase);
                     $(".tr-fase").on("click", ".edit", editFase);
-                    $("#nomemod_fase").text(nomemod);
+                    $("#nomemod_fase").text("Fases do" + nomemod);
                 });
             });
         }
@@ -152,7 +153,7 @@ function showGrupos(nomefase) {
                  */
                 $(function() {
                     $(".tr-gru").on("click", ".view", detailGru);
-                    $("#nomefasegru").text(nomefase);
+                    $("#nomefasegru").text("Grupos da" + nomefase);
                 });
             });
         }
@@ -236,7 +237,7 @@ function showRodadas(nomefase) {
                  */
                 $(function() {
                     $(".tr-rodada").on("click", ".view", detailJog);
-                    $("#nomegruporod").text(nomefase);
+                    $("#nomegruporod").text("Rodadas da " + nomefase);
                 });
             });
         }
@@ -244,7 +245,8 @@ function showRodadas(nomefase) {
 }
 
 var detailJog = function() {
-    var apelido = $(this).parent().parent().children("td[column='aprod']").html();
+//    var apelido = $(this).parent().parent().children("td[column='aprod']").html();
+    idrodada = $(this).parent().parent().children("td[column='idrodada']").html();
 
     /**
      * Ativar linhar selecionada, mudando cor de fundo
@@ -253,15 +255,14 @@ var detailJog = function() {
 
     setColorRowSelect(".tr-rodada", linha);
 
-    showJogos(apelido);
+    showJogos();
 };
 
-function showJogos(apelido) {
+function showJogos() {
     $.ajax({
         url: PATH + "fases/showJogos",
         data: {
-            idfase: idfase,
-            apelido: apelido
+            idrodada: idrodada
         },
         type: "POST",
         error: function(jqXHR, textStatus, errorThrown) {

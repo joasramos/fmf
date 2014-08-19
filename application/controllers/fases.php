@@ -110,14 +110,17 @@ class Fases extends MY_Controller {
         $this->load->view('admin/list-rodada', $data);
     }
 
+    /*
+     * Exibe jogos de uma determinada rodada
+     */
     public function showJogos() {
         $this->output->unset_template();
 
-        $apelido = $this->input->post('apelido');
-        $fase = $this->input->post('idfase');
+//        $apelido = $this->input->post('apelido');
+        $rodada = $this->input->post('idrodada');
 
         $this->load->model("rodada");
-        $data['jogos'] = $this->rodada->findJogByRod($fase, $apelido);
+        $data['jogos'] = $this->rodada->findJogByRod($rodada);
 
         $this->load->view('admin/list-jogos', $data);
     }
