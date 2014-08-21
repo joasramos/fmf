@@ -28,7 +28,7 @@
 <!--TABELAS COM LISTAS DE FASES DE UM DETERMINADO MÓDULO-->
 <div class="col-md-12 pn">
     <!--O NOME DO MODULO É CARREGADO EM competicoes.js-->
-    <h5 class="text-center text-warning" id="nomemod_fase"></h5>    
+    <h5 class="text-center text-warning" id="nomemod_fase"></h5>
     <table class="table">
         <thead>
             <tr class="back-row-head">
@@ -38,12 +38,12 @@
                 <th>
                     Tipo Fase
                 </th>
-                <th>
+<!--                <th>
                     Nº Jogos
                 </th>
                 <th>
                     Ida e Volta
-                </th>
+                </th>-->
                 <th>
                     Extra
                 </th>
@@ -57,8 +57,8 @@
                     <tr class="tr-fase">
                         <td column="idfase"><?= $f->idfase ?></td>
                         <td column="id_tf"><?= $f->nome ?></td>
-                        <td column="n_jogos>"><?= $f->n_jogos ?></td>
-                        <td column="r_ida_volta"><?= $f->regra_ida_e_volta ? "Sim" : "Não" ?></td>
+        <!--                        <td column="n_jogos>"><?= $f->n_jogos ?></td>
+                        <td column="r_ida_volta"><?= $f->regra_ida_e_volta ? "Sim" : "Não" ?></td>-->
                         <td column="desc"><?= $f->descricao ?></td>
                         <td>
                             <img class='view' width="22" src="<?= base_url() ?>/assets/images/icon/c_blue.png"/>

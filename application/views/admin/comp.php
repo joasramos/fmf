@@ -34,26 +34,26 @@
                 <input id="modulos" name="comp_mod" placeholder="" class="form-control input-md" type="text" value=<?= $mod ?>>
 
             </div>
-        </div>
+        </div>  
 
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="comp_reb">Rebaixados</label>  
             <div class="col-md-1">
                 <input id="rebaixados" name="comp_reb" placeholder="" class="form-control input-md" type="text" value=<?= $reb ?>>
-
+ 
             </div>
         </div>
 
         <!-- Text input-->
-        <div class="form-group">
+<!--        <div class="form-group">
             <label class="col-md-4 control-label" for="comp_url">Url</label>  
             <div class="col-md-6">
                 <input id="comp_url" name="comp_url" placeholder="" class="form-control input-md" type="text" value=<?= $url ?>>
 
             </div>
-        </div>
-
+        </div>-->
+ 
         <!-- Button (Double) -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="button1id">Ações</label>
@@ -62,5 +62,5 @@
                 <button id="button2id" name="button2id" class="btn btn-danger">Cancelar</button>
             </div>
         </div>
-    </fieldset>
+    </fieldset>  
 </form>

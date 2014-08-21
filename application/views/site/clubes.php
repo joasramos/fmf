@@ -22,9 +22,6 @@
                     <li>
                         <a href="#panel-amadores" data-toggle="tab">Amadores</a>
                     </li>
-                    <!--                    <li>
-                                            <a href="#panel-ligas" data-toggle="tab">Ligas</a>
-                                        </li>-->
                     <li>
                         <a href="#panel-licen" data-toggle="tab">Licenciamento de Clubes</a>
                     </li>
@@ -59,8 +56,6 @@
                                     </div>                                
                                 <?php endfor; ?>
                             </div>
-                            <!--                            <div class="col-md-4">
-                                                        </div>-->
                         </div>
                     </div>
                     <div class="tab-pane" id="panel-serie-b">

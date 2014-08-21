@@ -17,6 +17,11 @@ class Noticias extends MY_Controller {
         $this->load->model("noticia");
     }
 
+    /**
+     * 
+     * @param type $aba
+     * @param type $url_news
+     */
     public function index($aba = NULL, $url_news = NULL) {
         $data['last_news'] = $this->noticia->getLastNews();
         $data['last_news_fmf'] = $this->noticia->getLastNewsFmf();
@@ -25,6 +30,8 @@ class Noticias extends MY_Controller {
         $noticia_selecionada = $this->noticia->findBySimpleValueExact('noticia', $this->noticia->ALL, 'url', $url_news, array());
         $data['news_selected'] = $this->managerNews($aba, $noticia_selecionada);
         $data['aba_active'] = $aba;
+
+        $this->load->js('assets/js/slide-noticia/source/jquery.slides.min.js');
         $this->load->view("site/noticias", $data);
     }
 
@@ -53,7 +60,23 @@ class Noticias extends MY_Controller {
                 break;
         }
 
+        $news_selected["galeria"] = $this->getGaleria($noticia);
+
         return $news_selected;
+    }
+
+    /*
+     * Verificamos a galeria
+     */
+    private function getGaleria($n) {
+        if (count($n)) {
+            $dir = 'uploads/' . $n[0]->url . "/";
+            if (file_exists($dir)) {
+                $files = scandir($dir, 1);
+                return $files;
+            }
+        }
+        return array();
     }
 
     public function showAll() {
@@ -239,4 +262,5 @@ class Noticias extends MY_Controller {
 
         redirect("noticias/showAll", "refresh");
     }
+
 }

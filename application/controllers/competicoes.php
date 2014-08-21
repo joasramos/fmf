@@ -33,21 +33,39 @@ class Competicoes extends MY_Controller {
          */
         $data['comp_anos'] = $this->competicao->findAllCompeticoes($url, null);
 
+        /*
+         * Ano corrente
+         */
         if (!$ano) {
             $ano = date('Y');
         }
 
+        /*
+         * Carrega uma competição especificada por url e ano
+         */
         $data['comp_full'] = $this->competicao->findAllCompeticoes($url, $ano);
 
+        /*
+         * Classificacao da competição
+         */
         $data['classificacao'] = $this->competicao->findClassificacao($data['comp_full'][0]->idcompeticao);
 
+        /*
+         * Turnos da competição
+         */
         $data['turnos'] = $this->competicao->findModulos($data['comp_full'][0]->idcompeticao);
 
+        /*
+         * Buscamos as rodadas
+         * Mesclando aos jogos os seus respectivos turnos
+         */
         foreach ($data['turnos'] as $key => $turno) {
             $data['comp_jogos'][$key] = $this->rodada->findRodadas($data['comp_full'][0]->idcompeticao, $turno->idmodulo);
         }
 
-
+        /*
+         * Show view
+         */
         $this->load->view("site/competicoes2", $data);
     }
 
@@ -82,17 +100,18 @@ class Competicoes extends MY_Controller {
      * Método para deletar um competicao
      */
 
-    public function drop() {
-
+    public function drop($idcompeticao = NULL) {
+        $this->output->unset_template();
         /*
          * Tenta deletar a competicao
          */
-
+        $this->competicao->drop("idcompeticao", $idcompeticao, "competicao");
         /*
          * Redireciona para a area de competicoes,
          * passando a mensagem de retorno da ação deletar
          * como parametro
          */
+        redirect("competicoes/showAll");   
     }
 
     /*
@@ -105,7 +124,7 @@ class Competicoes extends MY_Controller {
         $this->load->model("documento");
 
         $data['comp'] = $this->competicao->findBySimpleValueExact("competicao", array(), "idcompeticao", $id, array());
-        
+
         $data['modulos'] = $this->modulo->findModByComp($id);
         $data['documentos'] = $this->documento->findDocByComp($id);
 
@@ -154,7 +173,10 @@ class Competicoes extends MY_Controller {
         $obj[2] = $this->input->post('comp_ano');
         $obj[3] = $this->input->post('comp_mod');
         $obj[4] = $this->input->post('comp_reb');
-        $obj[5] = $this->input->post('comp_url');
+        $str = $obj[0] + $obj[2];
+
+        $obj[5] = $this->gerarUrl($str); //$this->input->post('comp_url');
+
         if ($this->input->post('comp_id')) {
             $obj[6] = $this->input->post('comp_id');
         }

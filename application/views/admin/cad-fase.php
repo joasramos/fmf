@@ -1,7 +1,7 @@
 
 <!--VIEW PARA CADASTRO OU EDIÇÃO DE UMA FASE-->
 
-<div style="width: 500px; height: 500px">
+<div style="width: 500px; height: 400px">
     <span class="b-close btn btn-danger col-md-offset-11">&nbsp;x&nbsp;</span>
     <fieldset>
         <legend class="text-center text-info"> Informações da Fase</legend>
@@ -28,32 +28,32 @@
                                    value="<?= isset($fase[0]->descricao) ? $fase[0]->descricao : "" ?>" >
                         </div>
                     </div>                                
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label class="col-md-12 control-label" for="fase_n_jog">Nº Jogos</label>  
                         <div class="col-md-10">
                             <input id="fase_n_jog" name="fase_n_jog" placeholder="" class="form-control" type="text" 
                                    value="<?= isset($fase[0]->n_jogos) ? $fase[0]->n_jogos : "" ?>" >
                         </div>
-                    </div>
-                    <div class="form-group" style="padding-top: 3em">
+                    </div>-->
+<!--                    <div class="form-group" style="padding-top: 3em">
                         <label class="col-md-3 control-label" for="fase_ida_volta">Ida e Volta</label>  
                         <div class="col-md-4">
                             <label class="checkbox-inline" for="checkboxes-0">
                                 <input id="fase_ida_volta" name="fase_ida_volta" type="checkbox">
                             </label>
                         </div>
-                    </div>
-                    <div class="form-group" style="padding-top: 2em">
+                    </div>-->
+                    <div class="form-group">
                         <label class="col-md-12 control-label" for="fase_n_gru">Nº Grupos</label>  
                         <div class="col-md-4">
                             <input id="fase_n_gru" name="fase_n_gru" placeholder="" class="form-control" type="text" 
                                    value="<?= isset($fase[0]->n_grupos) ? $fase[0]->n_grupos : "" ?>" >
                         </div>
                     </div>
-
+                    
                     <!-- Button -->
-                    <div class="form-group" style="padding-top: 3em">
-                        <label class="col-md-4 control-label" for="btn_save_fase"></label>
+                    <div class="form-group" style="padding-top: 2em">
+                        <label class="col-md-5 control-label" for="btn_save_fase"></label>
                         <div class="col-md-8">
                             <button id="btn_save_fase" name="btn_save_fase" class="btn btn-success b-close">Salvar</button>
                         </div>

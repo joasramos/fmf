@@ -1,3 +1,84 @@
+<style>
+    #slide-ultimas {
+        display: none 
+    }
+
+    #slide-ultimas .slidesjs-navigation {
+        margin-top:3px;
+    }
+
+    #slide-ultimas .slidesjs-previous {
+        margin-right: 5px;
+        float: left;
+    }
+
+    #slide-ultimas .slidesjs-next {
+        margin-right: 5px;
+        float: left;
+    }
+
+    .slidesjs-pagination {
+        margin: 6px 0 0;
+        float: right;
+        list-style: none;
+    }
+
+    .slidesjs-pagination li {
+        float: left;
+        margin: 0 1px;
+    }
+
+    .slidesjs-pagination li a {
+        display: block;
+        width: 13px;
+        height: 0;
+        padding-top: 13px;
+        background-image: url(assets/js/slide-noticia/examples/standard/img/pagination.png);
+        background-position: 0 0;
+        float: left;
+        overflow: hidden;
+    }
+
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+        background-position: 0 -13px
+    }
+
+    .slidesjs-pagination li a:hover {
+        background-position: 0 -26px
+    }
+
+    #slides a:link,
+    #slides a:visited {
+        color: #333
+    }
+
+    #slides a:hover,
+    #slides a:active {
+        color: #9e2020
+    }
+
+    .navbar {
+        overflow: hidden
+    }
+
+    a.slidesjs-next, 
+    a.slidesjs-previous,
+    a.slidesjs-play,
+    a.slidesjs-stop {
+        /*background-image: url(assets/js/slide-noticia/examples/playing/img/btns-next-prev.png);*/
+        background-repeat: no-repeat;
+        display:block;
+        width:12px;
+        height:18px;
+        overflow: hidden;
+        text-indent: -9999px;
+        float: left;
+        margin-right:5px;
+    }
+
+</style>
+
 <hidden aba-active='<?= $aba_active ?>'> </hidden>
 <script>
     /**
@@ -5,8 +86,8 @@
      */
     $(document).ready(function() {
         var aba = $("hidden").attr("aba-active");
-        if(aba.indexOf('_')){
-            aba = aba.replace("_"," ");
+        if (aba.indexOf('_')) {
+            aba = aba.replace("_", " ");
         }
         if (aba) {
             $.each($(".nav.nav-tabs li a"), function() {
@@ -25,6 +106,27 @@
                 }
             });
         }
+
+        $('#slide-ultimas').slidesjs({
+            width: 740,
+            height: 528,
+            navigation: {
+                effect: "fade"
+            },
+            pagination: {
+                effect: "fade"
+            },
+            effect: {
+                fade: {
+                    speed: 800
+                }
+            },
+            play: {
+                auto: true,
+                interval: 5000,
+                effect: "fade"
+            }
+        });
     });
 </script>
 <h2 class="title-header-content">
@@ -53,18 +155,28 @@
                     <div class="tab-pane active" id="panel-ult-noticias">
                         <div class="row-fluid clearfix">
                             <div class="col-md-8"> 
+
+                                <!--AREA PARA EXIBIÇÃO DE UMA NOTICIA SELECIONADA-->
                                 <?php if ($news_selected && isset($news_selected['news_selected_last'])): ?>
                                     <h5><?= $news_selected['news_selected_last'][0]->titulo ?></h5>
                                     <h3><?= $news_selected['news_selected_last'][0]->descricao ?></h3>
+
                                     <div class='col-md-12'>
-                                        <img src='<?= base_url() ?>assets/images/noticias/<?= $news_selected['news_selected_last'][0]->imagem ?>'
-                                             width="400" height="300">
+                                        <div id="slide-ultimas">
+                                            <?php foreach ($news_selected['galeria'] as $img): ?>
+                                                <?php if (str_word_count($img) > 0): ?>
+                                                    <img src="<?= base_url() ?>uploads/<?= $news_selected['news_selected_last'][0]->url ?>/<?= $img ?>" alt="Photo by: Missy S Link: http://www.flickr.com/photos/listenmissy/5087404401/">
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
+
                                     <div class='col-md-12'>
                                         <?= $news_selected['news_selected_last'][0]->texto ?>
                                     </div>
                                     <a class='btn btn-inverse btn-default' href='<?= base_url() ?>noticias'> Retornar</a>
                                 <?php else: ?>
+                                    <!--LISTA DAS ULTIMAS NOTICIAS-->
                                     <p class="titulo">
                                         Últimas Notícias
                                     </p>
@@ -163,7 +275,7 @@
                                         <p class="titulo">
                                             Últimas Notícias dos Arbítros
                                         </p>
-                                        <!--CARREGAMOS ULTIMAS NOTICIAS-->
+                                        <!--CARREGAMOS ULTIMAS NOTICIAS DOS ARBITROS-->
                                         <?php foreach ($last_news_arbitragem as $last): ?>
                                             <div class='row-fluid clearfix'>
                                                 <div class='col-md-2'>
@@ -249,4 +361,6 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+    </div>
+</div>

@@ -48,10 +48,10 @@ class Fases extends MY_Controller {
         $this->output->unset_template();
         $obj = $this->setObject();
 
-        $this->fase->setColInsert(array("idtipo_fase", "idmodulo", "n_jogos", "n_grupos", "regra_ida_e_volta", "descricao"));
+        $this->fase->setColInsert(array("idtipo_fase", "idmodulo", "n_grupos", "descricao"));
         $idfase = 0;
         /* Insere */
-        if (!$obj[6]) {
+        if (!$obj[4]) {
             $idfase = $this->fase->insert("fase", $obj);
         } else {
             $this->fase->update("idfase", $obj[6], "fase", $obj);
@@ -60,10 +60,10 @@ class Fases extends MY_Controller {
         /*
          * Inserimos grupo padrão caso não haja grupo
          */
-        if (!$obj[3]) {
+        if (!$obj[2]) {
             $this->load->model("grupo");
             $g[0] = 3;
-            $g[1] = !$obj[6] ? $idfase : $obj[6];
+            $g[1] = !$obj[4] ? $idfase : $obj[4];
             $this->grupo->setColInsert(array("idtipo_grupo", "idfase"));
             $this->grupo->insert("grupo", $g);
         }
@@ -74,13 +74,13 @@ class Fases extends MY_Controller {
 
         $obj[0] = $this->input->post("tipo_fase");
         $obj[1] = $this->input->post("idmod");
-        $obj[2] = $this->input->post("fase_n_jog");
-        $obj[3] = !$this->input->post("fase_n_gru") ? 1 : $this->input->post("fase_n_gru");
-        $obj[4] = $this->input->post("fase_ida_volta") ? 1 : 0;
-        $obj[5] = $this->input->post("fase_desc");
+//        $obj[2] = $this->input->post("fase_n_jog");
+        $obj[2] = !$this->input->post("fase_n_gru") ? 1 : $this->input->post("fase_n_gru");
+//        $obj[4] = $this->input->post("fase_ida_volta") ? 1 : 0;
+        $obj[3] = $this->input->post("fase_desc");
 
         if ($this->input->post("idfase")) {
-            $obj[6] = $this->input->post("idfase");
+            $obj[4] = $this->input->post("idfase");
         }
 
         return $obj;

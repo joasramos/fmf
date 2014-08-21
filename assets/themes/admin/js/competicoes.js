@@ -95,7 +95,7 @@ function showFases(nomemod) {
                     $(".tr-fase").on("click", ".rodada", detailFaseRod);
                     $(".tr-fase").on("click", ".del", delFase);
                     $(".tr-fase").on("click", ".edit", editFase);
-                    $("#nomemod_fase").text("Fases do" + nomemod);
+                    $("#nomemod_fase").text(nomemod);
                 });
             });
         }
@@ -153,7 +153,7 @@ function showGrupos(nomefase) {
                  */
                 $(function() {
                     $(".tr-gru").on("click", ".view", detailGru);
-                    $("#nomefasegru").text("Grupos da" + nomefase);
+                    $("#nomefasegru").text(nomefase);
                 });
             });
         }
@@ -237,7 +237,7 @@ function showRodadas(nomefase) {
                  */
                 $(function() {
                     $(".tr-rodada").on("click", ".view", detailJog);
-                    $("#nomegruporod").text("Rodadas da " + nomefase);
+                    $("#nomegruporod").text(nomefase);
                 });
             });
         }

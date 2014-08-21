@@ -15,7 +15,7 @@ $(function() {
 function setShowCompeticaoByAno() {
     var url_comp, url, ano;
 
-    $("#sel-ano").change(function() {
+    $(".sel-ano").change(function() {
 
         $.each($('#header-comp li'), function(key, value) {
             if ($(value).hasClass("active")) {

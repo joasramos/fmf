@@ -19,8 +19,8 @@ class Rodada extends MY_Model {
         $sql = ("select j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
-                . "from rodada r "
-                . "inner join jogo j "
+                . "from rodada_fix r "
+                . "inner join jogo_new j "
                 . "inner join convidado cc1 "
                 . "inner join convidado cc2 "
                 . "inner join clube c1 "
@@ -30,17 +30,17 @@ class Rodada extends MY_Model {
                 . "inner join modulo m "
                 . "inner join turno tn "
                 . "inner join competicao comp "
-                . "on r.jogo_idjogo = j.idjogo "
+                . "on r.idrodada = j.idrodada "
                 . "and j.time_casa = cc1.idconvidado "
                 . "and j.time_visitante = cc2.idconvidado "
                 . "and cc1.idclube = c1.idclube "
                 . "and cc2.idclube = c2.idclube "
-                . "and r.fase_idfase = f.idfase "
+                . "and r.idfase = f.idfase "
                 . "and f.idtipo_fase = tf.idtipo_fase "
                 . "and f.idmodulo = m.idmodulo "
                 . "and m.idturno = tn.idturno "
                 . "and m.idcompeticao = comp.idcompeticao "
-                . "and comp.idcompeticao = ? and m.idmodulo = ? order by j.idjogo desc ");
+                . "and comp.idcompeticao = ? and m.idmodulo = ? order by j.idjogo_new desc ");
 
         $result = $this->db->query($sql, array($comp, $modulo));
 
