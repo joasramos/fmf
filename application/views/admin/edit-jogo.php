@@ -3,9 +3,7 @@
     <fieldset>
         <legend class="text-center text-info"> Edição de Jogo</legend>
         <form id="form-cad-jogo" action="javascript:void(0)" class="form-horizontal" enctype="multipart/form-data" >
-            <?php if (isset($jogo[0]->idjogo)): ?>
-                <input  type="hidden" name="idjogo" value="<?= $jogo[0]->idjogo ?>" />
-            <?php endif; ?>
+            <input  type="hidden" name="idjogo" value="<?= $jogo[0]->idjogo_new ?>" />
             <div class="row-fluid clearfix">
                 <div class="col-md-12">
                     <table class="table table-condensed">
@@ -23,41 +21,51 @@
                             <tr>
                                 <td></td>
                                 <td>
+
                                     <!--SE TIVER CLUBE EXIBE-O-->
-                                    <?php if ($jogo[0]->c1_nome): ?>
-                                        <input name='clube_nome_1' value='<?= $jogo[0]->c1_nome ?>' style='text-align: center'/>  
+                                    <div class="col-md-1">
+                                        <button class="btn btn-danger" id="btn-alt-casa">x</button>
+                                    </div>
+                                    <div class="col-md-10" id="div-casa">
+                                        <input name='clube_nome_1' value='<?= $jogo[0]->c1_nome ?>' style='text-align: center' disabled="disabled"/>  
                                         <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c1_band ?>"/>
-                                    <?php else: ?>
-                                        <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
-                                        <select name="clube_casa"> 
-                                            <option value="0"> Selecione um Time</option>
-                                            <?php foreach ($conv as $c): ?>
-                                                <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    <?php endif; ?>
+                                    </div>
+
+                                    <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
+                                    <select name="clube_casa" style="display: none"> 
+                                        <option value="0"> Selecione um Time</option>
+                                        <?php foreach ($conv as $c): ?>
+                                            <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+
                                 </td>
                                 <td>
-                                    <input name='clube_casa_gols' size="2" style='text-align: center'/>
+                                    <input name='clube_casa_gols' size="2" style='text-align: center' value="<?= $jogo[0]->gols_casa ?>"/>
                                 </td>
                                 <td></td>
                                 <td>
-                                    <input name='clube_fora_gols' size="2" style='text-align: center'/>
+                                    <input name='clube_fora_gols' size="2" style='text-align: center' value="<?= $jogo[0]->gols_visitante ?>"/>
                                 </td>
                                 <td>
+
                                     <!--SE TIVER CLUBE EXIBE-O-->
-                                    <?php if ($jogo[0]->c2_nome): ?>
+                                    <div class="col-md-10" id="div-fora">
                                         <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c2_band ?>"/>
-                                        <input name='clube_nome_2' value='<?= $jogo[0]->c2_nome ?>' style='text-align: center'/>                                    
-                                    <?php else: ?>
-                                        <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
-                                        <select name="clube_fora"> 
-                                            <option value="0"> Selecione um Time</option>
-                                            <?php foreach ($conv as $c): ?>
-                                                <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    <?php endif; ?>
+                                        <input name='clube_nome_2' value='<?= $jogo[0]->c2_nome ?>' style='text-align: center' disabled="disabled"/>  
+                                    </div>
+
+                                    <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
+                                    <select name="clube_fora" style="display: none" class="col-md-10"> 
+                                        <option value="0"> Selecione um Time</option>
+                                        <?php foreach ($conv as $c): ?>
+                                            <option value="<?= $c->idconvidado ?>"><?= $c->apelido ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+
+                                    <div class="col-md-1">
+                                        <button class="btn btn-danger" id="btn-alt-fora">x</button>
+                                    </div>
                                 </td>
                             </tr>                                
                         </tbody>
@@ -70,7 +78,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="jogo_data">Data</label>  
                     <div class="col-md-7">
-                        <input id="jogo_data" name="jogo_data" placeholder="" class="form-control input-md" type="text">
+                        <input id="jogo_data" name="jogo_data" placeholder="" class="form-control input-md" 
+                               type="text" value="<?= date("d-m-Y", strtotime($jogo[0]->data)) ?>">
 
                     </div>
                 </div>
@@ -88,8 +97,17 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="jogo_estadio">Estádio</label>  
                     <div class="col-md-7">
-                        <input id="jogo_estadio" name="jogo_estadio" placeholder="" class="form-control input-md" type="text">
-
+                        <input id="jogo_estadio" name="jogo_estadio" placeholder="" 
+                               class="form-control input-md" type="text" value="<?= $jogo[0]->apelido_est ?>">
+                        <select id="edit-sel-est" style="display: none" name="new_estadio"> 
+                            <option value="0">Selecione um estádio</option>
+                            <?php foreach ($estadios as $e): ?>
+                                <option value="<?= $e->idestadio ?>"> <?= $e->apelido ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-danger" id="bt-alt-est">x</button>
                     </div>
                 </div>
 
@@ -108,7 +126,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="jogo_bord">Borderô</label>
                     <div class="col-md-4">
-                        <input id="jogo_bord" name="jogo_bord" class="input-file" type="file">
+                        <input id="jogo_bord" name="jogo_bord" class="input-file" type="file" value="">
                     </div>
                 </div>
 
@@ -119,6 +137,17 @@
                         <input id="jogo_sum" name="jogo_sum" class="input-file" type="file">
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6 col-md-offset-1" style="border: 1px solid #ccc;">
+                <h5 class="text-center label label-default">ARQUIVOS JÁ INSERIDOS NO JOGO</h5>
+                <ul style="list-style: none; padding: 1em">
+                    <li>
+                        <a href="<?= base_url() ?>uploads/sumula/<?= $jogo[0]->sumula ?>">&map;SÚMULA</a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url() ?>uploads/bordero/<?= $jogo[0]->bordero ?>">&map;BORDERÔ</a>
+                    </li>
+                </ul>
             </div>
         </form>      
     </fieldset>
@@ -142,48 +171,88 @@
     $(function() {
         $("#btn_save_jogo").click(function() {
             var formData = new FormData($("#form-cad-jogo")[0]);
-            var apelido = $(".tr-rodada").children("td[column='aprod']").html();
-
             formData.append('idrodada', idrodada);
+            formData.append('idjogo', $("input[name='idjogo']").val());
 
-            var status = validarForm();
-
-            if (status == "null_values") {
-                alert("Falta selecionar um time");
-                return;
-            } else if (status === "equals") {
-                alert("Um time não pode jogar contra si mesmo");
-                return;
-            } else {
-                $.ajax({
-                    url: PATH + "jogos/insert",
-                    data: formData,
-                    type: "POST",
-                    contentType: false,
-                    processData: false,
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert("Erro ao inserir jogo")
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        showJogos();
-                    }
-                });
+            var clube_casa_new = "", clube_fora_new = "";
+            /*
+             * Verificamos se houve alteração no time corrente 
+             * que jogará em casa
+             */
+            if ($("select[name='clube_casa']").is(":visible")) {
+                var value = $("select[name='clube_casa']").val();
+                if (value != 0) {
+                    clube_casa_new = value;
+                } else {
+                    alert("Selecione o time mandante");
+                    return;
+                }
             }
+
+            /*
+             * Verificamos se houve alteração no time corrente 
+             * que é o visitante
+             */
+            if ($("select[name='clube_fora']").is(":visible")) {
+                var value = $("select[name='clube_fora']").val();
+                if (value != 0) {
+                    clube_fora_new = value;
+                } else {
+                    alert("Selecione o time visitante");
+                    return;
+                }
+            }
+
+            /*
+             * Verificamos se os times selecionados são diferentes
+             */
+            if (clube_casa_new != "" && clube_fora_new != "") {
+                if (clube_casa_new == clube_fora_new) {
+                    alert("Você selecionou o mesmo time!");
+                    return;
+                }
+            }
+//            return;
+
+            formData.append('clube_casa_new', clube_casa_new);
+            formData.append('clube_fora_new', clube_fora_new);
+
+            $.ajax({
+                url: PATH + "jogos/insert",
+                data: formData,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("Erro ao inserir jogo");
+                },
+                success: function(data, textStatus, jqXHR) {
+                    //showJogos();
+                    console.log(data);
+                }
+            });
+
+
         });
 
-        function validarForm() {
-            var casa = $("select[name='clube_casa']").val(),
-                    fora = $("select[name='clube_fora']").val();
+        $("#btn-alt-casa").click(function() {
+            $("#div-casa").hide();
+            $("select[name='clube_casa']").show();
+        });
 
-            if (casa == 0 || fora == 0) {
-                return "null_values";
-            }
-            else if (casa === fora) {
-                return "equals";
-            }
-            return "ok";
-        }
+        $("#btn-alt-fora").click(function() {
+            $("#div-fora").hide();
+            $("select[name='clube_fora']").show();
+        });
 
+        $("#jogo_data").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+
+        $("#bt-alt-est").click(function() {
+            $("#jogo_estadio").hide();
+            $("#edit-sel-est").show();
+        });
     });
 </script>
 

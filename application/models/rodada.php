@@ -17,7 +17,7 @@ class Rodada extends MY_Model {
 
     public function findRodadas($comp, $modulo) {
         $sql = ("select j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
-                . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
+                . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, j.bordero, j.sumula, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
                 . "from rodada_fix r "
                 . "inner join jogo_new j "
@@ -116,11 +116,13 @@ class Rodada extends MY_Model {
      * Retorna um array que representa o jogo
      */
      public function findJogoDetail($idjogo) {
-        $sql = ("select tf.nome as nome_fase, tn.nome as nome_turno, comp.nome as nome_comp, j.n_jogo, j.data, m.n_jogos as m_n_jogos, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, "
+        $sql = ("select j.idjogo_new, tf.nome as nome_fase, tn.nome as nome_turno, comp.nome as nome_comp, j.n_jogo, j.data, m.n_jogos as m_n_jogos, e.apelido as apelido_est, "
+                . "c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, j.bordero, j.sumula, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
                 . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
                 . "from rodada_fix r "
                 . "inner join jogo_new j "
+                . "inner join estadio e "
                 . "inner join convidado cc1 "
                 . "inner join convidado cc2 "
                 . "inner join clube c1 "
@@ -131,6 +133,7 @@ class Rodada extends MY_Model {
                 . "inner join turno tn "
                 . "inner join competicao comp "
                 . "on r.idrodada = j.idrodada "
+                . "and j.idestadio = e.idestadio "
                 . "and j.time_casa = cc1.idconvidado "
                 . "and j.time_visitante = cc2.idconvidado "
                 . "and cc1.idclube = c1.idclube "

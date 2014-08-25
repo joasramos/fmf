@@ -1,6 +1,10 @@
 <?php if (!isset($comp_jogos[0])): ?>
     <h3> Erro! Não foram definidos turnos para essa competição!</h3>
-<?php else: $aux = 0; $aux2 = 0; $aux3 = 0; //marca os indices das abas dos turnos?>
+    <?php
+else: $aux = 0;
+    $aux2 = 0;
+    $aux3 = 0; //marca os indices das abas dos turnos 
+    ?>
     <h3 class="title-header-content">
         Competições
     </h3> 
@@ -72,7 +76,10 @@
                                                                         <?= $value->nome ?>
                                                                     </a>
                                                                 </li>
-                                                            <?php $aux++; endforeach; ?>
+                                                                <?php
+                                                                $aux++;
+                                                            endforeach;
+                                                            ?>
                                                             <!--END CABEÇALHO-->
 
                                                             <li> 
@@ -133,22 +140,25 @@
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="col-md-12">
-                                                                                                    <a href=""><span class="label label-default">Súmula</span></a>
-                                                                                                    <a href=""><span class="label label-default">Borderô</span></a>
+                                                                                                    <a href="<?= base_url() ?>uploads/sumula/<?= $jogo->sumula ?>"><span class="label label-default">Súmula</span></a>
+                                                                                                    <a href="<?= base_url() ?>uploads/bordero/<?= $jogo->bordero ?>"><span class="label label-default">Borderô</span></a>
                                                                                                     <a href=""><span class="label label-default">Escala</span></a>
                                                                                                     <a href=""><span class="label label-default">Alterações</span></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>      
-                                                                                    <?php //endfor;           ?>
+                                                                                    <?php //endfor;              ?>
                                                                                 </table>
                                                                             </div>
                                                                         </div>
                                                                     <?php endforeach; ?>
                                                                 </div>
-                                                            <?php $aux2++; endforeach; ?>
-                                                        <!--FIM DA CONDIÇÃO E DO LAÇO QUE CRIA OS PAINEIS DE TURNOS-->
+                                                                <?php
+                                                                $aux2++;
+                                                            endforeach;
+                                                            ?>
+                                                            <!--FIM DA CONDIÇÃO E DO LAÇO QUE CRIA OS PAINEIS DE TURNOS-->
 
                                                             <!--CLASSIFICACAO-->
                                                             <div class="tab-pane" id="panel-class-<?= $k ?>">                                                                

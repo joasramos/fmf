@@ -137,6 +137,11 @@ class MY_Model extends CI_Model {
         return $this->db->update($entity, $data);
     }
 
+    public function updateSimple($entity, $data, $id, $value) {
+        $this->db->where($id, $value);
+        return $this->db->update($entity, $data);
+    }
+
     /**
      * 
      * @param type $id - determina por qual campo o elemento será deletado

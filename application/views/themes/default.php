@@ -69,12 +69,15 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
             <div class="container" style="min-width: 1000px">
                 <!--DIV QUE REPRESENTA A BARRA COM OS ICONES DOS TIMES E A OPÇÃO DE OUVIDORIA NO TOPO DA PÁGINA-->
                 <div class="row barra-times-topo clearfix">
+
                     <!--SCROLL DOS ICONES DOS TIMES-->
                     <div class="col-md-8 col-sm-8 col-xs-8">
                         <ul class="list-times">
                             <?php foreach ($other_data['serie_a'] as $clube): ?>
                                 <li>
-                                    <a href="#"><img width="25" height="25" src="<?= base_url() ?>assets/images/escudos/<?= $clube->bandeira ?>"></a>
+                                    <a href="javascript:void(0)" idclube="<?= $clube->idclube ?>" class="dados-clube-home">
+                                        <img width="25" height="25" src="<?= base_url() ?>assets/images/escudos/<?= $clube->bandeira ?>">
+                                    </a>
                                 </li>
                             <?php endforeach; ?>
                             <span style="color:white">&nbsp;&raquo;</span>
@@ -224,7 +227,7 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
                 </div>
                 <div class="row">
                     <div class="col-md-1 column text-center" class="padding-default" style="margin-top: 5%">
-                        <img src="<?=  base_url()?>assets/themes/default/logos/logo.png" width="52">
+                        <img src="<?= base_url() ?>assets/themes/default/logos/logo.png" width="52">
                     </div>
                     <div class="col-md-9 column" class="padding-default" style="margin-top: 3%; color: #fff">                        
                         <span class="text-center" style='font-size: 10px'>
@@ -232,7 +235,7 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
                             <p>Filiada à CONFEDERAÇÃO BRASILEIRA DE FUTEBOL - CBF</p>
                             <p>Fundada em 11 de Janeiro de 1918</p>
                         </span>
-                         <span class="text-center" style='font-size: 10px'>
+                        <span class="text-center" style='font-size: 10px'>
                             <p>Rua do Alecrim, nº 415, Edifício Palácio dos Esportes, São Luís, Patrimônio Mundial, Maranhão, Brasil - CEP: 65.010-040</p>
                             <p>Telefone: (98) 3231-4300 / Fax: 3221-5751 - Site: www.fmfma.com.br - e-mail: contato@fmfma.com.br</p>
                         </span>
@@ -260,10 +263,24 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
                 </div>
             </div>
         </div>
+        <!--PAINEL QUE SERÁ CARREGADO COM DETALHES DO CLUBE-->
+        <div class="row-fluid clearfix">
+            <div class="col-md-12" id="detail_clube_home" style="display: none">
+
+            </div>
+        </div>
         <script>
             $(function() {
                 $("#ouvi").click(function() {
                     $("#modal-ouvi").bPopup();
+                });
+
+                var PATH = "http://" + document.domain + "/fmf/";
+                $(".dados-clube-home").click(function() {
+                    var idclube = $(this).attr('idclube');
+                    $("#detail_clube_home").bPopup({
+                        loadUrl: PATH + "clubes/showDetailClube/" + idclube
+                    });
                 });
             });
         </script>

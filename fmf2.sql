@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Ago-2014 às 03:37
+-- Generation Time: 25-Ago-2014 às 19:58
 -- Versão do servidor: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `convidado` (
   KEY `fk_convidado_grupo1` (`idgrupo`),
   KEY `fk_convidado_clube1` (`idclube`),
   KEY `fk_convidado_fase1` (`idfase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Extraindo dados da tabela `convidado`
@@ -341,7 +341,11 @@ INSERT INTO `convidado` (`idconvidado`, `idgrupo`, `idclube`, `idfase`) VALUES
 (39, 16, 4, 12),
 (40, 16, 5, 12),
 (41, 17, 1, 12),
-(42, 17, 2, 12);
+(42, 17, 2, 12),
+(43, 18, 1, 15),
+(44, 18, 2, 15),
+(45, 19, 9, 16),
+(46, 19, 10, 16);
 
 -- --------------------------------------------------------
 
@@ -450,8 +454,18 @@ CREATE TABLE IF NOT EXISTS `estadio` (
   `apelido` varchar(100) DEFAULT NULL,
   `cidade` varchar(100) DEFAULT NULL,
   `url` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idestadio`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`idestadio`),
+  KEY `idestadio` (`idestadio`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Extraindo dados da tabela `estadio`
+--
+
+INSERT INTO `estadio` (`idestadio`, `nome`, `apelido`, `cidade`, `url`) VALUES
+(1, 'Estádio Governador João Castelo', 'Castelão', 'São Luis', 'estadio-governador-joao-castelo'),
+(2, 'Estádio Nhozinho Santos', 'Nhozinho Santos', 'São Luis', 'estadio-nhozinho-santos'),
+(3, 'sem estadio', 'sem estadio', 'sem estadio', 'sem-estadio');
 
 -- --------------------------------------------------------
 
@@ -472,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `fase` (
   KEY `fk_modulo_has_tipo_fase_modulo1` (`idmodulo`),
   KEY `fk_modulo_has_tipo_fase_tipo_fase1` (`idtipo_fase`),
   KEY `idfase` (`idfase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `fase`
@@ -486,7 +500,9 @@ INSERT INTO `fase` (`idfase`, `idtipo_fase`, `idmodulo`, `n_jogos`, `n_grupos`, 
 (5, 2, 2, 4, 0, 1, 'Semi Finais 2º Turno', NULL),
 (6, 3, 2, 2, 0, 0, 'Finais do 1º Turno', NULL),
 (11, 8, 3, 10, 2, 0, 'descricao', NULL),
-(12, 1, 59, 2, 2, 0, 'Descricao II', NULL);
+(12, 1, 59, 2, 2, 0, 'Descricao II', NULL),
+(15, 1, 60, 2, 2, 0, '', NULL),
+(16, 1, 61, 2, 2, 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -515,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `grupo` (
   PRIMARY KEY (`idgrupo`,`idtipo_grupo`),
   KEY `fk_grupo_tipo_grupo1` (`idtipo_grupo`),
   KEY `idfase` (`idfase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Extraindo dados da tabela `grupo`
@@ -531,7 +547,9 @@ INSERT INTO `grupo` (`idgrupo`, `idtipo_grupo`, `idfase`, `n_classificados`) VAL
 (13, 3, 5, 2),
 (15, 3, 6, 1),
 (16, 1, 12, 2),
-(17, 3, 12, 1);
+(17, 3, 12, 1),
+(18, 1, 15, 2),
+(19, 1, 16, 2);
 
 -- --------------------------------------------------------
 
@@ -665,79 +683,84 @@ CREATE TABLE IF NOT EXISTS `jogo_new` (
   `ativo` tinyint(1) DEFAULT '1',
   `alterado` tinyint(1) DEFAULT '0',
   `idrodada` int(11) DEFAULT NULL,
+  `bordero` varchar(200) NOT NULL,
+  `sumula` varchar(200) NOT NULL,
+  `idestadio` int(11) DEFAULT '3',
   PRIMARY KEY (`idjogo_new`),
   KEY `fk_jogo_new_convidado1` (`time_casa`),
   KEY `fk_jogo_new_convidado2` (`time_visitante`),
   KEY `idrodada` (`idrodada`),
-  KEY `idrodada_2` (`idrodada`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=77 ;
+  KEY `idrodada_2` (`idrodada`),
+  KEY `idestadio` (`idestadio`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=78 ;
 
 --
 -- Extraindo dados da tabela `jogo_new`
 --
 
-INSERT INTO `jogo_new` (`idjogo_new`, `n_jogo`, `time_casa`, `time_visitante`, `data`, `hora`, `gols_casa`, `gols_visitante`, `ativo`, `alterado`, `idrodada`) VALUES
-(1, 1, 4, 3, '2014-01-26 18:00:00', NULL, 3, 2, 1, 0, NULL),
-(2, 2, 1, 2, '2014-01-27 22:30:00', NULL, 3, 2, 1, 0, NULL),
-(3, 3, 7, 8, '2014-01-26 17:45:00', NULL, 3, 2, 1, 0, NULL),
-(4, 4, 10, 6, '2014-01-26 19:00:00', NULL, 0, 3, 1, 0, NULL),
-(5, 5, 2, 3, '2014-01-30 22:15:00', NULL, 3, 1, 1, 0, NULL),
-(6, 6, 5, 1, '2014-05-04 23:15:00', NULL, 0, 5, 1, 0, NULL),
-(7, 7, 9, 7, '2014-01-29 22:15:00', NULL, 0, 1, 1, 0, NULL),
-(8, 8, 8, 10, '2014-01-29 22:15:00', NULL, 2, 0, 1, 0, NULL),
-(9, 9, 3, 5, '2014-02-02 18:00:00', NULL, 2, 0, 1, 0, NULL),
-(10, 10, 4, 2, '2014-02-02 18:00:00', NULL, 1, 2, 1, 0, NULL),
-(11, 11, 6, 8, '2014-02-02 18:00:00', NULL, 1, 1, 1, 0, NULL),
-(12, 12, 10, 9, '2014-05-02 20:00:00', NULL, 0, 1, 1, 0, NULL),
-(13, 13, 3, 1, '2014-02-05 18:00:00', NULL, 4, 0, 1, 0, NULL),
-(14, 14, 5, 4, '2014-02-06 18:00:00', NULL, 1, 2, 1, 0, NULL),
-(15, 15, 7, 10, '2014-02-05 17:45:00', NULL, 1, 0, 1, 0, NULL),
-(16, 16, 9, 6, '2014-02-06 18:00:00', NULL, 0, 1, 1, 0, NULL),
-(17, 17, 2, 5, '2014-02-09 19:00:00', NULL, 0, 1, 1, 0, NULL),
-(18, 18, 1, 4, '2014-02-09 19:00:00', NULL, 1, 0, 1, 0, NULL),
-(19, 19, 8, 9, '2014-02-10 22:15:00', NULL, 1, 1, 1, 0, NULL),
-(20, 20, 6, 7, '2014-02-10 22:15:00', NULL, 3, 0, 1, 0, NULL),
-(21, 21, 7, 1, '2014-05-18 16:07:32', NULL, 1, 0, 1, 0, NULL),
-(22, 22, 3, 6, '2014-02-13 18:00:00', NULL, 1, 2, 1, 0, NULL),
-(23, 23, 1, 7, '2014-05-18 16:07:32', NULL, 3, 2, 1, 0, NULL),
-(24, 24, 6, 3, '2014-02-16 19:00:00', NULL, 3, 1, 1, 0, NULL),
-(25, 25, 1, 6, '2014-02-19 23:30:00', NULL, 1, 1, 1, 0, NULL),
-(26, 26, 6, 1, '2014-02-23 20:00:00', NULL, 2, 2, 1, 0, NULL),
-(27, 1, 17, 30, '2014-02-16 19:00:00', '16h', 0, 3, 1, 0, NULL),
-(28, 2, 14, 29, '2014-02-26 19:00:00', '16:00', 3, 0, 1, 0, NULL),
-(29, 3, 15, 26, '2014-02-26 21:00:00', NULL, 1, 0, 1, 0, NULL),
-(30, 4, 14, 28, '2014-02-26 23:30:00', NULL, 3, 1, 1, 0, NULL),
-(31, 5, 16, 27, '2014-02-27 23:30:00', NULL, 1, 1, 1, 0, NULL),
-(32, 6, 30, 16, '2014-03-06 18:45:00', NULL, 1, 0, 1, 0, NULL),
-(33, 7, 26, 14, '2014-03-06 23:30:00', NULL, 3, 0, 1, 0, NULL),
-(34, 8, 28, 15, '2014-03-06 23:30:00', NULL, 2, 2, 1, 0, NULL),
-(35, 9, 29, 17, '2014-03-06 23:30:00', NULL, 1, 0, 1, 0, NULL),
-(36, 10, 27, 13, '2014-03-03 23:30:00', NULL, 0, 1, 1, 0, NULL),
-(37, 11, 17, 27, '2014-03-09 19:00:00', NULL, 1, 0, 1, 0, NULL),
-(38, 12, 14, 28, '2014-03-09 19:00:00', NULL, 3, 0, 1, 0, NULL),
-(39, 13, 13, 30, '2014-03-09 20:00:00', NULL, 0, 1, 1, 0, NULL),
-(40, 14, 26, 16, '2014-03-09 20:00:00', NULL, 1, 0, 1, 0, NULL),
-(41, 15, 15, 28, '2014-03-09 22:00:00', NULL, 4, 1, 1, 0, NULL),
-(42, 16, 14, 30, '2014-03-12 19:00:00', NULL, 0, 1, 1, 0, NULL),
-(43, 17, 28, 16, '2014-03-12 23:30:00', NULL, 1, 3, 1, 0, NULL),
-(44, 18, 13, 29, '2014-03-16 19:00:00', NULL, 1, 4, 1, 0, NULL),
-(45, 19, 27, 15, '2014-03-16 20:00:00', NULL, 0, 0, 1, 0, NULL),
-(46, 20, 26, 17, '2014-03-16 22:00:00', NULL, 2, 0, 1, 0, NULL),
-(47, 21, 13, 26, '2014-03-23 19:00:00', NULL, 1, 0, 1, 0, NULL),
-(48, 22, 17, 28, '2014-03-23 19:00:00', NULL, 3, 0, 1, 0, NULL),
-(49, 23, 15, 30, '2014-03-23 19:00:00', NULL, 2, 0, 1, 0, NULL),
-(50, 24, 14, 27, '2014-03-23 19:00:00', NULL, 4, 3, 1, 0, NULL),
-(51, 25, 16, 29, '2014-03-23 19:00:00', NULL, 3, 0, 1, 0, NULL),
-(52, 1, 32, 31, '2014-03-27 19:00:00', NULL, 1, 5, 1, 0, NULL),
-(53, 2, 33, 34, '2014-03-27 23:15:00', NULL, 1, 4, 1, 0, NULL),
-(54, 3, 31, 32, '2014-03-31 23:15:00', NULL, 1, 0, 1, 0, NULL),
-(55, 4, 34, 33, '2014-03-30 20:00:00', NULL, 3, 3, 1, 0, NULL),
-(56, 1, 35, 36, '2014-04-03 23:15:00', NULL, 2, 0, 1, 0, NULL),
-(57, 2, 36, 35, '2014-04-05 20:00:00', NULL, 1, 0, 1, 0, NULL),
-(68, 1, 39, 40, NULL, NULL, NULL, NULL, 1, 0, NULL),
-(69, 2, 40, 39, NULL, NULL, NULL, NULL, 1, 0, NULL),
-(75, 1, 39, 40, NULL, NULL, NULL, NULL, 1, 0, 2),
-(76, 1, 41, 42, NULL, NULL, NULL, NULL, 1, 0, 1);
+INSERT INTO `jogo_new` (`idjogo_new`, `n_jogo`, `time_casa`, `time_visitante`, `data`, `hora`, `gols_casa`, `gols_visitante`, `ativo`, `alterado`, `idrodada`, `bordero`, `sumula`, `idestadio`) VALUES
+(1, 1, 4, 3, '2014-01-26 18:00:00', NULL, 3, 2, 1, 0, NULL, '', '', NULL),
+(2, 2, 1, 2, '2014-01-27 22:30:00', NULL, 3, 2, 1, 0, NULL, '', '', NULL),
+(3, 3, 7, 8, '2014-01-26 17:45:00', NULL, 3, 2, 1, 0, NULL, '', '', NULL),
+(4, 4, 10, 6, '2014-01-26 19:00:00', NULL, 0, 3, 1, 0, NULL, '', '', NULL),
+(5, 5, 2, 3, '2014-01-30 22:15:00', NULL, 3, 1, 1, 0, NULL, '', '', NULL),
+(6, 6, 5, 1, '2014-05-04 23:15:00', NULL, 0, 5, 1, 0, NULL, '', '', NULL),
+(7, 7, 9, 7, '2014-01-29 22:15:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(8, 8, 8, 10, '2014-01-29 22:15:00', NULL, 2, 0, 1, 0, NULL, '', '', NULL),
+(9, 9, 3, 5, '2014-02-02 18:00:00', NULL, 2, 0, 1, 0, NULL, '', '', NULL),
+(10, 10, 4, 2, '2014-02-02 18:00:00', NULL, 1, 2, 1, 0, NULL, '', '', NULL),
+(11, 11, 6, 8, '2014-02-02 18:00:00', NULL, 1, 1, 1, 0, NULL, '', '', NULL),
+(12, 12, 10, 9, '2014-05-02 20:00:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(13, 13, 3, 1, '2014-02-05 18:00:00', NULL, 4, 0, 1, 0, NULL, '', '', NULL),
+(14, 14, 5, 4, '2014-02-06 18:00:00', NULL, 1, 2, 1, 0, NULL, '', '', NULL),
+(15, 15, 7, 10, '2014-02-05 17:45:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(16, 16, 9, 6, '2014-02-06 18:00:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(17, 17, 2, 5, '2014-02-09 19:00:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(18, 18, 1, 4, '2014-02-09 19:00:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(19, 19, 8, 9, '2014-02-10 22:15:00', NULL, 1, 1, 1, 0, NULL, '', '', NULL),
+(20, 20, 6, 7, '2014-02-10 22:15:00', NULL, 3, 0, 1, 0, NULL, '', '', NULL),
+(21, 21, 7, 1, '2014-05-18 16:07:32', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(22, 22, 3, 6, '2014-02-13 18:00:00', NULL, 1, 2, 1, 0, NULL, '', '', NULL),
+(23, 23, 1, 7, '2014-05-18 16:07:32', NULL, 3, 2, 1, 0, NULL, '', '', NULL),
+(24, 24, 6, 3, '2014-02-16 19:00:00', NULL, 3, 1, 1, 0, NULL, '', '', NULL),
+(25, 25, 1, 6, '2014-02-19 23:30:00', NULL, 1, 1, 1, 0, NULL, '', '', NULL),
+(26, 26, 6, 1, '2014-02-23 20:00:00', NULL, 2, 2, 1, 0, NULL, '', '', NULL),
+(27, 1, 17, 30, '2014-02-16 19:00:00', '16h', 0, 3, 1, 0, NULL, '', '', NULL),
+(28, 2, 14, 29, '2014-02-26 19:00:00', '16:00', 3, 0, 1, 0, NULL, '', '', NULL),
+(29, 3, 15, 26, '2014-02-26 21:00:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(30, 4, 14, 28, '2014-02-26 23:30:00', NULL, 3, 1, 1, 0, NULL, '', '', NULL),
+(31, 5, 16, 27, '2014-02-27 23:30:00', NULL, 1, 1, 1, 0, NULL, '', '', NULL),
+(32, 6, 30, 16, '2014-03-06 18:45:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(33, 7, 26, 14, '2014-03-06 23:30:00', NULL, 3, 0, 1, 0, NULL, '', '', NULL),
+(34, 8, 28, 15, '2014-03-06 23:30:00', NULL, 2, 2, 1, 0, NULL, '', '', NULL),
+(35, 9, 29, 17, '2014-03-06 23:30:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(36, 10, 27, 13, '2014-03-03 23:30:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(37, 11, 17, 27, '2014-03-09 19:00:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(38, 12, 14, 28, '2014-03-09 19:00:00', NULL, 3, 0, 1, 0, NULL, '', '', NULL),
+(39, 13, 13, 30, '2014-03-09 20:00:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(40, 14, 26, 16, '2014-03-09 20:00:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(41, 15, 15, 28, '2014-03-09 22:00:00', NULL, 4, 1, 1, 0, NULL, '', '', NULL),
+(42, 16, 14, 30, '2014-03-12 19:00:00', NULL, 0, 1, 1, 0, NULL, '', '', NULL),
+(43, 17, 28, 16, '2014-03-12 23:30:00', NULL, 1, 3, 1, 0, NULL, '', '', NULL),
+(44, 18, 13, 29, '2014-03-16 19:00:00', NULL, 1, 4, 1, 0, NULL, '', '', NULL),
+(45, 19, 27, 15, '2014-03-16 20:00:00', NULL, 0, 0, 1, 0, NULL, '', '', NULL),
+(46, 20, 26, 17, '2014-03-16 22:00:00', NULL, 2, 0, 1, 0, NULL, '', '', NULL),
+(47, 21, 13, 26, '2014-03-23 19:00:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(48, 22, 17, 28, '2014-03-23 19:00:00', NULL, 3, 0, 1, 0, NULL, '', '', NULL),
+(49, 23, 15, 30, '2014-03-23 19:00:00', NULL, 2, 0, 1, 0, NULL, '', '', NULL),
+(50, 24, 14, 27, '2014-03-23 19:00:00', NULL, 4, 3, 1, 0, NULL, '', '', NULL),
+(51, 25, 16, 29, '2014-03-23 19:00:00', NULL, 3, 0, 1, 0, NULL, '', '', NULL),
+(52, 1, 32, 31, '2014-03-27 19:00:00', NULL, 1, 5, 1, 0, NULL, '', '', NULL),
+(53, 2, 33, 34, '2014-03-27 23:15:00', NULL, 1, 4, 1, 0, NULL, '', '', NULL),
+(54, 3, 31, 32, '2014-03-31 23:15:00', NULL, 1, 0, 1, 0, NULL, '', '', NULL),
+(55, 4, 34, 33, '2014-03-30 20:00:00', NULL, 3, 3, 1, 0, NULL, '', '', NULL),
+(56, 1, 35, 36, '2014-04-03 23:15:00', NULL, 2, 0, 1, 0, NULL, '', '', 3),
+(57, 2, 36, 35, '2014-04-05 20:00:00', NULL, 1, 0, 1, 0, NULL, '', '', 3),
+(68, 1, 39, 40, NULL, NULL, NULL, NULL, 1, 0, NULL, '', '', 3),
+(69, 2, 40, 39, NULL, NULL, NULL, NULL, 1, 0, NULL, '', '', 3),
+(75, 1, 39, 40, NULL, NULL, NULL, NULL, 1, 0, 2, '', '', 3),
+(76, 3, 41, 42, '2014-08-13 03:00:00', '', NULL, NULL, 1, 0, 1, 'cap1-introd.pdf', 'cap2-proc.pdf', 1),
+(77, 1, 43, 44, NULL, NULL, NULL, NULL, 1, 0, 3, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -770,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   PRIMARY KEY (`idmodulo`,`idcompeticao`,`idturno`),
   KEY `fk_competicao_has_turno_turno1` (`idturno`),
   KEY `fk_competicao_has_turno_competicao` (`idcompeticao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
 -- Extraindo dados da tabela `modulo`
@@ -780,7 +803,9 @@ INSERT INTO `modulo` (`idmodulo`, `idcompeticao`, `idturno`, `descricao`, `n_jog
 (1, 1, 1, '1ª Turno do Campeonato Maranhense 2014', 26, 3),
 (2, 1, 2, '2ª Turno do Campeonato Maranhense 2014', 31, 0),
 (3, 1, 3, '3ª Turno do Campeonato Maranhense 2014', 2, 0),
-(59, 9, 1, 'Teste 2', 0, 0);
+(59, 9, 1, 'Teste 2', 0, 0),
+(60, 8, 1, '', 0, 0),
+(61, 2, 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -952,7 +977,7 @@ CREATE TABLE IF NOT EXISTS `rodada_fix` (
   `n_jogos` int(11) NOT NULL,
   PRIMARY KEY (`idrodada`),
   KEY `idfase` (`idfase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Extraindo dados da tabela `rodada_fix`
@@ -960,7 +985,8 @@ CREATE TABLE IF NOT EXISTS `rodada_fix` (
 
 INSERT INTO `rodada_fix` (`idrodada`, `idfase`, `apelido`, `n_jogos`) VALUES
 (1, 12, 'Roda Teste Fix', 5),
-(2, 12, 'Rodada 2', 2);
+(2, 12, 'Rodada 2', 2),
+(3, 15, '1ª Rodada', 5);
 
 -- --------------------------------------------------------
 
@@ -1173,9 +1199,10 @@ ALTER TABLE `jogo`
 -- Limitadores para a tabela `jogo_new`
 --
 ALTER TABLE `jogo_new`
-  ADD CONSTRAINT `fk_rodada` FOREIGN KEY (`idrodada`) REFERENCES `rodada_fix` (`idrodada`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_estadio` FOREIGN KEY (`idestadio`) REFERENCES `estadio` (`idestadio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_jogo_new_convidado1` FOREIGN KEY (`time_casa`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_jogo_new_convidado2` FOREIGN KEY (`time_visitante`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_jogo_new_convidado2` FOREIGN KEY (`time_visitante`) REFERENCES `convidado` (`idconvidado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rodada` FOREIGN KEY (`idrodada`) REFERENCES `rodada_fix` (`idrodada`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `local`
