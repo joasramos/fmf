@@ -1,18 +1,27 @@
-<div class="row-fluid clearfix box-shadow bg-white sombra-bottom">
-
+<div class="row-fluid clearfix box-shadow bg-white sombra-bottom"> 
+ 
     <!--SLIDES NOTICIAS-->
     <div class="col-md-7 sombra-right col-xs-7 col-sm-7">
         <div class="camera_wrap camera_magenta_skin" id="camera_wrap_2">
             <?php for ($i = 0; $i < 3; $i++): ?>
                 <div data-thumb="<?= base_url() ?>assets/images/noticias/<?= $news[$i]->imagem ?>" 
                      data-src="<?= base_url() ?>assets/images/noticias/<?= $news[$i]->imagem ?>">
+
                     <div class="camera_caption fadeFromBottom">
-                        <?= $news[$i]->titulo ?> 
-                        <em><?= $news[$i]->descricao ?> </em>
-                    </div>
+                        <a href="<?= base_url() ?>noticias/index/<?= $news[$i]->nome ?>/<?= $news[$i]->url ?>" style="color: white">
+                            <?= $news[$i]->titulo ?>  
+                        </a> 
+                        <br/>
+                        <em>
+                            <a href="<?= base_url() ?>noticias/index/<?= $news[$i]->nome ?>/<?= $news[$i]->url ?>" style="color: white">
+                                <?= $news[$i]->descricao ?> 
+                            </a>  
+                        </em>
+                    </div> 
+ 
                 </div>
             <?php endfor; ?>
-        </div>
+        </div> 
     </div>
 
     <!--AREA ULTIMOS DOCUMENTOS-->
@@ -49,7 +58,7 @@
                     <?= $news_destaque[$i]->descricao ?>
                 </a>
             </p>
-        </div>
+        </div> 
     <?php endfor; ?>
 
     <!--GRUPOS COM 6 NOTICIAS-->
@@ -59,13 +68,17 @@
                 <div class="col-md-6 col-sm-6 col-xs-6 border-right-dotted">
                     <h4 class="titulo-box fonte-media"><?= $news[$i]->titulo ?></h4>
                     <p class="text-noticia fonte-media">
-                        <?= $news[$i]->descricao ?>
+                        <a href="<?= base_url() ?>noticias/index/<?= $news[$i]->nome ?>/<?= $news[$i]->url ?>" style="color: black">
+                            <?= $news[$i]->descricao ?>
+                        </a>
                     </p>
                 </div> 
                 <div class="col-md-6 col-sm-6 col-xs-6">
                     <h4 class="titulo-box fonte-media"><?= $news[$i + 1]->titulo ?></h4>
                     <p class="text-noticia fonte-media">
-                        <?= $news[$i + 1]->descricao ?>
+                        <a href="<?= base_url() ?>noticias/index/<?= $news[$i + 1]->nome ?>/<?= $news[$i + 1]->url ?>" style="color: black">
+                            <?= $news[$i + 1]->descricao ?>
+                        </a>
                     </p>
                 </div>
             </div>

@@ -14,7 +14,7 @@ class Home extends MY_Controller {
     }
 
     public function index() {
-        $this->load->js("assets/js/camera_slider/jquery.mobile.customized.min.js");
+        $this->load->js("assets/js/camera_slider/jquery.mobile.customized.min.js");  
         $this->load->js("assets/js/camera_slider/jquery.easing.1.3.js");
         $this->load->js("assets/js/camera_slider/camera.js");
         $this->load->css("assets/js/camera_slider/camera.css");
@@ -22,6 +22,7 @@ class Home extends MY_Controller {
         $this->load->js("assets/themes/default/js/views/default.js");
 
         $data['news'] = $this->noticia->getLastNews();
+        
         $data['news_destaque'] = $this->noticia->getLastDestaques();
         
         $data['documentos'] = $this->documento->findAll("documento", array(), $this->documento->ALL, array('data', 'asc'));

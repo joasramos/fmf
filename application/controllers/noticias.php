@@ -32,7 +32,7 @@ class Noticias extends MY_Controller {
         $data['aba_active'] = $aba;
 
         $this->load->js('assets/js/slide-noticia/source/jquery.slides.min.js');
-        $this->load->view("site/noticias", $data);
+        $this->load->view("site/noticias", $data);  
     }
 
     /**

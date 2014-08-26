@@ -12,17 +12,17 @@ if (!defined("BASEPATH")) {
 class Noticia extends MY_Model {
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct();   
     }
 
     public function getLastNews() {
-        $this->db->join("tipo_noticia tn", "tn.idtipo_noticia = n.idtipo_noticia","inner");
+        $this->db->join("tipo_noticia tn", "tn.idtipo_noticia = n.idtipo_noticia", "inner");
         $this->db->order_by("data", "desc");
         return $this->db->get("noticia n")->result();
     }
-    
-     public function getLastDestaques() {
-        $this->db->join("tipo_noticia tn", "tn.idtipo_noticia = n.idtipo_noticia","inner");
+
+    public function getLastDestaques() {
+        $this->db->join("tipo_noticia tn", "tn.idtipo_noticia = n.idtipo_noticia", "inner");
         $this->db->where("n.destaque = 1");
         $this->db->order_by("data", "desc");
         return $this->db->get("noticia n")->result();
@@ -45,8 +45,8 @@ class Noticia extends MY_Model {
         $this->db->order_by("data", "desc");
         return $this->db->get("noticia n")->result();
     }
-    
-    public function getTipoNoticia(){
+
+    public function getTipoNoticia() {
         return $this->db->get("tipo_noticia")->result();
     }
 

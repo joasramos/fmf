@@ -13,7 +13,7 @@ $hora_completa = $hora . ":" . $minuto . ":" . $segundo;
 $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de " . date("Y");
 ?>
 
-<html lang="pt-br" style="max-width: 100%; min-width: 1100px"> 
+<html lang="pt-br" style="max-width: 100%; min-width: 1100px">   
     <head>
         <title><?php echo $title; ?></title>
         <meta name="resource-type" content="document" />

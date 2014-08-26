@@ -1,18 +1,18 @@
 <style>
-    #slide-ultimas {
+    #slide-ultimas, #slide-ultimas-clube {
         display: none 
     }
 
-    #slide-ultimas .slidesjs-navigation {
+    #slide-ultimas .slidesjs-navigation, #slide-ultimas-clube .slidesjs-navigation {
         margin-top:3px;
     }
 
-    #slide-ultimas .slidesjs-previous {
+    #slide-ultimas .slidesjs-previous, #slide-ultimas-clube .slidesjs-previous {
         margin-right: 5px;
         float: left;
     }
 
-    #slide-ultimas .slidesjs-next {
+    #slide-ultimas .slidesjs-next, #slide-ultimas-clube .slidesjs-next {
         margin-right: 5px;
         float: left;
     }
@@ -107,7 +107,7 @@
             });
         }
 
-        $('#slide-ultimas').slidesjs({
+        $('#slide-ultimas, #slide-ultimas-clube').slidesjs({
             width: 740,
             height: 528,
             navigation: {
@@ -127,6 +127,8 @@
                 effect: "fade"
             }
         });
+        
+        
     });
 </script>
 <h2 class="title-header-content">
@@ -161,6 +163,7 @@
                                     <h5><?= $news_selected['news_selected_last'][0]->titulo ?></h5>
                                     <h3><?= $news_selected['news_selected_last'][0]->descricao ?></h3>
 
+                                    <!--AREA DA GALERIA DE IMAGENS DE UMA NOTICIA SELECIONADA-->
                                     <div class='col-md-12'>
                                         <div id="slide-ultimas">
                                             <?php foreach ($news_selected['galeria'] as $img): ?>
@@ -170,7 +173,8 @@
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
-
+ 
+                                    <!--TEXTO DA NOTICIA-->
                                     <div class='col-md-12'>
                                         <?= $news_selected['news_selected_last'][0]->texto ?>
                                     </div>
@@ -219,11 +223,20 @@
                             <div class="row-fluid clearfix">
                                 <div class="col-md-8"> 
                                     <?php if ($news_selected && isset($news_selected['news_selected_clubes'])): ?>
+                                        <!--AREA DA NOTICIA SELECIONADA DE UM CLUBE-->
+
                                         <h5><?= $news_selected['news_selected_clubes'][0]->titulo ?></h5>
                                         <h3><?= $news_selected['news_selected_clubes'][0]->descricao ?></h3>
+
+                                        <!--GALERIA DE IMAGENS DA NOTICIA-->
                                         <div class='col-md-12'>
-                                            <img src='<?= base_url() ?>assets/images/noticias/<?= $news_selected['news_selected_clubes'][0]->imagem ?>'
-                                                 width="400" height="300">
+                                            <div id="slide-ultimas-clube">
+                                                <?php foreach ($news_selected['galeria'] as $img): ?>
+                                                    <?php if (str_word_count($img) > 0): ?>
+                                                        <img src="<?= base_url() ?>uploads/<?= $news_selected['news_selected_clubes'][0]->url ?>/<?= $img ?>" alt="">
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
                                         </div>
                                         <div class='col-md-12'>
                                             <?= $news_selected['news_selected_clubes'][0]->texto ?>
