@@ -12,7 +12,7 @@ if (!defined("BASEPATH")) {
 class Noticia extends MY_Model {
 
     public function __construct() {
-        parent::__construct();   
+        parent::__construct();
     }
 
     public function getLastNews() {
@@ -48,6 +48,11 @@ class Noticia extends MY_Model {
 
     public function getTipoNoticia() {
         return $this->db->get("tipo_noticia")->result();
+    }
+
+    public function getIdtipoNoticia($idnoticia) {
+        $this->db->where("idnoticia", $idnoticia);
+        return $this->db->get("noticia")->result();
     }
 
 }

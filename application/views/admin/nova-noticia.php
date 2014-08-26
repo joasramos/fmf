@@ -4,9 +4,9 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend>Cadastro/Edição de Notícia</legend>
+                <legend>Informação da Notícia</legend>
                 <?= isset($msg) ? $msg : "" ?>
-
+                <h6 class="text-center" style="font-style: italic; margin-bottom: 2em">Informações gerais da notícia...</h6>
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_titulo">Tag</label>  
@@ -18,7 +18,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_desc">Titulo</label>  
+                    <label class="col-md-4 control-label" for="not_desc">Título</label>  
                     <div class="col-md-8">
                         <input id="not_desc"  required="" name="not_desc" placeholder="" class="form-control input-md" type="text">
 
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_autor">Autor</label>  
                     <div class="col-md-4">
-                        <input id="not_autor" name="not_autor" placeholder="" class="form-control input-md" type="text">
+                        <input id="not_autor" name="not_autor" placeholder="Não é obrigatorio" class="form-control input-md" type="text">
 
                     </div>
                 </div>
@@ -43,6 +43,15 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="not_img">Imagem de Capa</label>  
+                    <div class="col-md-5">
+                        <input id="not_img"  required="" name="not_img" class="form-control input-md" type="file">
+
+                    </div>
+                </div>
+                <hr style="margin-bottom:"/>
+                <h6 class="text-center" style="font-style: italic; margin-bottom: 2em">Sobre quem é a notícia...</h6>
                 <!-- Classficacao da noticia -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_opt">Referência</label>
@@ -99,9 +108,11 @@
                     </div>
                 </div>
 
-                <!-- Textarea -->
+                <!--TEXTO DA NOTICIA-->
+                <hr style="margin-bottom:"/>
+                <h6 class="text-center" style="font-style: italic; margin-bottom: 2em"></h6>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_texto">Texto da Notícia</label>
+                    <label class="col-md-4 control-label" for="not_texto">Texto da notícia</label>
                     <div class="col-md-8">                     
                         <textarea class="form-control" id="not_texto" name="not_texto" cols="" rows="30"></textarea>
                     </div>
