@@ -32,7 +32,7 @@
         </div>  
     </div>
 
-    <div class="row-fluid clearfix" style="max-height: 400px; overflow: auto">
+    <div class="row-fluid clearfix" style="max-height: 768px; overflow: auto">
         <!--TABELA-->
         <div class="col-md-12">
             <table class="table table-bordered" style="margin-left: 1em">

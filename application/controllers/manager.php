@@ -8,6 +8,8 @@ class Manager extends MY_Controller {
 
     public function __construct() {
         parent::__construct("admin");
+        $this->load->model("usuario");
+        $this->usuario->logged();
     }
 
     public function index() {
