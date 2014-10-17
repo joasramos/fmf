@@ -1,18 +1,27 @@
 <style>
-    #slide-ultimas {
+    #slide-ultimas, #slide-ultimas-clube, #slide-ultimas-arb, #slide-ultimas-fmf {
         display: none 
     }
 
-    #slide-ultimas .slidesjs-navigation {
+    #slide-ultimas .slidesjs-navigation, 
+    #slide-ultimas-clube .slidesjs-navigation,
+    #slide-ultimas-arb .slidesjs-navigation,
+    #slide-ultimas-fmf .slidesjs-navigation{
         margin-top:3px;
     }
 
-    #slide-ultimas .slidesjs-previous {
+    #slide-ultimas .slidesjs-previous, 
+    #slide-ultimas-clube .slidesjs-previous,
+    #slide-ultimas-arb .slidesjs-previous,
+    #slide-ultimas-fmf .slidesjs-previous{
         margin-right: 5px;
         float: left;
     }
 
-    #slide-ultimas .slidesjs-next {
+    #slide-ultimas .slidesjs-next, 
+    #slide-ultimas-clube .slidesjs-next,
+    #slide-ultimas-arb .slidesjs-next,
+    #slide-ultimas-fmf .slidesjs-next{
         margin-right: 5px;
         float: left;
     }
@@ -107,7 +116,7 @@
             });
         }
 
-        $('#slide-ultimas').slidesjs({
+        $('#slide-ultimas, #slide-ultimas-clube, #slide-ultimas-arb').slidesjs({
             width: 740,
             height: 528,
             navigation: {
@@ -127,6 +136,8 @@
                 effect: "fade"
             }
         });
+
+
     });
 </script>
 <h2 class="title-header-content">
@@ -161,6 +172,7 @@
                                     <h5><?= $news_selected['news_selected_last'][0]->titulo ?></h5>
                                     <h3><?= $news_selected['news_selected_last'][0]->descricao ?></h3>
 
+                                    <!--AREA DA GALERIA DE IMAGENS DE UMA NOTICIA SELECIONADA-->
                                     <div class='col-md-12'>
                                         <div id="slide-ultimas">
                                             <?php foreach ($news_selected['galeria'] as $img): ?>
@@ -171,6 +183,7 @@
                                         </div>
                                     </div>
 
+                                    <!--TEXTO DA NOTICIA-->
                                     <div class='col-md-12'>
                                         <?= $news_selected['news_selected_last'][0]->texto ?>
                                     </div>
@@ -219,11 +232,20 @@
                             <div class="row-fluid clearfix">
                                 <div class="col-md-8"> 
                                     <?php if ($news_selected && isset($news_selected['news_selected_clubes'])): ?>
+                                        <!--AREA DA NOTICIA SELECIONADA DE UM CLUBE-->
+
                                         <h5><?= $news_selected['news_selected_clubes'][0]->titulo ?></h5>
                                         <h3><?= $news_selected['news_selected_clubes'][0]->descricao ?></h3>
+
+                                        <!--GALERIA DE IMAGENS DA NOTICIA-->
                                         <div class='col-md-12'>
-                                            <img src='<?= base_url() ?>assets/images/noticias/<?= $news_selected['news_selected_clubes'][0]->imagem ?>'
-                                                 width="400" height="300">
+                                            <div id="slide-ultimas-clube">
+                                                <?php foreach ($news_selected['galeria'] as $img): ?>
+                                                    <?php if (str_word_count($img) > 0): ?>
+                                                        <img src="<?= base_url() ?>uploads/<?= $news_selected['news_selected_clubes'][0]->url ?>/<?= $img ?>" alt="">
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </div>
                                         </div>
                                         <div class='col-md-12'>
                                             <?= $news_selected['news_selected_clubes'][0]->texto ?>
@@ -272,29 +294,59 @@
                             <div class="tab-pane" id="panel-arbit">
                                 <div class="row-fluid clearfix">
                                     <div class="col-md-8"> 
-                                        <p class="titulo">
-                                            Últimas Notícias dos Arbítros
-                                        </p>
-                                        <!--CARREGAMOS ULTIMAS NOTICIAS DOS ARBITROS-->
-                                        <?php foreach ($last_news_arbitragem as $last): ?>
-                                            <div class='row-fluid clearfix'>
-                                                <div class='col-md-2'>
-                                                    <h6>
-                                                        <?= date("d/m/Y", strtotime($last->data)) ?>
-                                                    </h6>
-                                                </div>
-                                                <div class='col-md-10'>
-                                                    <h6> <?= $last->titulo ?> </h6>
-                                                    <p> 
-                                                        <a href='<?= base_url() ?>noticias/index/Arbitragem/<?= $last->url ?>'>
-                                                            <?= $last->descricao ?>
-                                                        </a>
-                                                    </p>
-                                                </div>
+                                    <?php if ($news_selected && isset($news_selected['news_selected_arbitro'])): ?>
+                                        <!--AREA DA NOTICIA SELECIONADA DE UM CLUBE-->
+
+                                        <h5><?= $news_selected['news_selected_arbitro'][0]->titulo ?></h5>
+                                        <h3><?= $news_selected['news_selected_arbitro'][0]->descricao ?></h3>
+
+                                        <!--GALERIA DE IMAGENS DA NOTICIA-->
+                                        <div class='col-md-12'>
+                                            <div id="slide-ultimas-arb">
+                                                <?php foreach ($news_selected['galeria'] as $img): ?>
+                                                    <?php if (str_word_count($img) > 0): ?>
+                                                        <img src="<?= base_url() ?>uploads/<?= $news_selected['news_selected_arbitro'][0]->url ?>/<?= $img ?>" alt="">
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             </div>
-                                        <?php endforeach; ?>
+                                        </div>
+                                        <div class='col-md-12'>
+                                            <?= $news_selected['news_selected_arbitro'][0]->texto ?>
+                                        </div>
+                                        <a class='btn btn-inverse btn-default' href='<?= base_url() ?>noticias'> Retornar</a>
+                                    <?php else: ?>
+
+                                        <p class="titulo">
+                                            Últimas Notícias sobre Arbitros
+                                        </p>
+                                        <div class="cont-border-dott">
+                                            <!--CARREGAMOS ULTIMAS CLUBES-->
+                                            <?php foreach ($last_news_arbitragem as $last): ?>
+                                                <div class='row-fluid clearfix border-bottom-dotted border-right-dotted margin-default'>
+                                                    <div class='col-md-2'>
+                                                        <h6 class="borda-right-marrom">
+                                                            <?= date("d/m/Y", strtotime($last->data)) ?>
+                                                        </h6>
+                                                    </div>
+                                                    <div class='col-md-10'>
+                                                        <h6 class="title-simple"> <?= $last->titulo ?> </h6>
+                                                        <p> 
+                                                            <a class='link-default' href='<?= base_url() ?>noticias/index/Clubes/<?= $last->url ?>'>
+                                                                <?= $last->descricao ?>
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            endforeach;
+                                            echo "</div>";
+                                        endif;
+                                        ?>
+
                                         <!--FIM DO CARREGAMENTO-->
                                     </div>
+
+                                    
                                     <div class="col-md-4 padding-default"> 
                                         <div class="fb-like-box" style="float: right; margin-right: 0; margin-top: 0.811111em" data-href="https://www.facebook.com/pages/Federa%C3%A7%C3%A3o-Maranhense-de-Futebol-FMF/630817553600054" 
                                              data-colorscheme="light" data-show-faces="true" 

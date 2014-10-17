@@ -68,6 +68,7 @@ class Noticias extends MY_Controller {
     /*
      * Verificamos a galeria
      */
+
     private function getGaleria($n) {
         if (count($n)) {
             $dir = 'uploads/' . $n[0]->url . "/";
@@ -159,24 +160,36 @@ class Noticias extends MY_Controller {
         $this->load->view("admin/nova-noticia", $data);
     }
 
-    public function drop() {
-        $idnot = $this->input->post('idnoticia');
-        $idtipo = $this->input->post('idtipo');
+    public function drop($idnot = null) {
+        $this->output->unset_template();
+
+        
+        $data = $this->noticia->getIdTipoNoticia($idnot);
+
+        $idtipo = $data[0]->idtipo_noticia;
 
         /**
          * Verificamos qual o tipo da noticia e excluimos-o
          */
-        //CODIGO AQUI
+        if ($idtipo == 2) {
+            $this->noticia->drop('idnoticia', $idnot, "noticia_clube");
+        } else if ($idtipo == 3) {
+            $this->noticia->drop('idnoticia', $idnot, "noticia_arbitro");
+        }
 
         /*
          * Excluimos a Galeria
          */
 
-        //CODIGO AQUI
+
         /*
          * Enfim, deletamos a noticia
          */
-        //CODIGO AQUI
+
+        $this->noticia->drop('idnoticia', $idnot, "noticia");
+
+        
+        redirect("noticias/showAll", "refresh");
     }
 
     public function find() {
@@ -191,6 +204,10 @@ class Noticias extends MY_Controller {
     public function setObject() {
         $obj = array();
 
+//        print_r($this->input->post());
+//        
+//        return 0;
+        
         $obj["idtipo_noticia"] = $this->input->post("not_tipo");
         $obj["titulo"] = $this->input->post("not_titulo");
         $obj["descricao"] = $this->input->post("not_desc");
@@ -216,9 +233,19 @@ class Noticias extends MY_Controller {
          */
         $obj["fmf_acontece"] = $obj["idtipo_noticia"] == 4 ? 1 : 0;
 
+        /*
+         * Capturamos imagem de capa e fazemos upload
+         */
+        $img = $this->realizaUpload("assets/images/noticias", "", "not_img", true);
+
+        //print_r($img);
+
+        $obj['imagem'] = $img['file']['file_name'];
+
         $tipo = $this->input->post("not_dest");
 
-        if (isset($tipo)) {
+       
+        if (isset($tipo) && $tipo == "on") {
             $obj["destaque"] = 1;
         }
 
@@ -235,6 +262,15 @@ class Noticias extends MY_Controller {
          * Setamos o objeto noticia
          */
         $obj = $this->setObject();
+
+        /*
+         * Capturamos imagem de capa e fazemos upload
+         */
+//        $img = $this->realizaUpload("assets/images/noticias", "", "not_img", true);
+//
+//        print_r($img);
+//        
+//        return 0;
 
         if (isset($obj["idnoticia"])) {
             //SE ESTAMOS EDITANDO

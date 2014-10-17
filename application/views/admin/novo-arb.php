@@ -1,9 +1,16 @@
 <div class="row-fluid" style="padding-top: 2em">
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="<?= base_url() ?>arbitragens/insert" method="POST">
         <fieldset>
 
             <!-- Form Name -->
             <legend>Cadastro de Árbitro</legend>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="arb_img">Imagem do Arbitro</label>  
+                <div class="col-md-5">
+                    <input id="arb_img" name="arb_img" class="form-control input-md" type="file">
+                </div>
+            </div>
 
             <!-- Text input-->
             <div class="form-group">
@@ -243,8 +250,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="button1id"></label>
                 <div class="col-md-8">
-                    <button id="button1id" name="button1id" class="btn btn-success">Good Button</button>
-                    <button id="button2id" name="button2id" class="btn btn-danger">Scary Button</button>
+                    <button id="button1id" name="button1id" class="btn btn-success">Salvar</button>
+                    <!--<button id="button2id" name="button2id" class="btn btn-danger">Scary Button</button>-->
                 </div>
             </div>
 

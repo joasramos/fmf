@@ -114,7 +114,7 @@ abstract class MY_Controller extends CI_Controller {
      * Método utilizado para upload de arquivos
      */
 
-    public function realizaUpload($path = "", $tipo_arq = "", $html_item) {
+    public function realizaUpload($path = "", $tipo_arq = "", $html_item, $dir = false) {
         /*
          * HELPERS FORM E URL FORAM CARREGADOS no autoload.php
          */
@@ -126,10 +126,17 @@ abstract class MY_Controller extends CI_Controller {
         }
 
         $this->criarDiretorio($path);
+
         /**
          * Setar path onde será salva a imagem
          */
-        $config['upload_path'] = "uploads/" . $path;
+        if (!$dir) {
+            $config['upload_path'] = "uploads/" . $path;
+        } else {
+            $config['upload_path'] = $path;
+        }
+
+
 
         /**
          * Imagens permitidas

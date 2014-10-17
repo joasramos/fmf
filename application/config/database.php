@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 // Usando banco LOCAL
-$active_group = 'localhost';
+$active_group = 'treino.externo';
 //$active_group = 'treino.externo';
 
 $active_record = TRUE;
@@ -12,12 +12,12 @@ $active_record = TRUE;
 // configurações banco LOCAL
 $db['localhost']['hostname'] = 'localhost';
 $db['localhost']['username'] = 'root';
-$db['localhost']['password'] = '';
+$db['localhost']['password'] = '1q2w3e';
 $db['localhost']['database'] = 'fmf2';
 $db['localhost']['dbdriver'] = 'mysqli';
 $db['localhost']['dbprefix'] = '';
 $db['localhost']['pconnect'] = TRUE;    
-$db['localhost']['db_debug'] = TRUE;
+$db['localhost']['db_debug'] = FALSE;
 $db['localhost']['cache_on'] = FALSE;
 $db['localhost']['cachedir'] = '';
 $db['localhost']['char_set'] = 'utf8';
@@ -34,7 +34,7 @@ $db['treino.externo']['database'] = 'starcolc_fmf';
 $db['treino.externo']['dbdriver'] = 'mysqli';
 $db['treino.externo']['dbprefix'] = '';
 $db['treino.externo']['pconnect'] = TRUE;
-$db['treino.externo']['db_debug'] = TRUE;
+$db['treino.externo']['db_debug'] = FALSE;
 $db['treino.externo']['cache_on'] = FALSE;
 $db['treino.externo']['cachedir'] = '';
 $db['treino.externo']['char_set'] = 'utf8';
