@@ -31,15 +31,15 @@ else: $aux = 0;
                         <div class="tab-pane active" id="panel-pela-fmf" style="padding: 0;">
                             <h2 class="titulo margin-default"> Competições Organizadas pela FMF</h2>
                             <div class="tabbable" id="tabs-234364">
-
+                                            
                                 <!--NOMES DAS COMPETIÇÕES, ABAS DO CONTEUDO-->
-                                <ul class="nav nav-tabs" id="header-comp">
+<!--                                <ul class="nav nav-tabs" id="header-comp">
                                     <?php foreach ($comp_nomes as $key => $value): ?>
                                         <li class="<?= $key ? "" : "active" ?>" url="<?= $value->url ?>">
                                             <a href="#tabs-<?= $key + 1 ?>"><?= $value->apelido ?></a>
                                         </li>
                                     <?php endforeach; ?>
-                                </ul>
+                                </ul>-->
 
                                 <!--DETALHES DAS COMPETICOES, CONTEUDO DAS ABAS-->
                                 <div class="tab-content" id="cont-comp" style="padding: 0">                                 
@@ -48,12 +48,12 @@ else: $aux = 0;
 
                                             <!--SELEÇÃO DE ANO DA COMPETIÇÃO-->
                                             <div class="row-fluid clearfix">
-                                                <div class="col-md-12">
+<!--                                                <div class="col-md-12">
                                                     <h3 class="text-left titulo">
                                                         <?= $value->apelido ?>
                                                     </h3>
-                                                </div>
-                                                <div class="col-md-12">
+                                                </div>-->
+<!--                                                <div class="col-md-12">
                                                     <h5 class="">Escolha um ano: 
                                                         <select class="sel-ano">
                                                             <option>Selecione</option>
@@ -62,7 +62,7 @@ else: $aux = 0;
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </h5>
-                                                </div>
+                                                </div>-->
 
                                                 <!--CONTEM INFORMAÇÕES DAS COMPETICOES-->
                                                 <div class="row-fluid clearfix">
@@ -71,18 +71,18 @@ else: $aux = 0;
 
                                                             <!--TURNOS, CABEÇALHO-->
                                                             <?php foreach ($turnos as $key => $value): ?>
-                                                                <li class="<?= $key ? "" : "active" ?>">
+<!--                                                                <li class="<?= $key ? "" : "active" ?>">
                                                                     <a href="#panel-turno-<?= $aux + 1 ?>" data-toggle="tab">
                                                                         <?= $value->nome ?>
                                                                     </a>
-                                                                </li>
+                                                                </li>-->
                                                                 <?php
                                                                 $aux++;
                                                             endforeach;
                                                             ?>
                                                             <!--END CABEÇALHO-->
 
-                                                            <li> 
+<!--                                                            <li> 
                                                                 <a href="#panel-class-<?= $k ?>" data-toggle="tab">Classificação</a>
                                                             </li>
                                                             <li> 
@@ -90,7 +90,7 @@ else: $aux = 0;
                                                             </li>
                                                             <li> 
                                                                 <a href="#panel-alt-<?= $k ?>" data-toggle="tab">Alterações</a>
-                                                            </li>
+                                                            </li>-->
                                                         </ul>
 
                                                         <!--CRIA O CONTEUDO OS PAINEIS DE TURNOS-->
@@ -99,7 +99,7 @@ else: $aux = 0;
                                                                 <div class="tab-pane <?= $key ? "" : "active" ?>" id="panel-turno-<?= $aux2 + 1 ?>">
                                                                     <?php
                                                                     if (!count($comp_jogos[$key])) {
-                                                                        echo "<h3 class='text-danger text-center'>Não realizado - " . $key . "</h3>";
+//                                                                        echo "<h3 class='text-danger text-center'>Não realizado - " . $key . "</h3>";
                                                                     }
                                                                     $str = "";
                                                                     foreach ($comp_jogos[$key] as $jogo):

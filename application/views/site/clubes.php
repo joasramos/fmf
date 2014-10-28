@@ -87,9 +87,9 @@
 
 <script>
     $(function() {
-        var PATH = "http://" + document.domain + "/fmf/";
+        var PATH = "http://" + URL_FIX + "/";
         $(".dados-clube").click(function() {
-            var idclube = $(this).attr("id");
+            var idclube = $(this).attr("id"); 
             $("#detail_clube").bPopup({
                 loadUrl: PATH + "clubes/showDetailClube/" + idclube
             });

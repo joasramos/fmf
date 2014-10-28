@@ -80,12 +80,12 @@
 
 <script>
     $(function() {
-        var PATH = "http://" + document.domain + "/fmf/";
+        var PATH = "http://" + URL_FIX + "/";
         $(".dados-arb").click(function() {
             var idarb = $(this).attr("id");            
             $("#detail_arb").bPopup({
                 loadUrl: PATH + "arbitragens/showDetailArbitro/" + idarb
             });            
         });
-    });
+    }); 
 </script>

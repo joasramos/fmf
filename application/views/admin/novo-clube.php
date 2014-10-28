@@ -83,7 +83,7 @@
 </div>
 
 <script>
-    var PATH = "http://" + document.domain + "/fmf/";
+    var PATH = "http://" + URL_FIX + "/" ; 
     $(function() {
         /*
          $("#btn_s_clu").click(function() {

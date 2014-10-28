@@ -71,27 +71,18 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
                 <div class="row barra-times-topo clearfix">
 
                     <!--SCROLL DOS ICONES DOS TIMES-->
-                    <div class="col-md-8 col-sm-8 col-xs-8">
-                        <ul class="list-times">
-                            <?php foreach ($other_data['serie_a'] as $clube): ?>
-                                <li>
-                                    <a href="javascript:void(0)" idclube="<?= $clube->idclube ?>" class="dados-clube-home">
-                                        <img width="25" height="25" src="<?= base_url() ?>assets/images/escudos/<?= $clube->bandeira ?>">
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                            <span style="color:white">&nbsp;&raquo;</span>
-                        </ul>
+                    <div id="clu-div">
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-xs-4 col-sm-4" style="padding: 0; margin-top: 0.299999999em">
                         <ul class="list-serie" style="margin: 0">
                             <li>
-                                <a href="#">1ª Div</a>
+                                <a href="#" id="prim_div">1ª Div</a>
                             </li>
                             <li>
-                                <a href="#">2ª Div</a>
+                                <a href="#" id="seg_div">2ª Div</a>
                             </li>
                         </ul>
                     </div>
@@ -268,20 +259,20 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
             <div class="col-md-12" id="detail_clube_home" style="display: none">
 
             </div>
-        </div>
+        </div> 
         <script>
             $(function() {
                 $("#ouvi").click(function() {
                     $("#modal-ouvi").bPopup();
                 });
 
-                var PATH = "http://" + document.domain + "/fmf/";
-                $(".dados-clube-home").click(function() {
-                    var idclube = $(this).attr('idclube');
-                    $("#detail_clube_home").bPopup({
-                        loadUrl: PATH + "clubes/showDetailClube/" + idclube
-                    });
-                });
+//                var PATH = "http://" + URL_FIX + "/";
+//                $(".dados-clube-home").click(function() { 
+//                    var idclube = $(this).attr('idclube');
+//                    $("#detail_clube_home").bPopup({
+//                        loadUrl: PATH + "clubes/showDetailClube/" + idclube
+//                    });
+//                });
             });
         </script>
     </body>

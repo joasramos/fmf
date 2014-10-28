@@ -226,4 +226,14 @@ class Clubes extends MY_Controller {
         $this->load->view("site/detail-clube", $data);
     }
 
+    function mngClubes(){
+       $this->output->unset_template();
+       
+       $serie = $this->input->post('serie');
+       
+       $data['clubes'] = $this->clube->getClubeByDivisao($serie);
+       
+       $this->load->view("site/club-div",$data);
+       
+    }
 }

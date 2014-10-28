@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var URL = "http://" + window.document.domain + "/fmf/";
+var URL = "http://" + URL_FIX + "/";
 
 $(document).ready(function() {
 
@@ -37,6 +37,41 @@ $(document).ready(function() {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+    mngDivisoes("Série A");
+    
+    $("#prim_div").click(function(){
+        mngDivisoes("Série A");
+    });
+    
+    $("#seg_div").click(function(){
+        mngDivisoes("Série B");
+    });
+
 });
 
+function mngDivisoes(serie) {
+
+    $.ajax({
+        url: "http://" + URL_FIX + "/clubes/mngClubes",
+        data:{
+            serie: serie
+        } ,
+        type: "POST",
+        success: function(data, textStatus, jqXHR) {
+            $("#clu-div").html(data);
+            $(function() {
+                var PATH = "http://" + URL_FIX + "/";
+                $(".dados-clube-home").click(function() {
+                    var idclube = $(this).attr('idclube');
+                    $("#detail_clube_home").bPopup({
+                        loadUrl: PATH + "clubes/showDetailClube/" + idclube
+                    });
+                });
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Não funciona!");
+        }
+    });
+}
 

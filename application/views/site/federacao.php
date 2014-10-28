@@ -277,14 +277,10 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="panel-normas">
-                        <p>
-                            Howdy, I'm in Section 2.
-                        </p>
+                       
                     </div>
                     <div class="tab-pane" id="panel-fmf">
-                        <p>
-                            Howdy, I'm in Section 2.
-                        </p>
+                        
                     </div>
                 </div>
             </div>

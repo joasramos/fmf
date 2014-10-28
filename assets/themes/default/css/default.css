@@ -18,7 +18,7 @@ body{
 }
 
 .barra-times-topo{
-    /*border-top: 2px #f9f9f9 double;*/
+    /*border-top: 2px #f9f9f9 double;*/ 
     /*height: 30px*/
 }
 
@@ -58,8 +58,8 @@ body{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-#topo-log-img{
-    background: url("/fmf/assets/themes/default/logos/logo.png");
+#topo-log-img{ 
+    background: url("/assets/themes/default/logos/logo.png");
     background-size: cover;
     height: 100px;
     width: 100px;

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var CONST = 'http://localhost/fmf/competicoes/index/';
+var CONST = "http://" + URL_FIX + "/competicoes/index/"; 
+
 $(function() {
     _init();
     setAbasActive();
@@ -31,15 +32,15 @@ function _init() {
 }
 
 function setAbasActive() {
-    var url = "http://" + window.document.domain + "/fmf/competicoes/managerAbas";
+    var url = "http://" + URL_FIX + "/competicoes/managerAbas/";
 
-    var pathname = window.location.pathname.substr(22, window.location.pathname.length);
+    var pathname = window.location.pathname.substr(19, window.location.pathname.length); 
 
-//    alert(url + pathname);
-
+    //alert(pathname);      
+ 
     $.ajax({
         url: url + pathname,
-        dataType: "json"
+        dataType: "json" 
     }).done(function(data) {
         $.each($('#header-comp li').children('a'), function(key, value) {
 
@@ -51,7 +52,7 @@ function setAbasActive() {
                 $(this).parent().addClass('active');
 
                 //ativa conteudo da aba
-                $("#cont-comp").children('div').eq(key).addClass('active');
+                $("#cont-comp").children('div').eq(key).addClass('active'); 
             }
         });
     });
@@ -59,17 +60,17 @@ function setAbasActive() {
 
 function setShowCompeticao() {
     $("#header-comp li a").click(function() {
-        window.location.href = "http://" + window.document.domain + "/fmf/competicoes/index/" + $(this).parent().attr('url');
+        window.location.href = "http://" + URL_FIX + "/competicoes/index/" + $(this).parent().attr('url'); 
     });
 }
 
 function loadComboFases() {
     $("#sel-mod-cla").change(function() {
-        var idmod = $(this).find(":selected").val();
-        var PATH = "http://" + window.document.domain;
+        var idmod = $(this).find(":selected").val(); 
+        var PATH = "http://" + URL_FIX + "/"; 
 
         $.ajax({
-            url: PATH + "/fmf/fases/getFasesByMod",
+            url: PATH + "/fases/getFasesByMod",  
             type: "POST",
             dataType: "JSON",
             data: {
@@ -87,7 +88,7 @@ function loadComboFases() {
                     loadClassi(idmod);
                 });
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) { 
                 alert("Erro ao buscar fases do módulo");
             }
         });
@@ -99,10 +100,10 @@ function loadClassi(idmod) {
         $("#class-table").empty();
         var idfase = $(this).find(":selected").val();
 
-        var PATH = "http://" + window.document.domain;
+        var PATH = "http://" + URL_FIX + "/";
 
         $.ajax({
-            url: PATH + "/fmf/competicoes/loadClassByFaseMod",
+            url: PATH + "/competicoes/loadClassByFaseMod/",
             type: "POST",
             data: {
                 idmod: idmod,
@@ -115,6 +116,5 @@ function loadClassi(idmod) {
                 alert("Erro ao buscar classificacao");
             }
         });
-
     });
 }

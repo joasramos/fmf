@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var PATH = "http://" + document.domain + "/fmf/";
+var PATH = "http://" + URL_FIX + "/"; 
 var idfase;
 var idmod;
 var idgrupo;
@@ -329,7 +329,7 @@ function showConv() {
     });
 }
 
-/**
+/** 
  * Método para ocultar painels
  * @param {type} p representa os paineis
  * 

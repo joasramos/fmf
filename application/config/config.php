@@ -14,7 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://starcolchoes.com.br/fmf/';
+
+$config['base_url']	= 'http://localhost/fmf/';     
 
 /*
 |-------------------------------------------------------------------------- 
@@ -26,7 +27,7 @@ $config['base_url']	= 'http://starcolchoes.com.br/fmf/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = ''; 
 
 /*
 |--------------------------------------------------------------------------
