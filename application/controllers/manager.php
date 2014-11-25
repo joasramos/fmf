@@ -14,6 +14,9 @@ class Manager extends MY_Controller {
 
     public function index() {
         $this->output->set_template("admin");
+        
+      //  echo $this->session->userdata("tipo_usuario");
+        
         $this->load->view("admin/index");
     }
 

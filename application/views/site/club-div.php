@@ -8,6 +8,6 @@
                 </a>
             </li>
         <?php endforeach; ?>
-        <span style="color:white">&nbsp;&raquo;</span>
+        <span style="color:white">&nbsp;&raquo;</span>   
     </ul>
-</div>
+</div>   

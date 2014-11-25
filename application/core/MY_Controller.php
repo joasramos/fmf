@@ -3,7 +3,7 @@
 /**
  * Description of MY_Controller
  *
- * @author joasaraujo
+ * @author joasaraujo  
  */
 abstract class MY_Controller extends CI_Controller {
 

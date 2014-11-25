@@ -44,13 +44,16 @@ class Login extends CI_Controller {
             //Carrega view login
             $this->load->view('admin/login');
         } else {
-            if ($query) {
+            if (count($query)) {
 
                 $data = array(
                     "username" => $user,
-                    "logado" => true
+                    "logado" => true,
+                    "tipo_usuario" => $query[0]->admin
                 );
-
+                
+//                print_r($data);
+                
                 $this->session->set_userdata($data);
 
                 redirect('manager');

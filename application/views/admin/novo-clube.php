@@ -1,7 +1,28 @@
+<?php
+$idclube = 0;
+$nome = "";
+$ape = "";
+$fund = "";
+$cat = "";
+$escudo = "";
+
+if (isset($clube)) {
+    $idclube = $clube[0]->idclube;
+    $nome = $clube[0]->nome;
+    $ape = $clube[0]->apelido;
+    $fund = $clube[0]->fundacao;
+    $cat = $clube[0]->categoria;
+    $escudo = $clube[0]->bandeira;
+}
+?>
+
 <div class="row-fluid clearfix" style="padding: 2em">
     <form class="form-horizontal" action="<?= base_url() ?>clubes/insert" id="form-cad-clu" enctype="multipart/form-data" method="POST">
         <fieldset>
 
+            <?php if ($idclube): ?>
+                <input type="hidden" value="<?= $idclube ?>" name="idclube">
+            <?php endif; ?>
             <!-- Form Name -->
             <legend>Cadastrar/Editar Clube</legend>
             <h3><?= isset($msg) ? $msg : "" ?></h3>
@@ -9,7 +30,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="clu_nome">Nome</label>  
                 <div class="col-md-5">
-                    <input id="clu_nome" name="clu_nome" placeholder="" class="form-control input-md" required="" type="text">
+                    <input id="clu_nome" name="clu_nome" placeholder="" class="form-control input-md" required="" type="text" 
+                           value="<?= $nome ?>">
 
                 </div>
             </div>
@@ -18,7 +40,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="clu_ape">Apelido</label>  
                 <div class="col-md-4">
-                    <input id="clu_ape" name="clu_ape" placeholder="" class="form-control input-md" required="" type="text">
+                    <input id="clu_ape" name="clu_ape" placeholder="" class="form-control input-md" required="" type="text"
+                           value="<?= $ape ?>">
 
                 </div>
             </div>
@@ -27,7 +50,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="clu_fund">Fundação</label>  
                 <div class="col-md-4">
-                    <input id="clu_fund" name="clu_fund" placeholder="" class="form-control input-md" type="text">
+                    <input id="clu_fund" name="clu_fund" placeholder="" class="form-control input-md" type="text" value="<?= $fund ?>">
 
                 </div>
             </div>
@@ -36,19 +59,19 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="clu_cat">Categoria</label>  
                 <div class="col-md-4">
-                    <input id="clu_cat" name="clu_cat" placeholder="" class="form-control input-md" type="text">
+                    <input id="clu_cat" name="clu_cat" placeholder="" class="form-control input-md" type="text" value="<?= $cat ?>">
 
                 </div>
             </div>
 
             <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="clu_url">Url</label>  
-                <div class="col-md-4">
-                    <input id="clu_url" name="clu_url" placeholder="" class="form-control input-md" type="text">
-
-                </div>
-            </div>
+            <!--            <div class="form-group">
+                            <label class="col-md-4 control-label" for="clu_url">Url</label>  
+                            <div class="col-md-4">
+                                <input id="clu_url" name="clu_url" placeholder="" class="form-control input-md" type="text">
+            
+                            </div>
+                        </div>-->
 
             <!-- Select Basic -->
             <div class="form-group">
@@ -62,14 +85,15 @@
                 </div>
             </div>
 
-            <!-- File Button --> 
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="clu_band">Escudo</label>
-                <div class="col-md-4">
-                    <input id="clu_band" name="clu_band" class="input-file" type="file">
+            <?php if ($escudo == ""): ?>
+                <!-- File Button --> 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="clu_band">Escudo</label>
+                    <div class="col-md-4">
+                        <input id="clu_band" name="clu_band" class="input-file" type="file">
+                    </div>
                 </div>
-            </div>
-
+            <?php endif; ?>
             <!-- Button (Double) -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="btn_s_clu"></label>
@@ -83,7 +107,7 @@
 </div>
 
 <script>
-    var PATH = "http://" + URL_FIX + "/" ; 
+    var PATH = "http://" + URL_FIX + "/";
     $(function() {
         /*
          $("#btn_s_clu").click(function() {

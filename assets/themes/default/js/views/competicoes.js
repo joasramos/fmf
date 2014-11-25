@@ -32,7 +32,7 @@ function _init() {
 }
 
 function setAbasActive() {
-    var url = "http://" + URL_FIX + "/competicoes/managerAbas/";
+    var url = "http://" + URL_FIX + "/competicoes/managerAbas/";  
 
     var pathname = window.location.pathname.substr(19, window.location.pathname.length); 
 

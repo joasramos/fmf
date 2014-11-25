@@ -24,7 +24,7 @@ class MY_Model extends CI_Model {
      * @param type $entity - representa a tabela 
      * @return type - uma lista com todos os dados
      */
-    public function findAll($entity, $columns, $count, $order) {
+    public function findAll($entity, $columns, $count, $order = array()) {
 
         if (count($columns) > 0) {
             $this->db->select(implode(", ", $columns));
@@ -38,8 +38,8 @@ class MY_Model extends CI_Model {
 
         if (count($order) > 1) {
             $this->db->order_by($order[0] . " " . $order[1]);
+//            $this->db->_error_message(); 
         }
-
         return $query->result();
     }
 

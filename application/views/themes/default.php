@@ -72,14 +72,14 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
 
                     <!--SCROLL DOS ICONES DOS TIMES-->
                     <div id="clu-div">
-                        
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-xs-4 col-sm-4" style="padding: 0; margin-top: 0.299999999em">
                         <ul class="list-serie" style="margin: 0">
                             <li>
-                                <a href="#" id="prim_div">1ª Div</a>
+                                <a href="#" id="prim_div">1ª Div</a>  
                             </li>
                             <li>
                                 <a href="#" id="seg_div">2ª Div</a>
@@ -114,6 +114,7 @@ $misc = $semana[date("w")] . ", " . date("j") . " de " . $mes[date("n")] . " de 
                 <div class="row" id="topo-logo">
                     <div class="col-md-8 col-sm-8 col-xs-8">
                         <div class="col-md-2 col-sm-2 col-xs-2" id="topo-log-img">
+                           
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12" id="titulo">
                             <h3>FEDERAÇÃO MARANHENSE DE FUTEBOL</h3>

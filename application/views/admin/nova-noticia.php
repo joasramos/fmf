@@ -1,8 +1,34 @@
+<?php
+$idnoticia = 0;
+$titulo = "";
+$desc = "";
+$autor = "";
+$data = "";
+$img = "";
+$dest = 0;
+$texto = "";
+
+if (isset($noticia)) {
+    $idnoticia = $noticia[0]->idnoticia;
+    $titulo = $noticia[0]->titulo;
+    $desc = $noticia[0]->descricao;
+    $autor = $noticia[0]->autor;
+    $data = $noticia[0]->data;
+    $img = $noticia[0]->imagem;
+    $dest = $noticia[0]->destaque;
+    $texto = $noticia[0]->texto;
+}
+?>
+
 <div class="row-fluid clearfix" style="padding: 2em">
     <div class="col-md-11" >
         <form class="form-horizontal" action="<?= base_url() ?>noticias/insert" method="POST" enctype="multipart/form-data">
             <fieldset>
-
+                <!--CASO ESTEJA EDITANDO UMA NOTICIA-->
+                <?php if ($idnoticia): ?>
+                    <input type="hidden" value="<?= $noticia[0]->idnoticia ?>" name="idnoticia"/>
+                <?php endif; ?>
+                <!--FIM CASO-->
                 <!-- Form Name -->
                 <legend>Informação da Notícia</legend>
                 <?= isset($msg) ? $msg : "" ?>
@@ -11,8 +37,9 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_titulo">Tag</label>  
                     <div class="col-md-6">
-                        <input id="not_titulo" required="" name="not_titulo" placeholder="" class="form-control input-md" type="text">
-
+                        <input id="not_titulo" required="" name="not_titulo" placeholder="" 
+                               class="form-control input-md" type="text"
+                               value="<?= $titulo ?>">
                     </div>
                 </div>
 
@@ -20,8 +47,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_desc">Título</label>  
                     <div class="col-md-8">
-                        <input id="not_desc"  required="" name="not_desc" placeholder="" class="form-control input-md" type="text">
-
+                        <input id="not_desc"  required="" name="not_desc" placeholder="" class="form-control input-md" type="text"
+                               value="<?= $desc ?>">
                     </div>
                 </div>
 
@@ -29,7 +56,9 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_autor">Autor</label>  
                     <div class="col-md-4">
-                        <input id="not_autor" name="not_autor" placeholder="Não é obrigatorio" class="form-control input-md" type="text">
+                        <input id="not_autor" name="not_autor" placeholder="Não é obrigatorio" 
+                               class="form-control input-md" type="text"
+                               value="<?= $autor ?>">
 
                     </div>
                 </div>
@@ -38,19 +67,28 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_data">Data</label>  
                     <div class="col-md-4">
-                        <input id="not_data"  required="" name="not_data" placeholder="" class="form-control input-md" type="text">
+                        <input id="not_data"  required="" name="not_data" placeholder="" 
+                               class="form-control input-md" type="text"
+                               value="<?php
+                               if ($data != "") {
+                                   date("d-m-Y", strtotime($data));
+                               }
+                               ?>">
 
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="not_img">Imagem de Capa</label>  
-                    <div class="col-md-5">
-                        <input id="not_img"  required="" name="not_img" class="form-control input-md" type="file">
+                <?php if ($img == ""): ?>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="not_img">Imagem de Capa</label>  
+                        <div class="col-md-5">
+                            <input id="not_img"  required="" name="not_img" class="form-control input-md" type="file">
 
+                        </div>
                     </div>
-                </div>
-                <hr style="margin-bottom:"/>
+                <?php endif; ?>
+
+                <hr style=""/>
                 <h6 class="text-center" style="font-style: italic; margin-bottom: 2em">Sobre quem é a notícia...</h6>
                 <!-- Classficacao da noticia -->
                 <div class="form-group">
@@ -64,7 +102,7 @@
                             endif;
                             ?>
                         </select>
-                    </div>
+                    </div> 
                 </div>
 
                 <!--PAINEL PARA SELEÇÃO DE CLUBE-->
@@ -104,7 +142,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label"> Destaque </label>
                     <div class="col-md-1">
-                        <input class="form-control" type="checkbox" name="not_dest" />
+                        <input class="form-control" type="checkbox" name="not_dest" <?= $dest ? "checked=''" : "" ?>/>
                     </div>
                 </div>
 
@@ -114,7 +152,9 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="not_texto">Texto da notícia</label>
                     <div class="col-md-8">                     
-                        <textarea class="form-control" id="not_texto" name="not_texto" cols="" rows="30"></textarea>
+                        <textarea class="form-control" id="not_texto" name="not_texto" cols="10" rows="30">
+                            <?= $texto ?>
+                        </textarea>
                     </div>
                 </div>
 

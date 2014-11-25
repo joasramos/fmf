@@ -87,7 +87,7 @@
 
 <script>
     $(function() {
-        var PATH = "http://" + URL_FIX + "/";
+        var PATH = "http://" + URL_FIX + "/";  
         $(".dados-clube").click(function() {
             var idclube = $(this).attr("id"); 
             $("#detail_clube").bPopup({

@@ -80,7 +80,18 @@ class Noticias extends MY_Controller {
         return array();
     }
 
+    /*
+     * Exibe todas as noticias na area administrativa
+     */
+
     public function showAll() {
+
+        /**
+         * Verificar permissões
+         */
+        $this->load->model("usuario");
+        $this->usuario->hasPermission(array(1,4));
+
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 
         $list = $this->noticia->findBySimpleValueOrder("noticia", array("idnoticia", "titulo", "descricao", "data"), "titulo", $value, "data desc");
@@ -131,10 +142,17 @@ class Noticias extends MY_Controller {
     public function newElement() {
         $this->output->set_template("admin");
 
+        $data = $this->setPage();
+
+        $this->load->view("admin/nova-noticia", $data);
+    }
+
+    public function setPage() {
         /*
          * Editor de texto
          */
         $this->load->js("assets/js/tinymce/js/tinymce/tinymce.min.js");
+        
         $this->load->js("assets/themes/admin/js/noticias.js");
 
         /*
@@ -157,13 +175,13 @@ class Noticias extends MY_Controller {
         $data['arbitragem'] = $this->noticia->findAll("arbitro", array(), array(), array());
 //        END GAMBIARRA
 
-        $this->load->view("admin/nova-noticia", $data);
+        return $data;
     }
 
     public function drop($idnot = null) {
         $this->output->unset_template();
 
-        
+
         $data = $this->noticia->getIdTipoNoticia($idnot);
 
         $idtipo = $data[0]->idtipo_noticia;
@@ -188,12 +206,18 @@ class Noticias extends MY_Controller {
 
         $this->noticia->drop('idnoticia', $idnot, "noticia");
 
-        
+
         redirect("noticias/showAll", "refresh");
     }
 
-    public function find() {
+    public function find($id = null) {
         $this->output->set_template("admin");
+
+        $data = $this->setPage();
+
+        $data['noticia'] = $this->noticia->findBySimpleValue("noticia", array(), "idnoticia", $id);
+
+        $this->load->view("admin/nova-noticia", $data);
     }
 
     /**
@@ -207,6 +231,12 @@ class Noticias extends MY_Controller {
 //        print_r($this->input->post());
 //        
 //        return 0;
+
+        $id = $this->input->post("idnoticia");
+        
+        if ($id) {
+            $obj["idnoticia"] = $id;
+        }
         
         $obj["idtipo_noticia"] = $this->input->post("not_tipo");
         $obj["titulo"] = $this->input->post("not_titulo");
@@ -233,18 +263,23 @@ class Noticias extends MY_Controller {
          */
         $obj["fmf_acontece"] = $obj["idtipo_noticia"] == 4 ? 1 : 0;
 
-        /*
-         * Capturamos imagem de capa e fazemos upload
-         */
-        $img = $this->realizaUpload("assets/images/noticias", "", "not_img", true);
+        //print_r($obj);
+        
+       
+        if (!$id) {
+            /*
+             * Capturamos imagem de capa e fazemos upload
+             */
+            $img = $this->realizaUpload("assets/images/noticias", "", "not_img", true);
 
-        //print_r($img);
+            //print_r($img);
 
-        $obj['imagem'] = $img['file']['file_name'];
+            $obj['imagem'] = $img['file']['file_name'];
+        }
 
         $tipo = $this->input->post("not_dest");
 
-       
+
         if (isset($tipo) && $tipo == "on") {
             $obj["destaque"] = 1;
         }
@@ -262,18 +297,13 @@ class Noticias extends MY_Controller {
          * Setamos o objeto noticia
          */
         $obj = $this->setObject();
-
-        /*
-         * Capturamos imagem de capa e fazemos upload
-         */
-//        $img = $this->realizaUpload("assets/images/noticias", "", "not_img", true);
-//
-//        print_r($img);
-//        
-//        return 0;
+        
+        $data = array();
 
         if (isset($obj["idnoticia"])) {
             //SE ESTAMOS EDITANDO
+            $this->noticia->updateSimple("noticia", $obj, "idnoticia", $obj['idnoticia']);
+            $data['idnoticia'] = $obj['idnoticia'];
         } else {
 
             /**
@@ -281,21 +311,21 @@ class Noticias extends MY_Controller {
              */
             $idnoticia = $this->noticia->insertSimple("noticia", $obj);
             $data["idnoticia"] = $idnoticia;
-
-            switch ($obj["idtipo_noticia"]) {
-                case "2":
-                    //insere noticia em clube                
-                    $data["clube_idclube"] = $this->input->post("not_clube");
-                    $this->noticia->insertSimple("noticia_clube", $data);
-                    break;
-                case "3":
-                    //insere noticia em arbitro
-                    $data["idarbitro"] = $this->input->post("not_arb");
-                    $this->noticia->insertSimple("noticia_arbitro", $data);
-                    break;
-            }
         }
 
+        switch ($obj["idtipo_noticia"]) {
+            case "2":
+                //insere noticia em clube                
+                $data["clube_idclube"] = $this->input->post("not_clube");
+                $this->noticia->insertSimple("noticia_clube", $data);
+                break;
+            case "3":
+                //insere noticia em arbitro
+                $data["idarbitro"] = $this->input->post("not_arb");
+                $this->noticia->insertSimple("noticia_arbitro", $data);
+                break;
+        }
+        
         redirect("noticias/showAll", "refresh");
     }
 

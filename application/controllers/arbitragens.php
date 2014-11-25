@@ -25,6 +25,7 @@ class Arbitragens extends MY_Controller {
     public function showAll() {
         $this->load->model('usuario');
         $this->usuario->logged();
+        $this->usuario->hasPermission(1);
 
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 

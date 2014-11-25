@@ -1,20 +1,15 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-var PATH = "http://" + URL_FIX + "/"; 
+var PATH; 
 var idfase;
 var idmod;
 var idgrupo;
-var idrodada;
+var idrodada;  
 
 /*
  * 
  * Main
  */
 $(function() {
+    PATH = "http://" + URL_FIX + "/";
     hidePanels(Array("#comp-fases", "#comp-grupos", "#comp-conv", "#comp-rod", "#comp-jogos"));
     eventos();
 });

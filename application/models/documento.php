@@ -23,4 +23,12 @@ class Documento extends MY_Model {
         return $this->db->get()->result();
     }
 
+    public function getSetores(){
+        return $this->db->get('setor')->result();        
+    }
+    
+    public function getLastDocs(){
+        $this->db->order_by("data desc");
+        return $this->db->get("documento")->result();
+    }
 }

@@ -158,6 +158,10 @@
                                     </ul>
                                 </li>
                             </ul>
+                            <h5 style="width: 100px; float: right"> 
+                                <a href="<?= base_url() ?>">Site</a>&nbsp;|
+                                <a href="<?= base_url() ?>login/logout">Sair</a> 
+                            </h5>
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
                 </nav>

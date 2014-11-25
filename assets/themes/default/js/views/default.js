@@ -49,7 +49,7 @@ $(document).ready(function() {
 
 });
 
-function mngDivisoes(serie) {
+function mngDivisoes(serie) {  
 
     $.ajax({
         url: "http://" + URL_FIX + "/clubes/mngClubes",

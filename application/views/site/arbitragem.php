@@ -80,7 +80,7 @@
 
 <script>
     $(function() {
-        var PATH = "http://" + URL_FIX + "/";
+        var PATH = "http://" + URL_FIX + "/";  
         $(".dados-arb").click(function() {
             var idarb = $(this).attr("id");            
             $("#detail_arb").bPopup({

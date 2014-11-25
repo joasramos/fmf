@@ -91,6 +91,9 @@ class Competicoes extends MY_Controller {
      * Método que exibe todas as competições cadastradas
      */
     public function showAll() {
+        $this->load->model('usuario');
+        $this->usuario->logged();
+        $this->usuario->hasPermission(1);
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
         $list = $this->competicao->findBySimpleValue("competicao", array("idcompeticao", "nome", "apelido", "ano"), "nome", $value);
         $this->loadTable("competicoes", array("ID", "Nome", "Apelido", "Ano"), $list);
@@ -111,7 +114,7 @@ class Competicoes extends MY_Controller {
          * passando a mensagem de retorno da ação deletar
          * como parametro
          */
-        redirect("competicoes/showAll");   
+        redirect("competicoes/showAll");
     }
 
     /*

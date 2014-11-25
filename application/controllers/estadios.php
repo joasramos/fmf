@@ -23,6 +23,9 @@ class Estadios extends MY_Controller {
     }
 
     public function showAll() {
+        $this->load->model('usuario');
+        $this->usuario->logged();
+        $this->usuario->hasPermission(1);
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
         $list = $this->estadio->findBySimpleValue("estadio", array("idestadio", "nome", "apelido", "cidade"), "nome", $value);
         $this->loadTable("estadios", array("ID", "Nome", "Apelido", "Cidade"), $list);
@@ -38,6 +41,7 @@ class Estadios extends MY_Controller {
     }
 
     public function find() {
+        
     }
 
     public function insert() {

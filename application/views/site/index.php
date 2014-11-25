@@ -26,7 +26,7 @@
 
     <!--AREA ULTIMOS DOCUMENTOS-->
     <div class="col-md-4 col-xs-4 col-sm-4 sombra-right border-left-dotted" style='margin-left: 1.333333%; width: 39.33333333%'>
-        <label class="titulo-box" style=' margin-top: 3.822222%; margin-bottom: -1.822222%; color: black'> ÚLTIMOS DOCUMENTOS </label>
+        <label class="titulo-box" style=' margin-top: 3.822222%; margin-bottom: -1.822222%; color: black'> DOCUMENTOS </label>
         <dl  class="border-bottom-dotted border-right-dotted border-left-dotted border-top-dotted padding-default" style="height: 310px; overflow-y: scroll"> 
             <?php foreach ($documentos as $documento): ?>
                 <dt class="borda-right-marrom">
@@ -34,7 +34,7 @@
                     <?= $documento->titulo ?>
                 </label>
                 <h5 style='/*line-height: 150%*/'> 
-                    <a style="color: black; font-weight: bold" href="<?= base_url() . 'assets/documentos/' . $documento->url ?>"> 
+                    <a style="color: black; font-weight: bold" target="_blank" href="<?= base_url() . 'assets/documentos/' . $documento->url ?>"> 
                         <?= $documento->descricao ?>
                     </a>
                 </h5>

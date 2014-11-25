@@ -12,6 +12,7 @@ if (!defined("BASEPATH")) {
 class Clubes extends MY_Controller {
 
     private $info_img_up = array();
+    private $msg;
 
     public function __construct($template = null) {
         parent::__construct($template);
@@ -25,6 +26,10 @@ class Clubes extends MY_Controller {
     }
 
     public function showAll() {
+        $this->load->model('usuario');
+        $this->usuario->logged();
+        $this->usuario->hasPermission(1);
+
         $this->output->set_template("admin");
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 
@@ -97,55 +102,80 @@ class Clubes extends MY_Controller {
         redirect("clubes/showAll");
     }
 
-    public function find() {
+    public function find($idclube = null) {
         $this->output->set_template("admin");
-        redirect(base_url() . 'clubes/showAll');
+        $data["clube"] = $this->clube->findBySimpleValue("clube", $this->clube->ALL, "idclube", $idclube);
+        $data['divisoes'] = $this->clube->findAll("divisao", $this->clube->ALL, null, array());
+        $this->load->view("admin/novo-clube", $data);
     }
 
     public function insert() {
         $this->output->set_template("admin");
 
-        $msg = $this->setFileUpload();
+//        $msg = $this->setFileUpload();
+        //if ($this->msg == "Ok") {
 
-        if ($msg == "Ok") {
+        $obj = $this->setObject();
+        $idclube;
 
-            $obj = $this->setObject();
-            $idclube;
-            $this->clube->setColInsert(array("nome", "apelido", "bandeira", "url", "fundacao", "categoria"));
-            if ($obj[7]) {
-                //atualiza
-            } else {
-                //insere clube
-                $idclube = $this->clube->insert("clube", $obj);
-                //insere divisão
-                $dv = array();
-                $dv[1] = $obj[6];
-                $dv[0] = $idclube;
-                $this->clube->setColInsert(array("idclube", "iddivisao"));
-                $this->clube->insert("divisao_clube", $dv);
-            }
-
-            redirect(base_url() . "clubes/showAll");
+        if ($obj[7]) {
+            $this->clube->setColInsert(array("nome", "apelido", "url", "fundacao", "categoria"));
+            //atualiza
+            $this->clube->update("idclube", $obj[7], "clube", $obj);
+            $idclube = $obj[7];
         } else {
-            $data['msg'] = $msg;
-            $data['divisoes'] = $this->clube->findAll("divisao", $this->clube->ALL, null, array());
-            $this->load->view("admin/novo-clube", $data);
-            echo $msg;
+            $this->clube->setColInsert(array("nome", "apelido", "url", "fundacao", "categoria", "bandeira"));
+            //insere clube
+            $idclube = $this->clube->insert("clube", $obj);
         }
+
+        //insere divisão
+        $dv = array();
+        $dv[1] = $obj[5];
+        $dv[0] = $idclube;
+        $dv[2] = date("Y");
+        $this->clube->setColInsert(array("idclube", "iddivisao", "ano"));
+
+        //verifica se registro em divisão já existe
+        $this->db->where("idclube", $dv[0]);
+        $this->db->where("iddivisao", $dv[1]);
+        $this->db->where("ano", $dv[2]);
+
+        $result = $this->db->get("divisao_clube")->result();
+
+        if (count($result) == 0) {
+            $this->clube->insert("divisao_clube", $dv);
+        }
+
+        redirect(base_url() . "clubes/showAll");
+
+        //} else {
+        /* $data['msg'] = $this->msg;
+          $data['divisoes'] = $this->clube->findAll("divisao", $this->clube->ALL, null, array());
+          $this->load->view("admin/novo-clube", $data);
+          echo $this->msg; */
+        //}
     }
 
     public function setObject() {
         $obj = array();
+
+        $obj[7] = $this->input->post("idclube") ? $this->input->post("idclube") : null;
+
         $obj[0] = $this->input->post("clu_nome");
         $obj[1] = $this->input->post("clu_ape");
-        $obj[2] = $this->info_img_up['file_name'];
-        $obj[3] = $this->input->post("clu_url");
-        $obj[4] = date("Y-m-d", strtotime($this->input->post("clu_fund")));
-        $obj[5] = $this->input->post("clu_cat");
-        $obj[6] = $this->input->post("clu_div");
-        $obj[7] = $this->input->post("clu_id") ? $this->input->post("clu_id") : null;
 
-        print_r($obj);
+        if ($obj[7] == null) {
+            $this->msg = $this->setFileUpload();
+            $obj[8] = $this->info_img_up['file_name'];
+        }
+
+        $obj[2] = $this->gerarUrl($obj[0]);
+        $obj[3] = date("Y-m-d", strtotime($this->input->post("clu_fund")));
+        $obj[4] = $this->input->post("clu_cat");
+        $obj[5] = $this->input->post("clu_div");
+
+//        print_r($obj);
 
         return $obj;
     }
@@ -226,14 +256,14 @@ class Clubes extends MY_Controller {
         $this->load->view("site/detail-clube", $data);
     }
 
-    function mngClubes(){
-       $this->output->unset_template();
-       
-       $serie = $this->input->post('serie');
-       
-       $data['clubes'] = $this->clube->getClubeByDivisao($serie);
-       
-       $this->load->view("site/club-div",$data);
-       
+    function mngClubes() {
+        $this->output->unset_template();
+
+        $serie = $this->input->post('serie');
+
+        $data['clubes'] = $this->clube->getClubeByDivisao($serie);
+
+        $this->load->view("site/club-div", $data);
     }
+
 }

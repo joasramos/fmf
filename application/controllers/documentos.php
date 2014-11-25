@@ -17,6 +17,9 @@ class Documentos extends MY_Controller {
     }
 
     public function showAll() {
+        $this->load->model("usuario");
+        $this->usuario->hasPermission(array(1,3));
+        
         $this->output->set_template("admin");
         $value = $this->input->post("input_nome") ? $this->input->post("input_nome") : "";
 
@@ -26,7 +29,8 @@ class Documentos extends MY_Controller {
 
     public function newElement() {
         $this->output->set_template("admin");
-        $this->load->view("admin/novo-documento");
+        $data['setores'] = $this->documento->getSetores();
+        $this->load->view("admin/novo-documento", $data);
     }
 
     public function drop($value = null, $status = null) {
@@ -40,11 +44,15 @@ class Documentos extends MY_Controller {
         }
     }
 
-    public function find() {
-        $this->output->unset_template();
-        echo "<div style='margin:auto; width: 50%'>"
-        . "FUNCIONALIDADE AINDA AUSENTE. <br/><br/> "
-        . "CONTACTE O ADMINISTRADOR!</div>";
+    public function find($id = null) {
+//        echo "<div style='margin:auto; width: 50%'>"
+//        . "FUNCIONALIDADE AINDA AUSENTE. <br/><br/> "
+//        . "CONTACTE O ADMINISTRADOR!</div>";
+
+        $this->output->set_template("admin");
+        $data['setores'] = $this->documento->getSetores();
+        $data['documento'] = $this->documento->findBySimpleValue("documento", array(), "iddocumento", $id);
+        $this->load->view("admin/novo-documento", $data);
     }
 
     public function insert() {
@@ -53,7 +61,9 @@ class Documentos extends MY_Controller {
         $obj = $this->setObject();
 
         if (isset($obj['iddocumento'])) {
-            
+            // updateSimple($entity, $data, $id, $value)
+            $this->documento->updateSimple("documento", $obj, "iddocumento", $obj['iddocumento']);
+            redirect(base_url() . "documentos/showAll");
         } else {
             $this->documento->insertSimple("documento", $obj);
             redirect(base_url() . "documentos/showAll");
@@ -69,20 +79,23 @@ class Documentos extends MY_Controller {
             $obj["iddocumento"] = $id;
         }
 
+        $obj['idsetor'] = $this->input->post("setor");
         $obj['titulo'] = $this->input->post("titulo");
         $obj['descricao'] = $this->input->post("descricao");
         $obj['data'] = date('Y-m-d', strtotime($this->input->post("data")));
 
-        /* Faz upload */
-        $data = $this->realizaUpload("assets/documentos", "pdf", "arquivo", true);
-        //print_r($data);
+        if (!$id) {
+            /* Faz upload */
+            $data = $this->realizaUpload("assets/documentos", "pdf", "arquivo", true);
+            //print_r($data);
 
-        $file_name = $data["file"]["file_name"] ? $data["file"]["file_name"] : null;
+            $file_name = $data["file"]["file_name"] ? $data["file"]["file_name"] : null;
 
-        if (!$file_name) {
-            return null;
-        } else {
-            $obj['url'] = $file_name;
+            if (!$file_name) {
+                return null;
+            } else {
+                $obj['url'] = $file_name;
+            }
         }
         return $obj;
     }
