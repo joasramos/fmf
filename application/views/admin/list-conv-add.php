@@ -1,4 +1,5 @@
 <!--TABELA DE CONVIDADOS DE UM DETERMINADO GRUPO-->
+<h6> &boxVR; Clubes que você inseriu no grupo. </h6>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -6,7 +7,7 @@
                 Clube
             </th>
             <th>
-                Ação
+                Excluir
             </th>
         </tr>
     </thead>
@@ -20,6 +21,10 @@
                 </tr>
                 <?php
             endforeach;
+        else:
+            ?>
+            <tr><td> Você não inseriu clubes ainda!</td></tr>
+        <?php
         endif;
         ?>
     </tbody>   

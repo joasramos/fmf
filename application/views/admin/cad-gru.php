@@ -1,8 +1,18 @@
+<?php
+$idgrupo = 0;
+$nClass = "";
+
+if ($grupo) {
+    $idgrupo = $grupo[0]->idgrupo;
+    $nClass = $grupo[0]->n_classificados;
+}
+?>
+
 <div style="width: 500px; height: 250px">
     <span class="b-close btn btn-danger col-md-offset-12">X</span>
     <form class="form-horizontal" action="javascript:void(0)" id="form-cad-gru">
-        <?php if (isset($grupo[0]->idgrupo)): ?>
-            <input  type="hidden" name="idgrupo" value="<?= $grupo[0]->idgrupo ?>" />
+        <?php if ($idgrupo): ?>
+            <input  type="hidden" name="idgrupo" value="<?= $idgrupo ?>" />
         <?php endif; ?>
 
         <fieldset>
@@ -26,7 +36,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="gru_class">Nº Classificados</label>  
                 <div class="col-md-6">
-                    <input id="gru_class" name="gru_class" placeholder="" class="form-control input-md" type="text">
+                    <input id="gru_class" name="gru_class" placeholder="" class="form-control input-md" type="text"
+                           value="<?= $nClass ?>">
 
                 </div>
             </div>
@@ -45,18 +56,21 @@
     $(function() {
         $("#btn-save-gru").click(function() {
             var data = $("#form-cad-gru").serialize() + "&idfase=" + idfase;
-
-            $.ajax({
-                url: PATH + "grupos/insert",
-                data: data,
-                type: "POST",
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert("Erro ao cadastrar grupo!");
-                },
-                success: function(data, textStatus, jqXHR) {
-                    showGrupos();
-                }
-            });
+            if($("#gru_class").val()!=0 && $("#gru_class").val()!=""){
+                $.ajax({
+                    url: PATH + "grupos/insert",
+                    data: data,
+                    type: "POST",
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Erro ao cadastrar grupo!");
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        showGrupos();
+                    }
+                });
+            }else{
+                alert("Número de classificados não pode ser 0!");
+            }
         });
     });
 </script>

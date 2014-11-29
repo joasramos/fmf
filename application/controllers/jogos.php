@@ -80,7 +80,7 @@ class Jogos extends MY_Controller {
             $obj['bordero'] = isset($bordero['file']['file_name']) ? $bordero['file']['file_name'] : "";
             $obj['sumula'] = isset($sumula['file']['file_name']) ? $sumula['file']['file_name'] : "";
 
-            print_r($obj);
+            //print_r($obj);
 
             $this->rodada->updateSimple("jogo_new", $obj, "idjogo_new", $obj['idjogo_new']);
         }
@@ -95,6 +95,9 @@ class Jogos extends MY_Controller {
 
         $idrodada = $this->input->post('idrodada');
 
+        /**
+         * Gerando número do jogo automaticante para um novo jogo 
+         */
         if ($this->input->post('idjogo')) {
             $n_jogo = $this->rodada->getMaxNjogo($idrodada);
             $obj['n_jogo'] = $n_jogo != 0 ? $n_jogo + 1 : 1;

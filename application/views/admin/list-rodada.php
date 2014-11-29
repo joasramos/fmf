@@ -72,12 +72,46 @@
 
 <!--SCRIPT DESSA PÁGINA-->
 <script>
+    var idrodada;
+    
     $(function() {
         $("#btn-add-rod").click(function() {
             $("#novo-rod").bPopup({
                 loadUrl: PATH + "rodadas/cadRodView"
             });
         });
+        
+        
+        $(".tr-rodada").on("click", ".edit", editRod);
+        $(".tr-rodada").on("click", ".del", delRod);
+        
     });
+    
+    function editRod(){
+        idrodada = $(this).parent().parent().children("td[column='idrodada']").html();
+        $("#novo-rod").bPopup({
+            loadUrl: PATH + "rodadas/cadRodView/"+idrodada
+        });
+    }
+    
+    function delRod(){
+        idrodada = $(this).parent().parent().children("td[column='idrodada']").html();
+        
+        $.ajax({
+            url:PATH + "rodadas/drop",
+            data:{
+                idrodada: idrodada
+            },
+            type: "POST",
+            success: function(){
+                showRodadas();
+            },
+            error: function(){
+                alert("Não foi possivel excluir rodadas");
+            }
+        })
+    }
+    
+    
 </script>
 

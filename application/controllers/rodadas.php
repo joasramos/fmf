@@ -25,16 +25,18 @@ class Rodadas extends MY_Controller {
     }
 
     public function drop() {
-        
+        $id = $this->input->post("idrodada");
+        $this->rodada->drop("idrodada", $id, "rodada_fix");
     }
 
     public function find() {
         
     }
 
-    public function cadRodView($mod = null) {
+    public function cadRodView($id = null) {
         $this->output->unset_template();
-        $this->load->view("admin/cad-rod");
+        $data['rodada'] = $this->rodada->findBySimpleValueExact("rodada_fix", array(), "idrodada", $id, null);
+        $this->load->view("admin/cad-rod", $data);
     }
 
     /*
@@ -46,16 +48,14 @@ class Rodadas extends MY_Controller {
 
         $obj = $this->setObject();
 
-        $idrod = $this->input->post("idrod");
-
         /* Insere se for um novo */
-        if (!$idrod) {
+        if ($obj['idrodada'] == null) {
             $this->rodada->insertSimple("rodada_fix", $obj);
         } else {
             /*
              * Edita se não for
              */
-            //$this->rodada->update("idmodulo", $obj['idrod'], "modulo", $obj);
+            $this->rodada->updateSimple("rodada_fix", $obj, "idrodada", $obj["idrodada"]);
         }
     }
 
@@ -66,7 +66,9 @@ class Rodadas extends MY_Controller {
     public function setObject() {
         $obj = array();
         
-//        $obj['fase_idfase'] = $this->input->post("idfase");
+        $id = $this->input->post("idrodada");
+        
+        $obj['idrodada'] = $id ? $id : null;
         $obj['idfase'] = $this->input->post("idfase");
         $obj['apelido'] = $this->input->post("apelido");
         $obj['n_jogos'] = $this->input->post("n_jogos");

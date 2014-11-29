@@ -80,7 +80,7 @@ class MY_Model extends CI_Model {
         if (count($columns) > 0) {
             $this->db->select(implode(", ", $columns));
         }
-        if (count($order) > 1) {
+        if ($order!= null || count($order) > 1) {
             $this->db->order_by($order[0] . " " . $order[1]);
         }
         $this->db->where($column, $value);

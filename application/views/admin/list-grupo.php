@@ -88,13 +88,30 @@
     });
 
     function editGru() {
-        alert("OK");
-    }
-    ;
+        idgrupo = $(this).parent().parent().children("td[column='idgrupo']").html();
+        
+        $("#novo-grupo").bPopup({
+            loadUrl: PATH + "grupos/cadGrupoView/"+idgrupo
+        });
+        
+    };
 
     function delGru() {
-        alert("OK 2");
-    }
-    ;
+        idgrupo = $(this).parent().parent().children("td[column='idgrupo']").html();
+        
+        $.ajax({
+            url:PATH + "grupos/drop",
+            data:{
+                idgrupo: idgrupo
+            },
+            type:"POST",
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Erro ao excluir Grupos");
+            },
+            success: function(data, textStatus, jqXHR) {
+                showGrupos();
+            }
+        })
+    };
 
 </script>

@@ -21,7 +21,7 @@
 </style>
 
 <!--BOTAO QUE ABRE A DIV DA CADASTRO/EDIÇÃO DE UMA NOVA FASE-->
-<div class="row-fluid clearfix">
+<div class="row-fluid clearfix bnf">
     <button class="btn btn-primary" id="btn-nova-fase"> + Novo Fase</button>
 </div>
 
@@ -83,27 +83,15 @@
 <!--SCRIPT DESSA PÁGINA-->
 <script>
     $(function() {
-        /**
-         * Variavel PATH DEFIFINDA EM competicoes.js
-         */
-        $("#btn-nova-fase").click(function() {
-            $("#nova-fase").bPopup({
-                loadUrl: PATH + "fases/cadFaseView"
-            });
-        });
-
-        // $(".tr-fase").on("click", ".edit", editFase);
+        $(".bnf").on("click","#btn-nova-fase",novaFase);
 
     });
 
+    var novaFase = function(){
+        $("#nova-fase").bPopup({
+            loadUrl: PATH + "fases/cadFaseView"
+        });
+    }
 
 
-    /*
-     $("img[class='edit']").click(function() {
-     var idfase = $(this).parent().parent().children("td[column='idfase']").html();
-     
-     $("#nova-fase").bPopup({
-     loadUrl: PATH + "fases/cadFaseView/" + idfase
-     });
-     });*/
 </script>

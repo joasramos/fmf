@@ -1,5 +1,5 @@
 <div class="row-fluid clearfix box-shadow bg-white sombra-bottom"> 
- 
+
     <!--SLIDES NOTICIAS-->
     <div class="col-md-7 sombra-right col-xs-7 col-sm-7">
         <div class="camera_wrap camera_magenta_skin" id="camera_wrap_2">
@@ -18,7 +18,7 @@
                             </a>  
                         </em>
                     </div> 
- 
+
                 </div>
             <?php endfor; ?>
         </div> 
@@ -26,7 +26,9 @@
 
     <!--AREA ULTIMOS DOCUMENTOS-->
     <div class="col-md-4 col-xs-4 col-sm-4 sombra-right border-left-dotted" style='margin-left: 1.333333%; width: 39.33333333%'>
-        <label class="titulo-box" style=' margin-top: 3.822222%; margin-bottom: -1.822222%; color: black'> DOCUMENTOS </label>
+        <label class="titulo-box" style=' margin-top: 3.822222%; margin-bottom: -1.822222%; color: black'> 
+            <a href="<?= base_url() ?>documentos/todos"> DOCUMENTOS </a>
+        </label>
         <dl  class="border-bottom-dotted border-right-dotted border-left-dotted border-top-dotted padding-default" style="height: 310px; overflow-y: scroll"> 
             <?php foreach ($documentos as $documento): ?>
                 <dt class="borda-right-marrom">
@@ -112,15 +114,15 @@
         });
     });
 
-//    (function(d, s, id) {
-//        var js, fjs = d.getElementsByTagName(s)[0];
-//        if (d.getElementById(id))
-//            return;
-//        js = d.createElement(s);
-//        js.id = id;
-//        js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1";
-//        fjs.parentNode.insertBefore(js, fjs);
-//    }(document, 'script', 'facebook-jssdk'));
+    //    (function(d, s, id) {
+    //        var js, fjs = d.getElementsByTagName(s)[0];
+    //        if (d.getElementById(id))
+    //            return;
+    //        js = d.createElement(s);
+    //        js.id = id;
+    //        js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1";
+    //        fjs.parentNode.insertBefore(js, fjs);
+    //    }(document, 'script', 'facebook-jssdk'));
 
 </script>
 

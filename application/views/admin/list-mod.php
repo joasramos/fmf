@@ -31,7 +31,7 @@ if (!isset($modulos)) {
 ?>
 
 <!--BOTAO QUE ABRE A DIV DA CADASTRO/EDIÇÃO DE UM NOVO MODULO-->
-<div class="row-fluid clearfix">
+<div class="row-fluid clearfix bnm">
     <button class="btn btn-primary" id="btn-novo-mod"> + Novo Módulo</button>
 </div>
 
@@ -65,7 +65,7 @@ if (!isset($modulos)) {
                             <img class='view' width="22" src="<?= base_url() ?>/assets/images/icon/config-icon.png"/>
                             <img class="edit" width="22" src="<?= base_url() ?>/assets/images/icon/edit-icon.png"/>
                             <img class="del" width="22" src="<?= base_url() ?>/assets/images/icon/delete-icon.png"/>                            
-                        </td>
+                        </td>                        
                     </tr>
                     <?php
                 endforeach;
@@ -73,6 +73,7 @@ if (!isset($modulos)) {
             ?>
         </tbody>   
     </table>
+    <h6 class="text-info">Total Cadastrado: <span id="count_mod_ins"><?= count($modulos) ?></span> | Total permitido: <span id="count_mod_perm"> </span> </h6>
 </div>
 
 <!--NESSA DIV SERA CARREGADO O PAINEL DE CADASTRO/EDIÇÃO DE UM NOVO MODULO-->
@@ -83,18 +84,34 @@ if (!isset($modulos)) {
 <!--SCRIPT DESSA PÁGINA-->
 <script>
     $(function() {
+        
         /**
-         * Variavel PATH DEFIFINDA EM competicoes.js
+         * Ajusta o elemento html que representa a quantidade de módulos 
+         * permitidos em um torneio
          */
-        $("#btn-novo-mod").click(function() {
-            $("#novo-mod").bPopup({
-                loadUrl: PATH + "modulos/cadModuloView"
-            });
-        });
+        $("#count_mod_perm").text($("#modulos").val());
+        
+        /* elemto .bnm é uma div onde está o botão que aciona o método*/
+        $(".bnm").on("click", "#btn-novo-mod", novoMod);
+        
         $(".tr-mod").on("click", ".edit", editMod);
         $(".tr-mod").on("click", ".del", delMod);
     });
 
+    
+    var novoMod = function(){
+        var  cMod = $("#modulos").val(); //quantidade de módulos do torneio
+        var cModIns = $("#count_mod_ins").text();
+            
+        if(cMod == 0 || cModIns >= cMod){
+            alert("Limite de módulos cadastrados excedido!");
+        }else{
+            $("#novo-mod").bPopup({
+                loadUrl: PATH + "modulos/cadModuloView"
+            });
+        }        
+    }
+    
     var editMod = function() {
 
         hidePanels(Array("#comp-fases", "#comp-grupos", "#comp-conv", "#comp-rod", "#comp-jogos"));
@@ -117,11 +134,12 @@ if (!isset($modulos)) {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert("Não foi possivel excluir módulo");
-                $(function() {
-                });
+                //                $(function() {
+                //                });
             },
             success: function(data, textStatus, jqXHR) {
                 $("#comp-mod").html(data);
+                //                $(function(){});
             }
         });
     };

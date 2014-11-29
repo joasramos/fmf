@@ -13,6 +13,5 @@ $(function() {
         URL_FIX += "/fmf";
         $("#topo-log-img").css("background-image", "url('/fmf/assets/themes/default/logos/logo.png')");
     }
-
-    //alert(URL_FIX);
+//    alert(URL_FIX);
 });

@@ -16,6 +16,19 @@ class Documentos extends MY_Controller {
         $this->load->model("documento");
     }
 
+    /**
+     * Método para exibir todos os documentos para o usuário do site
+     */
+    public function todos(){
+        $data['documentos'] = $this->documento->getLastDocs();
+        $this->load->view("site/docs_todos", $data);
+    }
+    
+    
+    /** 
+     *MÉTODOS DA AREA ADMINISTRATIVA DE DOCUMENTOS
+     */
+    
     public function showAll() {
         $this->load->model("usuario");
         $this->usuario->hasPermission(array(1,3));

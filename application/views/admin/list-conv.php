@@ -1,3 +1,4 @@
+<!--CSS DA PÁGINA-->
 <style>
     .row-color-over:hover{
         background-color: #a1a5fe;
@@ -9,10 +10,11 @@
 </style>
 
 <!--VIEW DE CONVIDADOS DE UM DETERMINADO GRUPO-->
-<div class="col-md-12 col-md-offset-2">
+<div class="col-md-10" style="border-top: 1px #cccccc dotted; border-left: 1px #cacaca dotted">
     <div class="row-fluid clearfix">
         <div class="col-md-7">
-
+            <h3 id="nomegrupo_conv" style="background-color: #cccaaa"></h3>
+            <h6> &boxVR; Selecione um Clube</h6>
             <!--LOAD COMBO COM OS CLUBES-->
             <select class="form-control" id="sel-clube">
                 <?php foreach ($clubes as $cl): ?>
@@ -20,9 +22,9 @@
                 <?php endforeach; ?>
             </select>            
             <!--END LOAD-->
-
+            <button class="btn btn-primary col-md-offset-9" id="add-grupo" style="margin-top: 1em"> Adicionar Clube </button>
         </div>
-        <button class="btn btn-primary" id="add-grupo"> + </button>
+
     </div>
 
     <!-- LOAD TABELA COM OS CONVIDADOS DE UM GRUPO-->

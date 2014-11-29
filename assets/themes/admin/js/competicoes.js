@@ -1,8 +1,10 @@
 var PATH; 
-var idfase;
-var idmod;
-var idgrupo;
-var idrodada;  
+var idfase = 0;
+var idmod = 0;
+var idgrupo = 0;
+var idrodada = 0;  
+var nomefase = "";
+var nomeGrupo = "";
 
 /*
  * 
@@ -21,7 +23,7 @@ $(function() {
  */
 function eventos() {
     /*
-     * Associamos ao botao de gerenciamento de um modulo em listmod.php
+     * Associamos ao botao de gerenciamento de um modulo em list-mod.php
      * o evento que exibe os detalhes de um modulo, nesse caso, suas fases.
      */
     $(".tr-mod").on("click", ".view", detailMod);
@@ -54,7 +56,7 @@ var detailMod = function() {
      * 
      * @returns Então exibimos as fases
      */
-    showFases(nomemod);
+    showFases();
 };
 
 /*
@@ -62,7 +64,7 @@ var detailMod = function() {
  * @param {type} nomemod
  * @returns {undefined}
  */
-function showFases(nomemod) {
+function showFases() {
     /*
      * Requisão ajax para buscar todas as fases de um módulo.
      * idmodulo é passado por parametro
@@ -84,6 +86,7 @@ function showFases(nomemod) {
                 $(this).html(data);
                 /*
                  * Atualizar DOM, associando os métodos aos seus respectivos elementos da página.
+                 * Método não é a maneira correta de fazer a atualização do DOM após uma requisição AJAX
                  */
                 $(function() {
                     $(".tr-fase").on("click", ".view", detailFaseGru);
@@ -112,7 +115,7 @@ var detailFaseGru = function() {
      * Recuperamos o idfase e o seu nome
      */
     idfase = $(this).parent().parent().children("td[column='idfase']").html();
-    var nomefase = $(this).parent().parent().children("td[column='id_tf']").html();
+    nomefase = $(this).parent().parent().children("td[column='id_tf']").html();
 
     /*
      * Trata eventos de alteração das cores das linhas da tabela de módulos
@@ -123,14 +126,14 @@ var detailFaseGru = function() {
     /*
      * Chamada para o método que carrega os grupos 
      */
-    showGrupos(nomefase);
+    showGrupos();
 };
 
 /*
  * Método é chamado quando clica-se na opção para
  * exibir detalhes de uma fase.
  */
-function showGrupos(nomefase) {
+function showGrupos() {
     $.ajax({
         url: PATH + "fases/showGrupos",
         data: {
@@ -167,7 +170,7 @@ var delFase = function() {
      * Recuperamos o id e o nome da fase
      */
     idfase = $(this).parent().parent().children("td[column='idfase']").html();
-    var nomemod = $("#nomemod_fase").text();
+    //var nomemod = $("#nomemod_fase").text();
 
     $.ajax({
         url: PATH + "fases/drop",
@@ -179,7 +182,7 @@ var delFase = function() {
             alert("Não foi possivel excluir fase!");
         },
         success: function(data, textStatus, jqXHR) {
-            showFases(nomemod);
+            showFases();
         }
     });
 };
@@ -196,22 +199,20 @@ var detailFaseRod = function() {
      * Recuperamos idfase e o nome da fase
      */
     idfase = $(this).parent().parent().children("td[column='idfase']").html();
-    var nomefase = $(this).parent().parent().children("td[column='id_tf']").html();
+    nomefase = $(this).parent().parent().children("td[column='id_tf']").html();
 
     /**
      * Ativar linhar selecionada, mudando cor de fundo
      */
     var linha = $(this).parent().parent();
     setColorRowSelect(".tr-fase", linha);
-    showRodadas(nomefase);
+    showRodadas();
 };
 
 /*
- * 
- * @param {type} nomefase
- * @returns {undefined}
+ *  Exibe rodadas de uma fase 
  */
-function showRodadas(nomefase) {
+function showRodadas() {
     /*
      * Requisição para buscar as rodadas de uma determinada fase
      */
@@ -240,7 +241,7 @@ function showRodadas(nomefase) {
 }
 
 var detailJog = function() {
-//    var apelido = $(this).parent().parent().children("td[column='aprod']").html();
+    //    var apelido = $(this).parent().parent().children("td[column='aprod']").html();
     idrodada = $(this).parent().parent().children("td[column='idrodada']").html();
 
     /**
@@ -271,7 +272,7 @@ function showJogos() {
                  */
                 $(function() {
 
-                });
+                    });
             });
 
         }
@@ -286,6 +287,7 @@ function showJogos() {
 var detailGru = function() {
 
     idgrupo = $(this).parent().parent().children("td[column='idgrupo']").html();
+    nomegrupo = $(this).parent().parent().children("td[column='tg']").html();
 
     /**
      * Ativar linhar selecionada, mudando cor de fundo
@@ -304,7 +306,6 @@ var detailGru = function() {
 
 /*
  * 
- * @param {type} idgrupo do grupo selecionado
  */
 function showConv() {
     $.ajax({
@@ -320,6 +321,7 @@ function showConv() {
         success: function(data, textStatus, jqXHR) {
             $("#comp-conv").show();
             $("#comp-conv").html(data);
+            $("#nomegrupo_conv").html("Você selecionou: "+nomegrupo);
         }
     });
 }
