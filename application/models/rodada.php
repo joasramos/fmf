@@ -110,16 +110,17 @@ class Rodada extends MY_Model {
 
         return $result->result();
     }
-    
+
     /*
-     * Método para buscar os detalhes de um determinado jogo.
+     * Método para buscar os detalhes de um determinado jogo. 
      * Retorna um array que representa o jogo
      */
-     public function findJogoDetail($idjogo) {
+
+    public function findJogoDetail($idjogo) {
         $sql = ("select j.idjogo_new, tf.nome as nome_fase, tn.nome as nome_turno, comp.nome as nome_comp, j.n_jogo, j.data, m.n_jogos as m_n_jogos, e.apelido as apelido_est, "
                 . "c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, j.bordero, j.sumula, "
                 . "c2.apelido as c2_nome, r.n_jogos, r.apelido, tf.nome as tf_nome, "
-                . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band "
+                . "tn.nome as to_nome, c1.bandeira as c1_band, c2.bandeira as c2_band, cc1.idconvidado as mandante, cc2.idconvidado as visitante "
                 . "from rodada_fix r "
                 . "inner join jogo_new j "
                 . "inner join estadio e "
@@ -165,7 +166,8 @@ class Rodada extends MY_Model {
      * @return type
      */
     public function findJogByRod($rodada) {
-        $this->db->select("j.idjogo_new, j.n_jogo, j.data, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, c2.apelido as c2_nome, r.n_jogos, r.apelido, c1.bandeira as c1_band, c2.bandeira as c2_band");
+        $this->db->select("j.idjogo_new, j.n_jogo, j.data, c1.apelido as c1_nome, j.gols_casa, j.gols_visitante, 
+            c2.apelido as c2_nome, r.n_jogos, r.apelido, c1.bandeira as c1_band, c2.bandeira as c2_band");
 
         $this->db->from("rodada_fix r");
         $this->db->join("jogo_new j", "r.idrodada = j.idrodada", "inner");
@@ -180,10 +182,9 @@ class Rodada extends MY_Model {
         return $this->db->get()->result();
     }
 
-    /** 
+    /**
      * Método para retornar o maior numero de um jogo de uma rodada em uma fase
      */
-
     public function getMaxNjogo($rodada) {
 
         $this->db->select("max(n_jogo) as n_jogo");
@@ -206,5 +207,4 @@ class Rodada extends MY_Model {
 //        $this->db->where("apelido", $rodada);
 //        return $this->db->update("rodada", $data);
 //    }
-
 }

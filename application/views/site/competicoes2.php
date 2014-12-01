@@ -26,21 +26,24 @@ else: $aux = 0;
                         <li> 
                             <a href="#panel-pela-fifa" data-toggle="tab">Organizadas pela FIFA</a>
                         </li>
+                        <li> 
+                            <a href="#panel-docs" data-toggle="tab">Documentos</a>
+                        </li>
                     </ul>
                     <div class="tab-content" style="padding: 0">     
                         <div class="tab-pane active" id="panel-pela-fmf" style="padding: 0;">
                             <h2 class="titulo margin-default"> Competições Organizadas pela FMF</h2>
-                            <h5> << Em construção... >></h5>
+    <!--                            <h5> << Em construção... >></h5>-->
                             <div class="tabbable" id="tabs-234364">
-                                            
+
                                 <!--NOMES DAS COMPETIÇÕES, ABAS DO CONTEUDO-->
-<!--                                <ul class="nav nav-tabs" id="header-comp">
+                                <ul class="nav nav-tabs" id="header-comp">
                                     <?php foreach ($comp_nomes as $key => $value): ?>
                                         <li class="<?= $key ? "" : "active" ?>" url="<?= $value->url ?>">
                                             <a href="#tabs-<?= $key + 1 ?>"><?= $value->apelido ?></a>
                                         </li>
                                     <?php endforeach; ?>
-                                </ul>-->
+                                </ul>
 
                                 <!--DETALHES DAS COMPETICOES, CONTEUDO DAS ABAS-->
                                 <div class="tab-content" id="cont-comp" style="padding: 0">                                 
@@ -49,12 +52,12 @@ else: $aux = 0;
 
                                             <!--SELEÇÃO DE ANO DA COMPETIÇÃO-->
                                             <div class="row-fluid clearfix">
-<!--                                                <div class="col-md-12">
+                                                <div class="col-md-12">
                                                     <h3 class="text-left titulo">
                                                         <?= $value->apelido ?>
                                                     </h3>
-                                                </div>-->
-<!--                                                <div class="col-md-12">
+                                                </div>
+                                                <div class="col-md-12">
                                                     <h5 class="">Escolha um ano: 
                                                         <select class="sel-ano">
                                                             <option>Selecione</option>
@@ -63,7 +66,7 @@ else: $aux = 0;
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </h5>
-                                                </div>-->
+                                                </div>
 
                                                 <!--CONTEM INFORMAÇÕES DAS COMPETICOES-->
                                                 <div class="row-fluid clearfix">
@@ -72,18 +75,18 @@ else: $aux = 0;
 
                                                             <!--TURNOS, CABEÇALHO-->
                                                             <?php foreach ($turnos as $key => $value): ?>
-<!--                                                                <li class="<?= $key ? "" : "active" ?>">
+                                                                <li class="<?= $key ? "" : "active" ?>">
                                                                     <a href="#panel-turno-<?= $aux + 1 ?>" data-toggle="tab">
                                                                         <?= $value->nome ?>
                                                                     </a>
-                                                                </li>-->
+                                                                </li>
                                                                 <?php
                                                                 $aux++;
                                                             endforeach;
                                                             ?>
                                                             <!--END CABEÇALHO-->
 
-<!--                                                            <li> 
+                                                            <li> 
                                                                 <a href="#panel-class-<?= $k ?>" data-toggle="tab">Classificação</a>
                                                             </li>
                                                             <li> 
@@ -91,7 +94,7 @@ else: $aux = 0;
                                                             </li>
                                                             <li> 
                                                                 <a href="#panel-alt-<?= $k ?>" data-toggle="tab">Alterações</a>
-                                                            </li>-->
+                                                            </li>
                                                         </ul>
 
                                                         <!--CRIA O CONTEUDO OS PAINEIS DE TURNOS-->
@@ -100,7 +103,7 @@ else: $aux = 0;
                                                                 <div class="tab-pane <?= $key ? "" : "active" ?>" id="panel-turno-<?= $aux2 + 1 ?>">
                                                                     <?php
                                                                     if (!count($comp_jogos[$key])) {
-//                                                                        echo "<h3 class='text-danger text-center'>Não realizado - " . $key . "</h3>";
+                                                                        echo "<h3 class='text-danger text-center'>Não realizado - " . $key . "</h3>";
                                                                     }
                                                                     $str = "";
                                                                     foreach ($comp_jogos[$key] as $jogo):
@@ -135,9 +138,9 @@ else: $aux = 0;
                                                                                                 <div class="col-md-12">
                                                                                                     <label style="font-size: 12px">
                                                                                                         Jogo nº <?=
-                                                                                                        $jogo->n_jogo .
-                                                                                                        "&nbsp;<br>Estadio: "
-                                                                                                        ?>
+                                                                    $jogo->n_jogo .
+                                                                            "&nbsp;<br>Estadio: "
+                                                                                    ?>
                                                                                                     </label>
                                                                                                 </div>
                                                                                                 <div class="col-md-12">
@@ -166,7 +169,7 @@ else: $aux = 0;
                                                                 <div class="row-fluid clearfix margin-default">        
                                                                     <div class="col-md-6">
                                                                         <h4 class="text-primary">                                                                         
-                                                                            <select class="col-md-10" id="sel-mod-cla">
+                                                                            <select class="col-md-10 sel-mod-cla">
                                                                                 <option value="0"> Selecione um turno</option>
                                                                                 <?php foreach ($turnos as $key => $value): ?>
                                                                                     <option value="<?= $value->idmodulo ?>"><?= $value->nome ?></option>
@@ -176,8 +179,9 @@ else: $aux = 0;
                                                                     </div>
                                                                     <div class="col-md-6"> 
                                                                         <h4>
-                                                                            <select class="col-md-10" id="sel-fase-cla">
+                                                                            <select class="col-md-10 sel-fase-cla">
                                                                                 <option> Selecione uma fase</option>
+
                                                                             </select>
                                                                         </h4>
                                                                     </div>
@@ -304,9 +308,32 @@ else: $aux = 0;
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane" id="panel-docs">
+                            <div class="col-md-12 column">
+                                <div class="row"> 
+                                    <h2 class="titulo margin-default"> Departamento de Competições</h2>
+                                    <dl  class="border-bottom-dotted border-right-dotted border-left-dotted border-top-dotted padding-default"> 
+                                        <?php foreach ($documentos as $documento): ?>
+                                            <dt class="borda-right-marrom border-bottom-dotted" style="margin-top: 2em">
+                                            <h6><?= date("d-m-Y", strtotime($documento->data)) ?></h6>
+                                            <label class="label titulo-box" style="/*font-size: 14px;*/ white-space: pre-line;"> 
+                                                <?= $documento->titulo ?>
+                                            </label>
+                                            <h5 style='/*line-height: 150%*/'> 
+                                                <a style="color: black; font-weight: bold" target="_blank" href="<?= base_url() . 'assets/documentos/' . $documento->url ?>"> 
+                                                    <?= $documento->descricao ?>
+                                                </a>
+                                            </h5>
+                                            </dt>
+                                        <?php endforeach; ?>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 <?php endif; 
+

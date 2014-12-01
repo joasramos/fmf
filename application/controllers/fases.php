@@ -9,7 +9,7 @@ if (!defined("BASEPATH")) {
  *
  * @author joasaraujo
  */
-class Fases extends MY_Controller {
+class Fases extends MY_Controller { 
 
     public function __construct($template = null) {
         parent::__construct("admin");
@@ -116,12 +116,24 @@ class Fases extends MY_Controller {
     public function showJogos() {
         $this->output->unset_template();
 
-//        $apelido = $this->input->post('apelido');
+        /*
+         * Pega o ID da rodada
+         */
         $rodada = $this->input->post('idrodada');
 
+        /*
+         * Carregamos o modelo rodada
+         */
         $this->load->model("rodada");
+        
+        /*
+         * Buscamos os jogos da rodada
+         */
         $data['jogos'] = $this->rodada->findJogByRod($rodada);
 
+        /*
+         * Exibimos os jogos na view list-jogos.php
+         */
         $this->load->view('admin/list-jogos', $data);
     }
 

@@ -33,11 +33,11 @@
                         <a href="#panel-dir" data-toggle="tab">Diretoria</a>
                     </li>
                     <li>
-                        <a href="#panel-normas" data-toggle="tab">Normas</a>
+                        <a href="#panel-normas" data-toggle="tab">Documentos</a>
                     </li>
-                    <li>
+<!--                    <li>
                         <a href="#panel-fmf" data-toggle="tab">FMF Acontece</a>
-                    </li>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="panel-missao">
@@ -245,7 +245,7 @@
                                 </div>
                                 <div class='col-md-12'>
                                     <h6 class="borda-right-marrom">                                        
-                                       COMISSAO ESTADUAL DE ARBITRAGEM DE FUTEBOL - CEAF
+                                        COMISSAO ESTADUAL DE ARBITRAGEM DE FUTEBOL - CEAF
                                     </h6>
                                 </div>
                                 <div class='col-md-12'>
@@ -277,14 +277,60 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="panel-normas">
-                       
+                        <p class="titulo"> Documentos por departamento </p>
+                        <div class="tabbable" id="tabs-234364">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#panel-doc-pre" data-toggle="tab">Presidência</a>
+                                </li>
+                                <li >
+                                    <a href="#panel-doc-ceaf" data-toggle="tab">CEAF</a>
+                                </li>
+                                <li >
+                                    <a href="#panel-doc-reg" data-toggle="tab">Registro</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-doc-dir" data-toggle="tab">Diretoria Administrativa</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-doc-fin" data-toggle="tab">Financeiro</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="panel-doc-pre">
+                                    <div class="row-fluid clearfix">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="panel-doc-ceaf">
+                                    <div class="row-fluid clearfix">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="panel-doc-reg">
+                                    <div class="row-fluid clearfix">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="panel-doc-dir">
+                                    <div class="row-fluid clearfix">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="panel-doc-fin">
+                                    <div class="row-fluid clearfix">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="panel-fmf">
-                        
-                    </div>
+<!--                    <div class="tab-pane" id="panel-fmf">
+
+                    </div>-->
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 

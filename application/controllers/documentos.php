@@ -23,8 +23,7 @@ class Documentos extends MY_Controller {
         $data['documentos'] = $this->documento->getLastDocs();
         $this->load->view("site/docs_todos", $data);
     }
-    
-    
+     
     /** 
      *MÉTODOS DA AREA ADMINISTRATIVA DE DOCUMENTOS
      */

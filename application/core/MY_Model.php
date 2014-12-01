@@ -141,6 +141,7 @@ class MY_Model extends CI_Model {
         $this->db->where($id, $value);
         return $this->db->update($entity, $data);
     }
+     
 
     /**
      * 

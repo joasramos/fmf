@@ -1,4 +1,4 @@
-<div class="row-fluid border-top-dotted clearfix" id="class-table">
+<div class="row-fluid border-top-dotted clearfix class-table">
     <?php
     $str_turno = '';
     $str_grupo = '';
@@ -6,7 +6,7 @@
     $numeracao = 1;
     foreach ($classificacao as $key => $c):
         ?>
-        <h4 class="text-noticia text-center borda-right-marrom" style="background-color: #ccc">                                                                        
+        <h4 class="text-noticia text-center borda-right-marrom" style="background-color: #ccc">                                                                         
             <?=
             $c->nome_turno != $str_turno ? $c->nome_turno : "";
             $str_turno = $c->nome_turno;

@@ -37,7 +37,7 @@ class Competicoes extends MY_Controller {
          * Ano corrente
          */
         if (!$ano) {
-            $ano = date('Y');
+            $ano = date('Y'); 
         }
 
         /*
@@ -48,8 +48,14 @@ class Competicoes extends MY_Controller {
         /*
          * Classificacao da competição
          */
-        $data['classificacao'] = $this->competicao->findClassificacao($data['comp_full'][0]->idcompeticao);
+        // $data['classificacao'] = $this->competicao->findClassificacao($data['comp_full'][0]->idcompeticao);
 
+        /*
+         * Documentos relacionados à competições
+         */
+        $this->load->model("documento");
+        $data['documentos'] = $this->documento->getDocsBySetor(Documento::DEPARTAMENTO_COMPETICOES); 
+        
         /*
          * Turnos da competição
          */
@@ -77,8 +83,10 @@ class Competicoes extends MY_Controller {
 
     public function loadClassByFaseMod() {
         $this->output->unset_template();
+
         $mod = $this->input->post("idmod");
         $fase = $this->input->post("idfase");
+
         $data['classificacao'] = $this->competicao->findClassByModFase($mod, $fase);
 
         $this->load->view("site/class-tabela", $data);

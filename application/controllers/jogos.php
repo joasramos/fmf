@@ -38,7 +38,7 @@ class Jogos extends MY_Controller {
 
     /*
      * Método para exibir o formulario de cadastro
-     * de jogo
+     * de jogo de uma determinada fase
      */
 
     public function cadJogoView($idfase = NULL) {
@@ -70,20 +70,32 @@ class Jogos extends MY_Controller {
         $idjogo = 0;
 
         /* Insere se for um novo */
-        if (!isset($obj['idjogo_new'])) {
+        if ($obj['idjogo_new'] == null) {
             $idjogo = $this->rodada->insertSimple("jogo_new", $obj);
         } else {
-            //atualiza
+
+            //atualiza se ainda não foram adicionados documentos ao jogo
             $bordero = $this->realizaUpload("bordero", "pdf", "jogo_bord");
+
+            if (isset($bordero['file']['file_name'])) {
+                $obj['bordero'] = $bordero['file']['file_name'];
+            }
+
             $sumula = $this->realizaUpload("sumula", "pdf", "jogo_sum");
 
-            $obj['bordero'] = isset($bordero['file']['file_name']) ? $bordero['file']['file_name'] : "";
-            $obj['sumula'] = isset($sumula['file']['file_name']) ? $sumula['file']['file_name'] : "";
-
-            //print_r($obj);
+            if (isset($sumula['file']['file_name'])) {
+                $obj['sumula'] = $sumula['file']['file_name'];
+            }
 
             $this->rodada->updateSimple("jogo_new", $obj, "idjogo_new", $obj['idjogo_new']);
+            $this->mngClassificacao();
         }
+    }
+
+    private function mngClassificacao() {
+        $this->load->model("classificacao");
+        $this->classificacao->setJogo($this->input->post());
+        $this->classificacao->mngClassi(); 
     }
 
     /*
@@ -93,41 +105,64 @@ class Jogos extends MY_Controller {
     public function setObject() {
         $obj = array();
 
+        /*
+         * Pegando a rodada do jogo
+         */
         $idrodada = $this->input->post('idrodada');
 
+        $idjogo = 0;
+        $idjogo = $this->input->post('idjogo');
         /**
          * Gerando número do jogo automaticante para um novo jogo 
          */
-        if ($this->input->post('idjogo')) {
+        if ($idjogo == 0) {
             $n_jogo = $this->rodada->getMaxNjogo($idrodada);
-            $obj['n_jogo'] = $n_jogo != 0 ? $n_jogo + 1 : 1;
+            $obj['n_jogo'] = $n_jogo ? $n_jogo + 1 : 1;
         }
-        /*
-          $bordero = $this->realizaUpload("bordero", "pdf", "jogo_bord");
-          $sumula = $this->realizaUpload("sumula", "pdf", "jogo_sum");
-         */
 
+        /*
+         * Pegando ID convidado/clube que joga em casa
+         */
         if ($this->input->post('clube_casa')) {
             $obj['time_casa'] = $this->input->post('clube_casa');
         }
 
+        /*
+         * Pegando ID convidado/clube que joga fora de casa
+         */
         if ($this->input->post('clube_fora')) {
             $obj['time_visitante'] = $this->input->post('clube_fora');
         }
 
-        $obj['idrodada'] = $this->input->post('idrodada');
+        /*
+         * Armazena idrodada
+         */
+        $obj['idrodada'] = $idrodada;
 
-        $obj['idjogo_new'] = $this->input->post('idjogo');
+        /*
+         * Veridica se existe idjogo. Caso sim é por que está editando um jogo e armazena idjogo.
+         */
+        $obj['idjogo_new'] = $this->input->post('idjogo') ? $this->input->post('idjogo') : null;
 
-        $obj['data'] = date("Y-m-d", strtotime($this->input->post('jogo_data')));
+        /*
+         * Ajustamos e armazena a data do jogo
+         */
+        if ($this->input->post('jogo_data')) {
+            $obj['data'] = date("Y-m-d", strtotime($this->input->post('jogo_data')));
+        }
 
+        /*
+         * Hora do jogo
+         */
         $obj['hora'] = $this->input->post('jogo_hora');
 
-        if ($this->input->post('new_estadio')) {
+        /*
+         * Estádio do jogo
+         */
+        if ($this->input->post('new_estadio') && $this->input->post('jogo_estadio') == "") {
             $obj['idestadio'] = $this->input->post('new_estadio');
-        } else {
-            $obj['idestadio'] = 3;
         }
+
         return $obj;
     }
 

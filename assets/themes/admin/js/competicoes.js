@@ -250,7 +250,7 @@ var detailJog = function() {
     var linha = $(this).parent().parent();
 
     setColorRowSelect(".tr-rodada", linha);
-
+ 
     showJogos();
 };
 

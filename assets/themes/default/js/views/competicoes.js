@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var CONST = "http://" + URL_FIX + "/competicoes/index/"; 
+var CONST; 
 
 $(function() {
     _init();
@@ -11,6 +11,7 @@ $(function() {
     setShowCompeticao();
     setShowCompeticaoByAno();
     loadComboFases();
+    CONST =  "http://" + URL_FIX + "/competicoes/index/";
 });
 
 function setShowCompeticaoByAno() {
@@ -23,6 +24,9 @@ function setShowCompeticaoByAno() {
                 url = $(value).attr('url');
             }
         });
+        /*
+         * Pega o ano selecionado 
+         */
         ano = $(this).children("option:selected").val();
         window.location.href = CONST + url + "/" + ano;
     });
@@ -33,15 +37,16 @@ function _init() {
 
 function setAbasActive() {
     var url = "http://" + URL_FIX + "/competicoes/managerAbas/";  
-
-    var pathname = window.location.pathname.substr(19, window.location.pathname.length); 
-
-    //alert(pathname);      
+       
+    var pathname = URL_FIX == "localhost/fmf" ? 
+    window.location.pathname.substr(23, window.location.pathname.length):
+    window.location.pathname.substr(19, window.location.pathname.length); 
  
     $.ajax({
         url: url + pathname,
         dataType: "json" 
     }).done(function(data) {
+        
         $.each($('#header-comp li').children('a'), function(key, value) {
 
             $(this).parent().removeClass('active');
@@ -55,6 +60,7 @@ function setAbasActive() {
                 $("#cont-comp").children('div').eq(key).addClass('active'); 
             }
         });
+    
     });
 }
 
@@ -65,24 +71,25 @@ function setShowCompeticao() {
 }
 
 function loadComboFases() {
-    $("#sel-mod-cla").change(function() {
+    $(".sel-mod-cla").change(function() {
         var idmod = $(this).find(":selected").val(); 
         var PATH = "http://" + URL_FIX + "/"; 
-
+        
         $.ajax({
-            url: PATH + "/fases/getFasesByMod",  
+            url: PATH + "fases/getFasesByMod",  
             type: "POST",
             dataType: "JSON",
             data: {
                 idmod: idmod
             },
             success: function(data, textStatus, jqXHR) {
-                $("#sel-fase-cla").empty();
+                console.log(data);
+                $(".sel-fase-cla").empty();
                 var opt1 = $("<option value='0'>Selecione uma fase</option>");
-                $("#sel-fase-cla").append(opt1);
+                $(".sel-fase-cla").append(opt1);
                 $.each(data, function(key, value) {
                     var opt2 = $("<option value=" + value.idfase + ">" + value.nome + "</option>");
-                    $("#sel-fase-cla").append(opt2);
+                    $(".sel-fase-cla").append(opt2);
                 });
                 $(function() {
                     loadClassi(idmod);
@@ -96,21 +103,22 @@ function loadComboFases() {
 }
 
 function loadClassi(idmod) {
-    $("#sel-fase-cla").change(function() {
-        $("#class-table").empty();
+    $(".sel-fase-cla").change(function() {
+        $(".class-table").empty();
+        
         var idfase = $(this).find(":selected").val();
 
         var PATH = "http://" + URL_FIX + "/";
 
         $.ajax({
-            url: PATH + "/competicoes/loadClassByFaseMod/",
+            url: PATH + "competicoes/loadClassByFaseMod/",
             type: "POST",
             data: {
                 idmod: idmod,
                 idfase: idfase
             },
             success: function(data, textStatus, jqXHR) {
-                $("#class-table").html(data);
+                $(".class-table").html(data);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert("Erro ao buscar classificacao");

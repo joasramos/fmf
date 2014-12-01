@@ -34,7 +34,7 @@
                                     Clubes pertencentes à Série "A"
                                 </p>
                                 <?php for ($i = 0; $i < $serie_a[0]->n_times; $i+=2): ?>
-<!--                                    <div class="row-fluid clearfix">
+                                <div class="row-fluid clearfix">
                                         <div class="col-md-6 padding-default sombra-right dados-clube" id="<?= $serie_a[$i]->idclube ?>">
                                             <div class="col-md-4">
                                                 <img class='img-default' width="64" height="64" src="<?= base_url() ?>assets/images/escudos/<?= $serie_a[$i]->bandeira ?>">
@@ -53,7 +53,7 @@
                                                 <h5 class='title-simple'> <?= $serie_a[$i + 1]->nome ?></h5>
                                             </div>
                                         </div>
-                                    </div>                                -->
+                                    </div>                                
                                 <?php endfor; ?>
                             </div>
                         </div>

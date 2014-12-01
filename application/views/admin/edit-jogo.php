@@ -4,6 +4,9 @@
         <legend class="text-center text-info"> Edição de Jogo</legend>
         <form id="form-cad-jogo" action="javascript:void(0)" class="form-horizontal" enctype="multipart/form-data" >
             <input  type="hidden" name="idjogo" value="<?= $jogo[0]->idjogo_new ?>" />
+            <input  type="hidden" name="mandante" value="<?= $jogo[0]->mandante ?>" /> 
+            <input  type="hidden" name="visitante" value="<?= $jogo[0]->visitante ?>" />
+            
             <div class="row-fluid clearfix">
                 <div class="col-md-12">
                     <table class="table table-condensed">
@@ -27,7 +30,7 @@
                                         <button class="btn btn-danger" id="btn-alt-casa">x</button>
                                     </div>
                                     <div class="col-md-10" id="div-casa">
-                                        <input name='clube_nome_1' value='<?= $jogo[0]->c1_nome ?>' style='text-align: center' disabled="disabled"/>  
+                                        <input type="text" name='clube_nome_1' value='<?= $jogo[0]->c1_nome ?>' style='text-align: center' disabled="disabled"/>  
                                         <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c1_band ?>"/>
                                     </div>
 
@@ -52,7 +55,7 @@
                                     <!--SE TIVER CLUBE EXIBE-O-->
                                     <div class="col-md-10" id="div-fora">
                                         <img width="32" src="<?= base_url() ?>/assets/images/escudos/<?= $jogo[0]->c2_band ?>"/>
-                                        <input name='clube_nome_2' value='<?= $jogo[0]->c2_nome ?>' style='text-align: center' disabled="disabled"/>  
+                                        <input type="text" name='clube_nome_2' value='<?= $jogo[0]->c2_nome ?>' style='text-align: center' disabled="disabled"/>  
                                     </div>
 
                                     <!--SENÃO EXIBE CAIXA DE SELEÇÃO-->
@@ -78,9 +81,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="jogo_data">Data</label>  
                     <div class="col-md-7">
-                        <input id="jogo_data" name="jogo_data" placeholder="" class="form-control input-md" 
-                               type="text" value="<?= date("d-m-Y", strtotime($jogo[0]->data)) ?>">
-
+                        <input id="jogo_data" name="jogo_data" placeholder="" class="form-control input-md" type="text" 
+                               value="<?= $jogo[0]->data != "" ? date("d-m-Y", strtotime($jogo[0]->data)) : "" ?>">
                     </div>
                 </div>
 
@@ -100,7 +102,6 @@
                         <input id="jogo_estadio" name="jogo_estadio" placeholder="" 
                                class="form-control input-md" type="text" value="<?= $jogo[0]->apelido_est ?>">
                         <select id="edit-sel-est" style="display: none" name="new_estadio"> 
-                            <option value="0">Selecione um estádio</option>
                             <?php foreach ($estadios as $e): ?>
                                 <option value="<?= $e->idestadio ?>"> <?= $e->apelido ?></option>
                             <?php endforeach; ?>
@@ -141,12 +142,16 @@
             <div class="col-md-6 col-md-offset-1" style="border: 1px solid #ccc;">
                 <h5 class="text-center label label-default">ARQUIVOS JÁ INSERIDOS NO JOGO</h5>
                 <ul style="list-style: none; padding: 1em">
-                    <li>
-                        <a href="<?= base_url() ?>uploads/sumula/<?= $jogo[0]->sumula ?>">&map;SÚMULA</a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url() ?>uploads/bordero/<?= $jogo[0]->bordero ?>">&map;BORDERÔ</a>
-                    </li>
+                    <?php if ($jogo[0]->sumula != ""): ?>
+                        <li>
+                            <a href="<?= base_url() ?>uploads/sumula/<?= $jogo[0]->sumula ?>" name="sumu">&map;SÚMULA</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($jogo[0]->bordero != ""): ?>
+                        <li>
+                            <a href="<?= base_url() ?>uploads/bordero/<?= $jogo[0]->bordero ?>" name="bord">&map;BORDERÔ</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </form>      
@@ -212,7 +217,7 @@
                     return;
                 }
             }
-//            return;
+            //            return;
 
             formData.append('clube_casa_new', clube_casa_new);
             formData.append('clube_fora_new', clube_fora_new);
@@ -227,7 +232,7 @@
                     alert("Erro ao inserir jogo");
                 },
                 success: function(data, textStatus, jqXHR) {
-                    //showJogos();
+                    showJogos();
                     console.log(data);
                 }
             });
@@ -251,6 +256,7 @@
 
         $("#bt-alt-est").click(function() {
             $("#jogo_estadio").hide();
+            $("#jogo_estadio").val("");
             $("#edit-sel-est").show();
         });
     });

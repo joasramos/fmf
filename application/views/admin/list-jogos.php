@@ -1,3 +1,4 @@
+<!--CSS DA VIEW-->
 <style>
     thead tr th{ text-align: center }
     tbody tr td{ text-align: center  }
@@ -62,9 +63,11 @@
 </div>
 
 <div class="row-fluid clearfix" id="novo-jogo" style="display: none; background-color: white">
-
+    <!--    REPRESENTA A VIEW PARA CADASTAR OU EDITAR UM JOGO
+        É CARREGADA VIA AJAX-->
 </div>
 
+<!--SCRIPT DA PÁGINA-->
 <script>
     $(function() {
         $("#btn-add-jogo").click(function() {
@@ -86,13 +89,12 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert("Erro ao excluir jogo");
-                }
+                } 
             });
         });
         
         $(".edit-jogo").click(function() {
-            var idjogo = $(this).parent().parent().children("td[column='idjogo']").html();
-            
+            var idjogo = $(this).parent().parent().children("td[column='idjogo']").html();            
             $("#novo-jogo").bPopup({
                 loadUrl: PATH + "jogos/editJogo/" + idjogo + "/" + idfase
             });

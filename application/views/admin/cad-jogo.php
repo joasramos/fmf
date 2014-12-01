@@ -4,7 +4,7 @@
         <legend class="text-center text-info"> Edição de Jogo</legend>
         <form id="form-cad-jogo" action="javascript:void(0)" class="form-horizontal" enctype="multipart/form-data" >
             <?php if (isset($jogo[0]->idjogo)): ?>
-                <input  type="hidden" name="idjogo" value="<?= $jogo[0]->idjogo ?>" />
+<!--                <input  type="hidden" name="idjogo" value="<?= $jogo[0]->idjogo ?>" />--> 
             <?php endif; ?>
             <div class="row-fluid clearfix">
                 <div class="col-md-12">
@@ -136,6 +136,7 @@
                     },
                     success: function(data, textStatus, jqXHR) {
                         showJogos();
+                        console.log(data);
                     }
                 });
             }
